@@ -25,6 +25,23 @@
       "hover": { "$value": "{color.brand.40}" },
       "active": { "$value": "{color.brand.30}" },
       "subtle": { "$value": "{color.brand.95}" }
+    },
+    "status": {
+      "success": {
+        "text": { "$value": "{color.success.40}" },
+        "background": { "$value": "{color.success.95}" },
+        "border": { "$value": "{color.success.80}" }
+      },
+      "warning": {
+        "text": { "$value": "{color.warning.40}" },
+        "background": { "$value": "{color.warning.95}" },
+        "border": { "$value": "{color.warning.80}" }
+      },
+      "danger": {
+        "text": { "$value": "{color.danger.40}" },
+        "background": { "$value": "{color.danger.95}" },
+        "border": { "$value": "{color.danger.80}" }
+      }
     }
   }
 }

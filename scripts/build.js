@@ -10,7 +10,7 @@ const pkg = JSON.parse(readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
 
 // Primitive ramps stay out of the deployable CSS: consumers use component
 // tokens first, semantic tokens as a fallback, never raw ramp steps.
-const RAMPS = new Set(['neutral', 'brand']);
+const RAMPS = new Set(['neutral', 'brand', 'success', 'warning', 'danger']);
 const isPrimitive = (token) => token.path[0] === 'color' && RAMPS.has(token.path[1]);
 
 async function cssTokensFor(product, mode) {

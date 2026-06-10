@@ -60,3 +60,6 @@ forge.db
 diataxis/public/
 diataxis/resources/
 diataxis/.hugo_build.lock
+
+# Node
+node_modules/

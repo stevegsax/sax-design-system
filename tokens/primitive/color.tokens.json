@@ -34,6 +34,51 @@
       "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.0429, 250], "alpha": 1, "hex": "#c9e1fa" } },
       "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.021, 250], "alpha": 1, "hex": "#e4f0fc" } },
       "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0083, 250], "alpha": 1, "hex": "#f4f9fe" } }
+    },
+    "success": {
+      "$description": "Success tonal ramp (OKLCH hue 150). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.0234, 150], "alpha": 1, "hex": "#000501" } },
+      "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.0351, 150], "alpha": 1, "hex": "#020f04" } },
+      "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.0468, 150], "alpha": 1, "hex": "#041c0a" } },
+      "30": { "$value": { "colorSpace": "oklch", "components": [0.3, 0.0702, 150], "alpha": 1, "hex": "#0c371a" } },
+      "40": { "$value": { "colorSpace": "oklch", "components": [0.4, 0.0936, 150], "alpha": 1, "hex": "#18552b" } },
+      "50": { "$value": { "colorSpace": "oklch", "components": [0.5, 0.117, 150], "alpha": 1, "hex": "#24753d" } },
+      "60": { "$value": { "colorSpace": "oklch", "components": [0.6, 0.1404, 150], "alpha": 1, "hex": "#319751" } },
+      "70": { "$value": { "colorSpace": "oklch", "components": [0.7, 0.1639, 150], "alpha": 1, "hex": "#3eba65" } },
+      "80": { "$value": { "colorSpace": "oklch", "components": [0.8, 0.17, 150], "alpha": 1, "hex": "#5edb81" } },
+      "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.1543, 150], "alpha": 1, "hex": "#8dfba7" } },
+      "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.0707, 150], "alpha": 1, "hex": "#cefdd6" } },
+      "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.027, 150], "alpha": 1, "hex": "#ecfeef" } }
+    },
+    "warning": {
+      "$description": "Warning tonal ramp (OKLCH hue 85). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.0174, 85], "alpha": 1, "hex": "#050300" } },
+      "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.0261, 85], "alpha": 1, "hex": "#100a01" } },
+      "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.0348, 85], "alpha": 1, "hex": "#1d1503" } },
+      "30": { "$value": { "colorSpace": "oklch", "components": [0.3, 0.0523, 85], "alpha": 1, "hex": "#3a2b0a" } },
+      "40": { "$value": { "colorSpace": "oklch", "components": [0.4, 0.0697, 85], "alpha": 1, "hex": "#594414" } },
+      "50": { "$value": { "colorSpace": "oklch", "components": [0.5, 0.0871, 85], "alpha": 1, "hex": "#7a5f1f" } },
+      "60": { "$value": { "colorSpace": "oklch", "components": [0.6, 0.1045, 85], "alpha": 1, "hex": "#9d7b2b" } },
+      "70": { "$value": { "colorSpace": "oklch", "components": [0.7, 0.1219, 85], "alpha": 1, "hex": "#c19837" } },
+      "80": { "$value": { "colorSpace": "oklch", "components": [0.8, 0.1393, 85], "alpha": 1, "hex": "#e7b644" } },
+      "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.0918, 85], "alpha": 1, "hex": "#fada97" } },
+      "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.0451, 85], "alpha": 1, "hex": "#fdedcd" } },
+      "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0178, 85], "alpha": 1, "hex": "#fef8eb" } }
+    },
+    "danger": {
+      "$description": "Danger tonal ramp (OKLCH hue 25). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.0344, 25], "alpha": 1, "hex": "#0b0101" } },
+      "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.0517, 25], "alpha": 1, "hex": "#1c0202" } },
+      "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.0689, 25], "alpha": 1, "hex": "#2f0505" } },
+      "30": { "$value": { "colorSpace": "oklch", "components": [0.3, 0.1033, 25], "alpha": 1, "hex": "#570f10" } },
+      "40": { "$value": { "colorSpace": "oklch", "components": [0.4, 0.1378, 25], "alpha": 1, "hex": "#821b1e" } },
+      "50": { "$value": { "colorSpace": "oklch", "components": [0.5, 0.17, 25], "alpha": 1, "hex": "#b02a2d" } },
+      "60": { "$value": { "colorSpace": "oklch", "components": [0.6, 0.17, 25], "alpha": 1, "hex": "#d24c49" } },
+      "70": { "$value": { "colorSpace": "oklch", "components": [0.7, 0.1622, 25], "alpha": 1, "hex": "#f37069" } },
+      "80": { "$value": { "colorSpace": "oklch", "components": [0.8, 0.0972, 25], "alpha": 1, "hex": "#f6a59e" } },
+      "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.0441, 25], "alpha": 1, "hex": "#fad3cf" } },
+      "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.0211, 25], "alpha": 1, "hex": "#fde9e7" } },
+      "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0082, 25], "alpha": 1, "hex": "#fef6f6" } }
     }
   }
 }

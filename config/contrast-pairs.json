@@ -10,6 +10,12 @@
     { "foreground": "button.secondary.text", "background": "button.secondary.background", "minLc": 60, "usage": "secondary button label" },
     { "foreground": "input.text", "background": "input.background", "minLc": 75, "usage": "input value text" },
     { "foreground": "input.placeholder", "background": "input.background", "minLc": 60, "usage": "input placeholder" },
-    { "foreground": "color.border.focus", "background": "color.background.page", "minLc": 45, "usage": "focus indicator (non-text)" }
+    { "foreground": "color.border.focus", "background": "color.background.page", "minLc": 45, "usage": "focus indicator (non-text)" },
+    { "foreground": "color.status.success.text", "background": "color.background.page", "minLc": 75, "usage": "inline success text" },
+    { "foreground": "color.status.success.text", "background": "color.status.success.background", "minLc": 60, "usage": "success alert text" },
+    { "foreground": "color.status.warning.text", "background": "color.background.page", "minLc": 75, "usage": "inline warning text" },
+    { "foreground": "color.status.warning.text", "background": "color.status.warning.background", "minLc": 60, "usage": "warning alert text" },
+    { "foreground": "color.status.danger.text", "background": "color.background.page", "minLc": 75, "usage": "inline danger text" },
+    { "foreground": "color.status.danger.text", "background": "color.status.danger.background", "minLc": 60, "usage": "danger alert text" }
   ]
 }
