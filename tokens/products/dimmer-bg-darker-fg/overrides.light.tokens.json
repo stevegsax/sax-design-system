@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Console light-mode overrides: dimmer page so dense surfaces separate without shadows.",
+  "$description": "dimmer-bg-darker-fg light-mode overrides: dimmer page so dense surfaces separate without shadows.",
   "color": {
     "$type": "color",
     "background": {

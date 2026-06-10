@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Console dark-mode overrides: deeper page for stronger surface separation.",
+  "$description": "dimmer-bg-darker-fg dark-mode overrides: deeper page for stronger surface separation.",
   "color": {
     "$type": "color",
     "background": {

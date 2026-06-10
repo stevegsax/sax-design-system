@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
-  "name": "portal-dark",
+  "name": "product-home-page-dark",
   "description": "Generated from config/matrix.json by scripts/generate-resolvers.sh. Do not edit by hand.",
   "version": "2025.10",
   "sets": {
@@ -46,10 +46,10 @@
     "product": {
       "sources": [
         {
-          "$ref": "../tokens/products/portal/overrides.tokens.json"
+          "$ref": "../tokens/products/product-home-page/overrides.tokens.json"
         },
         {
-          "$ref": "../tokens/products/portal/overrides.dark.tokens.json"
+          "$ref": "../tokens/products/product-home-page/overrides.dark.tokens.json"
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
-  "name": "console-light",
+  "name": "dimmer-bg-darker-fg-light",
   "description": "Generated from config/matrix.json by scripts/generate-resolvers.sh. Do not edit by hand.",
   "version": "2025.10",
   "sets": {
@@ -46,10 +46,10 @@
     "product": {
       "sources": [
         {
-          "$ref": "../tokens/products/console/overrides.tokens.json"
+          "$ref": "../tokens/products/dimmer-bg-darker-fg/overrides.tokens.json"
         },
         {
-          "$ref": "../tokens/products/console/overrides.light.tokens.json"
+          "$ref": "../tokens/products/dimmer-bg-darker-fg/overrides.light.tokens.json"
         }
       ]
     }

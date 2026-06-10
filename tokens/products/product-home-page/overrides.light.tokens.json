@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Portal light-mode overrides: airier canvas with a pure-white page.",
+  "$description": "product-home-page light-mode overrides: airier canvas with a pure-white page.",
   "color": {
     "$type": "color",
     "background": {
