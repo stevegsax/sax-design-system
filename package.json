@@ -18,8 +18,9 @@
     "build:preview": "node scripts/build-preview.js",
     "build:home": "node scripts/build-home.js",
     "build:blog": "node scripts/build-blog.js",
+    "build:presentation": "node scripts/build-presentation.js",
     "check:color": "node scripts/check-color.js",
-    "build": "npm run generate:resolvers && npm run validate && npm run check:color && npm run build:tokens && npm run build:preview && npm run build:home && npm run build:blog",
+    "build": "npm run generate:resolvers && npm run validate && npm run check:color && npm run build:tokens && npm run build:preview && npm run build:home && npm run build:blog && npm run build:presentation",
     "prepack": "npm run build"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "ajv-formats": "3.0.1",
     "apca-w3": "0.1.9",
     "culori": "4.0.2",
+    "reveal.js": "6.0.1",
     "style-dictionary": "5.4.4"
   }
 }

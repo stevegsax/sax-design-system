@@ -45,6 +45,7 @@ npm run build
 5. `build:preview` — emits `dist/<product>/preview.html`, a static page that renders every token: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
 6. `build:home` — emits `dist/product-home-page/home.html`, a sample marketing page built exclusively from the emitted custom properties; a realistic smoke test of the tokens in a real layout.
 7. `build:blog` — emits `dist/blog-page/blog.html`, a sample blog index with posts (tags, blockquote, code block) under the same constraint: token custom properties only.
+8. `build:presentation` — emits `dist/presentation/presentation.html`, a reveal.js deck (pinned, vendored from npm) whose theme maps reveal's `--r-*` variables onto the token custom properties.
 
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
 
