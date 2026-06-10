@@ -1,0 +1,35 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "button": {
+    "$type": "color",
+    "primary": {
+      "background": { "$value": "{color.accent.default}" },
+      "background-hover": { "$value": "{color.accent.hover}" },
+      "background-active": { "$value": "{color.accent.active}" },
+      "text": { "$value": "{color.text.on-accent}" }
+    },
+    "secondary": {
+      "background": { "$value": "{color.background.surface}" },
+      "border": { "$value": "{color.border.strong}" },
+      "text": { "$value": "{color.text.link}" }
+    }
+  },
+  "card": {
+    "$type": "color",
+    "background": { "$value": "{color.background.surface}" },
+    "border": { "$value": "{color.border.default}" }
+  },
+  "input": {
+    "$type": "color",
+    "background": { "$value": "{color.background.surface}" },
+    "text": { "$value": "{color.text.body}" },
+    "placeholder": { "$value": "{color.text.muted}" },
+    "border": { "$value": "{color.border.strong}" },
+    "border-focus": { "$value": "{color.border.focus}" }
+  },
+  "link": {
+    "$type": "color",
+    "text": { "$value": "{color.text.link}" },
+    "text-hover": { "$value": "{color.accent.active}" }
+  }
+}

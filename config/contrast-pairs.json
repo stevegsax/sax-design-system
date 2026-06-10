@@ -1,0 +1,15 @@
+{
+  "$description": "APCA Readability Criterion gates, checked for every product x mode resolver. minLc thresholds follow ARC Bronze: 75 body text, 60 large/heading and UI labels, 45 non-text indicators.",
+  "pairs": [
+    { "foreground": "color.text.body", "background": "color.background.page", "minLc": 75, "usage": "body text on page" },
+    { "foreground": "color.text.body", "background": "color.background.surface", "minLc": 75, "usage": "body text on surface" },
+    { "foreground": "color.text.heading", "background": "color.background.page", "minLc": 60, "usage": "headings on page" },
+    { "foreground": "color.text.muted", "background": "color.background.surface", "minLc": 60, "usage": "muted text on surface" },
+    { "foreground": "color.text.link", "background": "color.background.page", "minLc": 60, "usage": "links on page" },
+    { "foreground": "button.primary.text", "background": "button.primary.background", "minLc": 60, "usage": "primary button label" },
+    { "foreground": "button.secondary.text", "background": "button.secondary.background", "minLc": 60, "usage": "secondary button label" },
+    { "foreground": "input.text", "background": "input.background", "minLc": 75, "usage": "input value text" },
+    { "foreground": "input.placeholder", "background": "input.background", "minLc": 60, "usage": "input placeholder" },
+    { "foreground": "color.border.focus", "background": "color.background.page", "minLc": 45, "usage": "focus indicator (non-text)" }
+  ]
+}

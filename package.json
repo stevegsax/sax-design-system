@@ -1,0 +1,29 @@
+{
+  "name": "@sax/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SAX Capital design tokens. DTCG 2025.10 JSON is the source of truth; Style Dictionary v5 transforms it per product into deployable CSS.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist",
+    "tokens"
+  ],
+  "scripts": {
+    "validate": "ajv validate --spec=draft7 -c ajv-formats -s schemas/format.json -d 'tokens/**/*.tokens.json' && ajv validate --spec=draft7 -c ajv-formats -s schemas/resolver.json -d 'resolvers/*.resolver.json'",
+    "generate:resolvers": "sh scripts/generate-resolvers.sh",
+    "build:tokens": "node scripts/build.js",
+    "check:color": "node scripts/check-color.js",
+    "build": "npm run generate:resolvers && npm run validate && npm run check:color && npm run build:tokens",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "ajv-cli": "5.0.0",
+    "ajv-formats": "3.0.1",
+    "apca-w3": "0.1.9",
+    "culori": "4.0.2",
+    "style-dictionary": "5.4.4"
+  }
+}
