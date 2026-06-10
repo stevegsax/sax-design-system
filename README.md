@@ -16,7 +16,7 @@ Design tokens for SAX Capital products. DTCG 2025.10 JSON is the source of truth
 ├── resolvers/               Generated DTCG resolver documents (do not edit)
 ├── schemas/                 Vendored official DTCG 2025.10 JSON schemas
 ├── scripts/                 Resolver generation, build, color checks
-└── dist/<product>/          Generated CSS (gitignored; built on publish)
+└── dist/<product>/          Generated CSS + preview page (gitignored; built on publish)
 ```
 
 ## Token tiers
@@ -42,6 +42,8 @@ npm run build
 2. `validate` — ajv validates token files against the DTCG format schema and resolvers against the resolver schema.
 3. `check:color` — hex-fallback consistency + APCA contrast gates. Fails the build on violation.
 4. `build:tokens` — one Style Dictionary build per resolver; each product's light and dark resolutions are merged into a single `dist/<product>/tokens.css` using `light-dark()` (no separate mode artifacts, no `prefers-color-scheme` blocks). Mode-invariant tokens (dimensions, typography) emit as plain values; typography composites emit as CSS `font` shorthand, e.g. `font: var(--typography-body)`.
+
+5. `build:preview` — emits `dist/<product>/preview.html`, a static page that renders every token: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
 
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
 
