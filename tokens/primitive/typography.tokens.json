@@ -1,0 +1,43 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "$description": "System font stacks; brand typefaces pending selection.",
+      "sans": { "$value": ["system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"] },
+      "mono": { "$value": ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"] }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold": { "$value": 700 }
+    },
+    "size": {
+      "$type": "dimension",
+      "$description": "Type scale in rem. Step 300 = 1rem body size; ~1.2 ratio between steps.",
+      "100": { "$value": { "value": 0.75, "unit": "rem" } },
+      "200": { "$value": { "value": 0.875, "unit": "rem" } },
+      "300": { "$value": { "value": 1, "unit": "rem" } },
+      "400": { "$value": { "value": 1.125, "unit": "rem" } },
+      "500": { "$value": { "value": 1.25, "unit": "rem" } },
+      "600": { "$value": { "value": 1.5, "unit": "rem" } },
+      "700": { "$value": { "value": 1.875, "unit": "rem" } },
+      "800": { "$value": { "value": 2.25, "unit": "rem" } },
+      "900": { "$value": { "value": 3, "unit": "rem" } }
+    },
+    "line-height": {
+      "$type": "number",
+      "$description": "Unitless line-height multipliers.",
+      "tight": { "$value": 1.2 },
+      "snug": { "$value": 1.35 },
+      "normal": { "$value": 1.5 },
+      "relaxed": { "$value": 1.65 }
+    },
+    "letter-spacing": {
+      "$type": "dimension",
+      "none": { "$value": { "value": 0, "unit": "px" } }
+    }
+  }
+}

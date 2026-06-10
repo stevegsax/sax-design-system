@@ -1,0 +1,28 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "space": {
+    "$type": "dimension",
+    "$description": "Spacing roles; mode-agnostic.",
+    "2xs": { "$value": "{dimension.scale.1}" },
+    "xs": { "$value": "{dimension.scale.2}" },
+    "sm": { "$value": "{dimension.scale.3}" },
+    "md": { "$value": "{dimension.scale.4}" },
+    "lg": { "$value": "{dimension.scale.6}" },
+    "xl": { "$value": "{dimension.scale.8}" },
+    "2xl": { "$value": "{dimension.scale.12}" },
+    "3xl": { "$value": "{dimension.scale.16}" }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": "{dimension.scale.1}" },
+    "md": { "$value": "{dimension.scale.2}" },
+    "lg": { "$value": "{dimension.scale.3}" },
+    "full": { "$value": "{dimension.max}" }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "default": { "$value": "{dimension.line.1}" },
+    "thick": { "$value": "{dimension.line.2}" },
+    "focus": { "$value": "{dimension.line.2}" }
+  }
+}

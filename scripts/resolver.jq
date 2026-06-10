@@ -7,13 +7,25 @@
   "version": "2025.10",
   "sets": {
     "primitive": {
-      "sources": [{ "$ref": "../tokens/primitive/color.tokens.json" }]
+      "sources": [
+        { "$ref": "../tokens/primitive/color.tokens.json" },
+        { "$ref": "../tokens/primitive/dimension.tokens.json" },
+        { "$ref": "../tokens/primitive/typography.tokens.json" }
+      ]
     },
     "semantic": {
-      "sources": [{ "$ref": "../tokens/semantic/color.\($mode).tokens.json" }]
+      "sources": [
+        { "$ref": "../tokens/semantic/color.\($mode).tokens.json" },
+        { "$ref": "../tokens/semantic/dimension.tokens.json" },
+        { "$ref": "../tokens/semantic/typography.tokens.json" }
+      ]
     },
     "component": {
-      "sources": [{ "$ref": "../tokens/component/color.tokens.json" }]
+      "sources": [
+        { "$ref": "../tokens/component/color.tokens.json" },
+        { "$ref": "../tokens/component/dimension.tokens.json" },
+        { "$ref": "../tokens/component/typography.tokens.json" }
+      ]
     },
     "product": {
       "sources": [

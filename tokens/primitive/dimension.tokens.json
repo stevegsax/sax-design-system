@@ -1,0 +1,30 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "dimension": {
+    "$type": "dimension",
+    "scale": {
+      "$description": "Spacing scale on a 4px base, in rem (1rem = 16px). Step n = n x 0.25rem.",
+      "0": { "$value": { "value": 0, "unit": "rem" } },
+      "1": { "$value": { "value": 0.25, "unit": "rem" } },
+      "2": { "$value": { "value": 0.5, "unit": "rem" } },
+      "3": { "$value": { "value": 0.75, "unit": "rem" } },
+      "4": { "$value": { "value": 1, "unit": "rem" } },
+      "5": { "$value": { "value": 1.25, "unit": "rem" } },
+      "6": { "$value": { "value": 1.5, "unit": "rem" } },
+      "8": { "$value": { "value": 2, "unit": "rem" } },
+      "10": { "$value": { "value": 2.5, "unit": "rem" } },
+      "12": { "$value": { "value": 3, "unit": "rem" } },
+      "16": { "$value": { "value": 4, "unit": "rem" } }
+    },
+    "line": {
+      "$description": "Stroke widths in px; device-pixel-aligned so borders stay crisp.",
+      "1": { "$value": { "value": 1, "unit": "px" } },
+      "2": { "$value": { "value": 2, "unit": "px" } },
+      "3": { "$value": { "value": 3, "unit": "px" } }
+    },
+    "max": {
+      "$description": "Effectively infinite length for pill shapes.",
+      "$value": { "value": 9999, "unit": "px" }
+    }
+  }
+}

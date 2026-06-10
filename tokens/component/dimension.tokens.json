@@ -1,0 +1,22 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "button": {
+    "$type": "dimension",
+    "radius": { "$value": "{radius.md}" },
+    "padding-inline": { "$value": "{space.md}" },
+    "padding-block": { "$value": "{space.xs}" }
+  },
+  "card": {
+    "$type": "dimension",
+    "radius": { "$value": "{radius.lg}" },
+    "padding": { "$value": "{space.lg}" }
+  },
+  "input": {
+    "$type": "dimension",
+    "radius": { "$value": "{radius.sm}" },
+    "padding-inline": { "$value": "{space.sm}" },
+    "padding-block": { "$value": "{space.xs}" },
+    "border-width": { "$value": "{border-width.default}" },
+    "border-width-focus": { "$value": "{border-width.focus}" }
+  }
+}

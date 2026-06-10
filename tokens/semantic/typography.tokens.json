@@ -1,0 +1,79 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "typography": {
+    "$type": "typography",
+    "$description": "Composite type roles; mode-agnostic.",
+    "heading-1": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.800}",
+        "fontWeight": "{font.weight.bold}",
+        "lineHeight": "{font.line-height.tight}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "heading-2": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.700}",
+        "fontWeight": "{font.weight.semibold}",
+        "lineHeight": "{font.line-height.tight}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "heading-3": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.600}",
+        "fontWeight": "{font.weight.semibold}",
+        "lineHeight": "{font.line-height.snug}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.300}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.normal}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "body-small": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.200}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.normal}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "label": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.200}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.line-height.snug}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "caption": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.100}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.snug}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    },
+    "code": {
+      "$value": {
+        "fontFamily": "{font.family.mono}",
+        "fontSize": "{font.size.200}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.normal}",
+        "letterSpacing": "{font.letter-spacing.none}"
+      }
+    }
+  }
+}

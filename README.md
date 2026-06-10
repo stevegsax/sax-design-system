@@ -6,8 +6,8 @@ Design tokens for SAX Capital products. DTCG 2025.10 JSON is the source of truth
 
 ```text
 ├── tokens/                  Source of truth (DTCG 2025.10 format)
-│   ├── primitive/           OKLCH tonal ramps (neutral, brand)
-│   ├── semantic/            Role tokens, one file per mode (light, dark)
+│   ├── primitive/           OKLCH tonal ramps, spacing/type scales, font stacks
+│   ├── semantic/            Role tokens: color per mode (light, dark); dimension and typography mode-agnostic
 │   ├── component/           Component tokens, mode-agnostic, reference semantic roles
 │   └── products/<name>/     Override sets per product (common + per-mode)
 ├── config/
@@ -41,7 +41,7 @@ npm run build
 1. `generate:resolvers` — emits one resolver per cell of the product × mode matrix (jq, from `config/matrix.json`).
 2. `validate` — ajv validates token files against the DTCG format schema and resolvers against the resolver schema.
 3. `check:color` — hex-fallback consistency + APCA contrast gates. Fails the build on violation.
-4. `build:tokens` — one Style Dictionary build per resolver; each product's light and dark resolutions are merged into a single `dist/<product>/tokens.css` using `light-dark()` (no separate mode artifacts, no `prefers-color-scheme` blocks).
+4. `build:tokens` — one Style Dictionary build per resolver; each product's light and dark resolutions are merged into a single `dist/<product>/tokens.css` using `light-dark()` (no separate mode artifacts, no `prefers-color-scheme` blocks). Mode-invariant tokens (dimensions, typography) emit as plain values; typography composites emit as CSS `font` shorthand, e.g. `font: var(--typography-body)`.
 
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
 

@@ -8,10 +8,25 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const matrix = JSON.parse(readFileSync(path.join(ROOT, 'config/matrix.json'), 'utf8'));
 const pkg = JSON.parse(readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
 
-// Primitive ramps stay out of the deployable CSS: consumers use component
-// tokens first, semantic tokens as a fallback, never raw ramp steps.
+// Primitive tiers stay out of the deployable CSS: consumers use component
+// tokens first, semantic tokens as a fallback, never raw scale steps.
 const RAMPS = new Set(['neutral', 'brand', 'success', 'warning', 'danger']);
-const isPrimitive = (token) => token.path[0] === 'color' && RAMPS.has(token.path[1]);
+const isPrimitive = (token) =>
+  (token.path[0] === 'color' && RAMPS.has(token.path[1])) ||
+  token.path[0] === 'dimension' ||
+  token.path[0] === 'font';
+
+// DTCG dimension objects ({value, unit}) have no built-in CSS string transform.
+StyleDictionary.registerTransform({
+  name: 'dimension/css',
+  type: 'value',
+  transitive: true,
+  filter: (token, options) => (options.usesDtcg ? token.$type : token.type) === 'dimension',
+  transform: (token, _, options) => {
+    const value = options.usesDtcg ? token.$value : token.value;
+    return typeof value === 'object' ? `${value.value}${value.unit}` : value;
+  },
+});
 
 async function cssTokensFor(product, mode) {
   const resolverPath = path.join(ROOT, 'resolvers', `${product}.${mode}.resolver.json`);
@@ -19,7 +34,15 @@ async function cssTokensFor(product, mode) {
     tokens: resolveTokens(resolverPath),
     log: { verbosity: 'silent' },
     platforms: {
-      css: { transforms: [transforms.nameKebab, transforms.colorOklch] },
+      css: {
+        transforms: [
+          transforms.nameKebab,
+          transforms.colorOklch,
+          'dimension/css',
+          transforms.fontFamilyCss,
+          transforms.typographyCssShorthand,
+        ],
+      },
     },
   });
   const { allTokens } = await sd.getPlatformTokens('css');
@@ -41,6 +64,9 @@ for (const product of matrix.products) {
     const darkValue = darkValues.get(token.name);
     if (darkValue === undefined) {
       throw new Error(`${product}: token ${token.name} exists in light mode but not dark`);
+    }
+    if (typeof lightValue !== 'string' && typeof lightValue !== 'number') {
+      throw new Error(`${product}: token ${token.name} was not transformed to a CSS value`);
     }
     const value = lightValue === darkValue ? lightValue : `light-dark(${lightValue}, ${darkValue})`;
     return `  --${token.name}: ${value};`;
