@@ -44,6 +44,7 @@ npm run build
 4. `build:tokens` — one Style Dictionary build per resolver; each product's light and dark resolutions are merged into a single `dist/<product>/tokens.css` using `light-dark()` (no separate mode artifacts, no `prefers-color-scheme` blocks). Mode-invariant tokens (dimensions, typography) emit as plain values; typography composites emit as CSS `font` shorthand, e.g. `font: var(--typography-body)`.
 5. `build:preview` — emits `dist/<product>/preview.html`, a static page that renders every token: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
 6. `build:home` — emits `dist/product-home-page/home.html`, a sample marketing page built exclusively from the emitted custom properties; a realistic smoke test of the tokens in a real layout.
+7. `build:blog` — emits `dist/blog-page/blog.html`, a sample blog index with posts (tags, blockquote, code block) under the same constraint: token custom properties only.
 
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
 

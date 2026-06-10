@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "dimmer-bg-darker-fg light-mode overrides: dimmer page so dense surfaces separate without shadows.",
+  "$description": "blog-page light-mode overrides: dimmer page so dense surfaces separate without shadows.",
   "color": {
     "$type": "color",
     "background": {

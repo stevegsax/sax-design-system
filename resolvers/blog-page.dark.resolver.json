@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
-  "name": "dimmer-bg-darker-fg-light",
+  "name": "blog-page-dark",
   "description": "Generated from config/matrix.json by scripts/generate-resolvers.sh. Do not edit by hand.",
   "version": "2025.10",
   "sets": {
@@ -20,7 +20,7 @@
     "semantic": {
       "sources": [
         {
-          "$ref": "../tokens/semantic/color.light.tokens.json"
+          "$ref": "../tokens/semantic/color.dark.tokens.json"
         },
         {
           "$ref": "../tokens/semantic/dimension.tokens.json"
@@ -46,10 +46,10 @@
     "product": {
       "sources": [
         {
-          "$ref": "../tokens/products/dimmer-bg-darker-fg/overrides.tokens.json"
+          "$ref": "../tokens/products/blog-page/overrides.tokens.json"
         },
         {
-          "$ref": "../tokens/products/dimmer-bg-darker-fg/overrides.light.tokens.json"
+          "$ref": "../tokens/products/blog-page/overrides.dark.tokens.json"
         }
       ]
     }

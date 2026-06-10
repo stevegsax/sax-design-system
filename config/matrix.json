@@ -1,5 +1,5 @@
 {
   "$description": "Product x mode matrix. resolvers/ and dist/ are generated from this file; do not hand-edit resolvers.",
-  "products": ["product-home-page", "dimmer-bg-darker-fg"],
+  "products": ["product-home-page", "blog-page"],
   "modes": ["light", "dark"]
 }
