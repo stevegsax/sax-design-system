@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAX Design System — token-themed reveal.js</title>
+<link rel="stylesheet" href="reset.css">
+<link rel="stylesheet" href="reveal.css">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root {
+    --r-background-color: var(--color-background-page);
+    --r-main-color: var(--color-text-body);
+    --r-heading-color: var(--color-text-heading);
+    --r-link-color: var(--link-text);
+    --r-link-color-hover: var(--link-text-hover);
+    --r-selection-background-color: var(--color-accent-default);
+    --r-selection-color: var(--color-text-on-accent);
+    --r-main-font-size: 38px;
+    --r-block-margin: var(--space-md);
+    --r-heading-margin: 0 0 var(--space-lg) 0;
+    --r-heading-font-weight: 600;
+    --r-heading-letter-spacing: normal;
+    --r-heading-text-transform: none;
+    --r-heading-text-shadow: none;
+    --r-overlay-element-bg-color: var(--color-background-surface);
+    --r-overlay-element-fg-color: var(--color-text-body);
+  }
+  .reveal { font: var(--typography-body); font-size: var(--r-main-font-size); }
+  .reveal h1 { font: var(--typography-heading-1); font-size: 1.9em; color: var(--r-heading-color); }
+  .reveal h2 { font: var(--typography-heading-2); font-size: 1.5em; color: var(--r-heading-color); }
+  .reveal h3 { font: var(--typography-heading-3); font-size: 1.15em; color: var(--r-heading-color); }
+  .reveal .muted { color: var(--color-text-muted); }
+  .reveal a { color: var(--r-link-color); }
+  .reveal a:hover { color: var(--r-link-color-hover); }
+  .reveal pre { background: var(--color-background-inset); border-radius: var(--radius-md);
+                border: var(--border-width-default) solid var(--color-border-default);
+                box-shadow: none; width: 100%; }
+  .reveal pre code { font: var(--typography-code); font-size: 0.55em; line-height: 1.5;
+                     padding: var(--space-md); }
+  .reveal code { font: var(--typography-code); font-size: 0.9em; }
+  .reveal blockquote { background: var(--color-background-surface);
+                       border-inline-start: var(--border-width-thick) solid var(--color-accent-default);
+                       border-radius: var(--radius-sm); padding: var(--space-sm) var(--space-md);
+                       font-style: normal; color: var(--color-text-muted); }
+  .reveal .logo { height: calc(var(--space-3xl) * 2); margin-block-end: var(--space-md); }
+  .reveal .controls { color: var(--color-accent-default); }
+  .reveal .progress { color: var(--color-accent-default); background: var(--color-background-inset); }
+
+  .swatch-row { display: flex; gap: var(--space-sm); justify-content: center; }
+  .swatch-row .chip { width: 7rem; height: 4rem; border-radius: var(--radius-md);
+                      border: var(--border-width-default) solid var(--color-border-default); }
+  .swatch-row figure { margin: 0; }
+  .swatch-row figcaption { font: var(--typography-caption); color: var(--color-text-muted); }
+  .tag { font: var(--typography-label); color: var(--color-text-link);
+         background: var(--color-accent-subtle); border-radius: var(--radius-full);
+         padding: var(--space-2xs) var(--space-sm); }
+  .alert { padding: var(--space-xs) var(--space-md); border-radius: var(--radius-md);
+           font: var(--typography-body); border: var(--border-width-default) solid;
+           margin-block-end: var(--space-xs); text-align: left; }
+  .alert.success { background: var(--color-status-success-background);
+                   color: var(--color-status-success-text); border-color: var(--color-status-success-border); }
+  .alert.warning { background: var(--color-status-warning-background);
+                   color: var(--color-status-warning-text); border-color: var(--color-status-warning-border); }
+  .alert.danger { background: var(--color-status-danger-background);
+                  color: var(--color-status-danger-text); border-color: var(--color-status-danger-border); }
+</style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section>
+      <img class="logo" src="sax-logo-symbol.svg" alt="SAX Capital">
+      <h1>SAX Design System</h1>
+      <p class="muted">Design tokens, end to end &mdash; @sax/design-tokens v0.1.0</p>
+      <p><span class="tag">DTCG 2025.10</span> <span class="tag">OKLCH</span> <span class="tag">APCA</span></p>
+    </section>
+
+    <section>
+      <h2>One source of truth</h2>
+      <ul>
+        <li class="fragment">Tokens are DTCG 2025.10 JSON &mdash; tools come and go, the format stays</li>
+        <li class="fragment">Three tiers: <strong>component</strong> &rarr; <strong>semantic</strong> &rarr; <strong>primitive</strong></li>
+        <li class="fragment">Overrides only remap references &mdash; a primitive change propagates everywhere</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Perceptual color</h2>
+      <p>Palettes are OKLCH tonal ramps; step = lightness &times; 100.</p>
+      <div class="swatch-row">
+        <figure><div class="chip" style="background: var(--color-accent-default)"></div><figcaption>accent</figcaption></figure>
+        <figure><div class="chip" style="background: var(--color-background-surface)"></div><figcaption>surface</figcaption></figure>
+        <figure><div class="chip" style="background: var(--color-background-inset)"></div><figcaption>inset</figcaption></figure>
+        <figure><div class="chip" style="background: var(--color-border-strong)"></div><figcaption>border</figcaption></figure>
+      </div>
+      <p class="fragment muted">This deck is in <em>your</em> OS mode right now &mdash; every color is a <code>light-dark()</code> pair.</p>
+    </section>
+
+    <section>
+      <h2>Contrast is a build gate</h2>
+      <div class="alert success">Success: Lc 67.0 &ge; 60 &mdash; alert text on status background</div>
+      <div class="alert warning">Warning: every pair here passed APCA before this deck could build</div>
+      <div class="alert danger">Danger: a failing pair fails <code>npm run build</code></div>
+      <p class="muted fragment">APCA Readability Criterion: Lc 75 body &middot; 60 labels &middot; 45 non-text</p>
+    </section>
+
+    <section>
+      <h2>The pipeline</h2>
+      <pre><code>npm run build
+  1 generate:resolvers   product x mode matrix -> 6 resolvers
+  2 validate             ajv vs official DTCG schemas
+  3 check:color          hex sync + APCA gates
+  4 build:tokens         light-dark() CSS per product
+  5-8 previews           catalog, home, blog, this deck</code></pre>
+    </section>
+
+    <section>
+      <section>
+        <h2>Products pin a version</h2>
+        <blockquote>A token release is a contract: rename or remove a token and it is a breaking change.</blockquote>
+        <p class="muted">More below &darr;</p>
+      </section>
+      <section>
+        <h3>This product: <code>presentation</code></h3>
+        <p>One override: dark-mode page is <strong>true black</strong> for projectors and OLED.</p>
+        <pre><code>"background": {
+  "page": { "$value": "{color.neutral.0}" }
+}</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Questions?</h1>
+      <p><a href="preview.html">Token catalog</a> &middot; <a href="https://www.designtokens.org/tr/2025.10/format/">DTCG spec</a></p>
+    </section>
+
+  </div>
+</div>
+<script src="reveal.js"></script>
+<script>Reveal.initialize({ hash: true });</script>
+</body>
+</html>

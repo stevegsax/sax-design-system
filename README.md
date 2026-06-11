@@ -4,7 +4,15 @@ This repository is the SAX Capital design system: one versioned source for the c
 
 ## Using the tokens
 
-Pin a version of this package and import the stylesheet for your product:
+Depend on this repository at a release tag — the tag is the version pin:
+
+```json
+"dependencies": {
+  "@sax/design-tokens": "git+https://github.com/stevegsax/sax-design-system.git#v0.1.0"
+}
+```
+
+`dist/` is committed and prebuilt, so installing needs no toolchain. Import the stylesheet for your product:
 
 ```css
 @import '@sax/design-tokens/dist/product-home-page/tokens.css';
@@ -35,8 +43,8 @@ Rules of the road:
 - Never hard-code a color, size, or font that a token covers. If the token you need is missing, request it here rather than inlining a value — that is how the system stays propagating.
 - Typography tokens are CSS `font` shorthand values: `font: var(--typography-body)`.
 - Light and dark mode need no code: every color is a `light-dark()` pair and the stylesheet sets `color-scheme: light dark`, so the browser follows the OS/page preference. To force a mode on a subtree, set `color-scheme: light` (or `dark`) on its container.
-- Releases follow semver: palette value changes are patch/minor; renaming or removing a token is a breaking change.
-- See `dist/<product>/preview.html` (from `npm run build`) for a rendered catalog of every available token.
+- Releases follow semver: palette value changes are patch/minor; renaming or removing a token is a breaking change. Move your pin deliberately.
+- See `dist/<product>/preview.html` for a rendered catalog of every available token.
 
 ## Layout
 
@@ -52,7 +60,7 @@ Rules of the road:
 ├── resolvers/               Generated DTCG resolver documents (do not edit)
 ├── schemas/                 Vendored official DTCG 2025.10 JSON schemas
 ├── scripts/                 Resolver generation, build, color checks
-└── dist/<product>/          Generated CSS + preview page (gitignored; built on publish)
+└── dist/<product>/          Generated CSS + preview/sample pages (committed; consumers install prebuilt)
 ```
 
 ## Token tiers
@@ -200,3 +208,16 @@ npm run build
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
 
 All tooling is pinned to exact versions (`.npmrc` sets `save-exact`) so rebuilding never produces diff noise from a floating transform tool.
+
+## Releasing
+
+`dist/` is committed; a release is a version bump plus a git tag:
+
+```sh
+npm run build          # regenerate and verify everything
+git commit ...         # commit the token change together with dist/
+npm version patch      # or minor / major per the semver contract
+git push --follow-tags
+```
+
+`npm version` runs the build again after bumping (so generated headers carry the new version), stages the regenerated artifacts into the tag commit, and creates the `vX.Y.Z` tag that consumers pin. The package stays `private: true` — it is consumed as a git dependency, never published to a registry.

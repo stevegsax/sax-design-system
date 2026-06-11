@@ -63,3 +63,7 @@ diataxis/.hugo_build.lock
 
 # Node
 node_modules/
+
+# Token build output is committed: git-dependency consumers install prebuilt CSS
+!dist/
+!dist/**
