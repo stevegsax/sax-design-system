@@ -7,46 +7,9 @@
 <link rel="stylesheet" href="reset.css">
 <link rel="stylesheet" href="reveal.css">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="highlight.css">
 <style>
-  :root {
-    --r-background-color: var(--color-background-page);
-    --r-main-color: var(--color-text-body);
-    --r-heading-color: var(--color-text-heading);
-    --r-link-color: var(--link-text);
-    --r-link-color-hover: var(--link-text-hover);
-    --r-selection-background-color: var(--color-accent-default);
-    --r-selection-color: var(--color-text-on-accent);
-    --r-main-font-size: 38px;
-    --r-block-margin: var(--space-md);
-    --r-heading-margin: 0 0 var(--space-lg) 0;
-    --r-heading-font-weight: 600;
-    --r-heading-letter-spacing: normal;
-    --r-heading-text-transform: none;
-    --r-heading-text-shadow: none;
-    --r-overlay-element-bg-color: var(--color-background-surface);
-    --r-overlay-element-fg-color: var(--color-text-body);
-  }
-  .reveal { font: var(--typography-body); font-size: var(--r-main-font-size); }
-  .reveal h1 { font: var(--typography-heading-1); font-size: 1.9em; color: var(--r-heading-color); }
-  .reveal h2 { font: var(--typography-heading-2); font-size: 1.5em; color: var(--r-heading-color); }
-  .reveal h3 { font: var(--typography-heading-3); font-size: 1.15em; color: var(--r-heading-color); }
-  .reveal .muted { color: var(--color-text-muted); }
-  .reveal a { color: var(--r-link-color); }
-  .reveal a:hover { color: var(--r-link-color-hover); }
-  .reveal pre { background: var(--color-background-inset); border-radius: var(--radius-md);
-                border: var(--border-width-default) solid var(--color-border-default);
-                box-shadow: none; width: 100%; }
-  .reveal pre code { font: var(--typography-code); font-size: 0.55em; line-height: 1.5;
-                     padding: var(--space-md); }
-  .reveal code { font: var(--typography-code); font-size: 0.9em; }
-  .reveal blockquote { background: var(--color-background-surface);
-                       border-inline-start: var(--border-width-thick) solid var(--color-accent-default);
-                       border-radius: var(--radius-sm); padding: var(--space-sm) var(--space-md);
-                       font-style: normal; color: var(--color-text-muted); }
-  .reveal .logo { height: calc(var(--space-3xl) * 2); margin-block-end: var(--space-md); }
-  .reveal .controls { color: var(--color-accent-default); }
-  .reveal .progress { color: var(--color-accent-default); background: var(--color-background-inset); }
-
   .swatch-row { display: flex; gap: var(--space-sm); justify-content: center; }
   .swatch-row .chip { width: 7rem; height: 4rem; border-radius: var(--radius-md);
                       border: var(--border-width-default) solid var(--color-border-default); }
@@ -107,13 +70,41 @@
     </section>
 
     <section>
+      <h2>APCA gates</h2>
+      <table>
+        <thead>
+          <tr><th>Role</th><th>Min Lc</th><th>Applies to</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Body</td><td>75</td><td>Paragraphs, input values</td></tr>
+          <tr><td>Labels</td><td>60</td><td>Headings, buttons, captions</td></tr>
+          <tr><td>Non-text</td><td>45</td><td>Focus rings, indicators</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">Every pairing in <code>config/contrast-pairs.json</code>, checked per product &times; mode.</p>
+    </section>
+
+    <section>
       <h2>The pipeline</h2>
-      <pre><code>npm run build
+      <pre><code data-trim class="language-plaintext">npm run build
   1 generate:resolvers   product x mode matrix -> 6 resolvers
   2 validate             ajv vs official DTCG schemas
   3 check:color          hex sync + APCA gates
   4 build:tokens         light-dark() CSS per product
   5-8 previews           catalog, home, blog, this deck</code></pre>
+    </section>
+
+    <section>
+      <h2>Consume a token</h2>
+      <pre><code data-trim data-noescape class="language-javascript">// Read a semantic token's computed value at runtime
+function tokenValue(name) {
+  const styles = getComputedStyle(document.documentElement);
+  return styles.getPropertyValue(`--${name}`).trim();
+}
+
+const accent = tokenValue('color-accent-default'); // a light-dark() pair
+console.log(`accent = ${accent}`, 0xff);</code></pre>
+      <p class="muted">Syntax colors are tokens too &mdash; <code>light-dark()</code>, APCA-gated on the code background.</p>
     </section>
 
     <section>
@@ -125,8 +116,10 @@
       <section>
         <h3>This product: <code>presentation</code></h3>
         <p>One override: dark-mode page is <strong>true black</strong> for projectors and OLED.</p>
-        <pre><code>"background": {
-  "page": { "$value": "{color.neutral.0}" }
+        <pre><code data-trim class="language-json">{
+  "background": {
+    "page": { "$value": "{color.neutral.0}" }
+  }
 }</code></pre>
       </section>
     </section>
@@ -139,6 +132,7 @@
   </div>
 </div>
 <script src="reveal.js"></script>
-<script>Reveal.initialize({ hash: true });</script>
+<script src="highlight.js"></script>
+<script>Reveal.initialize({ hash: true, plugins: [ RevealHighlight ] });</script>
 </body>
 </html>

@@ -4,6 +4,23 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-11
+
+### Added
+
+- `tokens/products/presentation/README.md`: notes on reveal.js's two-layer styling model and the failure modes a deck hits without a theme layer, with a mapping of our `--r-*` variables to reveal's documented [theme-authoring convention](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md).
+- `dist/presentation/theme.css`: the reveal.js theme layer, now shipped with the presentation kit. reveal's own CSS is structure only and reads almost none of the `--r-*` variables; the theme layer is what applies them. Decks link `reset.css`, `reveal.css`, `tokens.css`, `theme.css` in that order. The sample deck links it instead of carrying the theme inline.
+
+### Fixed
+
+- The presentation theme declared reveal's `--r-*` variables but never consumed the structural ones, so decks fell back to reveal's hardcoded white viewport (invisible near-white headings in dark mode), the reset's zeroed margins (headings flush against body text), and zero list padding (bullets clipped at the slide edge). The theme layer now applies `--r-background-color`, `--r-main-color`, heading and block margins, list indentation, and the `::selection` colors.
+- The theme layer restores what reveal's reset strips from inline elements — bold (`strong`/`b`), italic (`em`/`i`), and `sup`/`sub` alignment — and, matching stock reveal themes, left-aligns lists (as centered inline blocks, so bullets sit next to their text) and code blocks (so indentation survives reveal's centered slides).
+- Aligned the theme to reveal's documented theme-authoring convention: heading sizes are now `--r-heading{1,2,3}-size` variables (was hardcoded), the shared heading rule covers `h1`–`h6` with `word-wrap: break-word`, and tables (`th`/`td`) get token-driven styling — so consumer decks using those elements are themed without extra CSS. The sample deck gains an APCA-gates table slide that exercises it.
+- `dist/presentation/highlight.css` + `highlight.js`: syntax highlighting via reveal's highlight plugin, with a **token-driven** highlight.js theme (stock monokai/zenburn are fixed dark palettes). Syntax colors map to semantic tokens, so code follows `light-dark()` and is gated through APCA like everything else — six new `contrast-pairs.json` entries against `color.background.inset` (default code text at Lc 75, colored roles at 60). The sample deck gains a "Consume a token" code slide.
+- reveal's scroll-view scrollbar consumes `--r-overlay-element-{bg,fg}-color` as bare `R, G, B` triplets inside `rgba()`, which a `light-dark()` color cannot express — the old declarations were invalid at every use site. The scrollbar rules are now styled with the tokens directly via `color-mix()`, and the two variable declarations are removed.
+- Removed the unread `--r-heading-font-weight` declaration; heading weight comes from the `--typography-heading-*` composites.
+- Code blocks now set `display: block` on `pre code` (the stock theme's job; reveal.css leaves it inline) and pad to `--space-xl`. Without `display: block`, padding applied only to the inline box's start, so every line after the first sat flush against the box edge.
+
 ## [0.1.1] - 2026-06-10
 
 ### Added
@@ -28,6 +45,7 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/stevegsax/sax-design-system/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/stevegsax/sax-design-system/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/stevegsax/sax-design-system/releases/tag/v0.1.0

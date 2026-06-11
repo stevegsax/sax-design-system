@@ -46,6 +46,19 @@ Rules of the road:
 - Releases follow semver: palette value changes are patch/minor; renaming or removing a token is a breaking change. Move your pin deliberately.
 - See `dist/<product>/preview.html` for a rendered catalog of every available token.
 
+### Presentations
+
+`dist/presentation/` is a complete [reveal.js](https://revealjs.com/) kit: `reveal.js`, `reset.css`, `reveal.css` (structure: slide positioning, transitions, fragments), `tokens.css` (the custom properties), and `theme.css` (the theme layer). reveal's structural CSS reads almost none of the `--r-*` variables itself — the theme layer is what maps them onto the token custom properties and applies them, so a deck without it falls back to reveal's hardcoded white viewport and the reset's zeroed margins. Copy or serve the directory (a browser cannot resolve bare package paths) and link all four stylesheets, in this order:
+
+```html
+<link rel="stylesheet" href="reset.css">
+<link rel="stylesheet" href="reveal.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="theme.css">
+```
+
+`theme.css` follows reveal.js's [theme-authoring convention](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md): a `:root` block of `--r-*` settings mapped to token custom properties, applied across the elements reveal's template covers (headings `h1`–`h6`, lists, code, blockquote, tables, selection, controls). For syntax-highlighted code, the kit also ships reveal's highlight plugin (`highlight.js`) with a token-driven highlight.js theme (`highlight.css`) — link it after `theme.css`, load the plugin, and register `RevealHighlight`. `dist/presentation/presentation.html` is a sample deck built this way. For the design decisions behind the theme — and how to verify a change by rendering — see `tokens/products/presentation/README.md`.
+
 ## Layout
 
 ```text
@@ -202,7 +215,7 @@ npm run build
 5. `build:preview` — emits `dist/<product>/preview.html`, a static page that renders every token: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
 6. `build:home` — emits `dist/product-home-page/home.html`, a sample marketing page built exclusively from the emitted custom properties; a realistic smoke test of the tokens in a real layout.
 7. `build:blog` — emits `dist/blog-page/blog.html`, a sample blog index with posts (tags, blockquote, code block) under the same constraint: token custom properties only.
-8. `build:presentation` — emits `dist/presentation/presentation.html`, a reveal.js deck (pinned, vendored from npm) whose theme maps reveal's `--r-*` variables onto the token custom properties.
+8. `build:presentation` — emits `dist/presentation/theme.css`, the reveal.js theme layer (maps reveal's `--r-*` variables onto the token custom properties and consumes them — reveal's own CSS is structure only), and `presentation.html`, a sample deck that links it. reveal.js is pinned and vendored from npm.
 9. `build:docs` — regenerates the semantic and component token lists in this README from `tokens/semantic/` and `tokens/component/`.
 
 To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.

@@ -8,6 +8,7 @@
 - `npm run build` runs the whole pipeline (generate resolvers → ajv validation → color checks → CSS). Run it before considering any token change done.
 - Product names are defined in `config/matrix.json` and `tokens/products/`.
 - Dependencies are pinned exact (`.npmrc`); do not loosen version ranges.
+- Before touching the reveal.js theme (`scripts/build-presentation.js`, `dist/presentation/theme.css`) or the presentation product's tokens, read `tokens/products/presentation/README.md` — it covers reveal's two-layer styling model, the `--r-*` variable contracts, and how to verify a theme change by rendering in headless Chrome.
 
 ## Releasing
 
