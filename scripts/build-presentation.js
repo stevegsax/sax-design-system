@@ -49,6 +49,7 @@ const THEME = `
                        border-inline-start: var(--border-width-thick) solid var(--color-accent-default);
                        border-radius: var(--radius-sm); padding: var(--space-sm) var(--space-md);
                        font-style: normal; color: var(--color-text-muted); }
+  .reveal .logo { height: calc(var(--space-3xl) * 2); margin-block-end: var(--space-md); }
   .reveal .controls { color: var(--color-accent-default); }
   .reveal .progress { color: var(--color-accent-default); background: var(--color-background-inset); }
 
@@ -87,6 +88,7 @@ const html = `<!doctype html>
   <div class="slides">
 
     <section>
+      <img class="logo" src="sax-logo-symbol.svg" alt="SAX Capital">
       <h1>SAX Design System</h1>
       <p class="muted">Design tokens, end to end &mdash; ${pkg.name} v${pkg.version}</p>
       <p><span class="tag">DTCG 2025.10</span> <span class="tag">OKLCH</span> <span class="tag">APCA</span></p>
@@ -165,5 +167,9 @@ const revealDist = path.join(ROOT, 'node_modules/reveal.js/dist');
 for (const asset of ['reveal.css', 'reveal.js', 'reset.css']) {
   copyFileSync(path.join(revealDist, asset), path.join(outDir, asset));
 }
+copyFileSync(
+  path.join(ROOT, 'static-assets/logos/symbol-only/SAX_logo_symbol.svg'),
+  path.join(outDir, 'sax-logo-symbol.svg'),
+);
 writeFileSync(path.join(outDir, 'presentation.html'), html);
 console.log(`dist/${PRODUCT}/presentation.html (reveal.js ${pkg.devDependencies['reveal.js']})`);
