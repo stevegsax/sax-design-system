@@ -21,19 +21,23 @@
       "100": { "$value": { "colorSpace": "oklch", "components": [1, 0, "none"], "alpha": 1, "hex": "#ffffff" } }
     },
     "brand": {
-      "$description": "Brand tonal ramp (OKLCH hue 250). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
-      "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.0241, 250], "alpha": 1, "hex": "#00040a" } },
-      "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.0361, 250], "alpha": 1, "hex": "#010c1a" } },
-      "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.0481, 250], "alpha": 1, "hex": "#03172b" } },
-      "30": { "$value": { "colorSpace": "oklch", "components": [0.3, 0.0722, 250], "alpha": 1, "hex": "#0b2f50" } },
-      "40": { "$value": { "colorSpace": "oklch", "components": [0.4, 0.0962, 250], "alpha": 1, "hex": "#164a79" } },
-      "50": { "$value": { "colorSpace": "oklch", "components": [0.5, 0.1203, 250], "alpha": 1, "hex": "#2166a4" } },
-      "60": { "$value": { "colorSpace": "oklch", "components": [0.6, 0.1444, 250], "alpha": 1, "hex": "#2d84d2" } },
-      "70": { "$value": { "colorSpace": "oklch", "components": [0.7, 0.139, 250], "alpha": 1, "hex": "#54a3f1" } },
-      "80": { "$value": { "colorSpace": "oklch", "components": [0.8, 0.0892, 250], "alpha": 1, "hex": "#92c3f5" } },
-      "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.0429, 250], "alpha": 1, "hex": "#c9e1fa" } },
-      "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.021, 250], "alpha": 1, "hex": "#e4f0fc" } },
-      "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0083, 250], "alpha": 1, "hex": "#f4f9fe" } }
+      "$description": "Brand tonal ramp derived from the anchor (SAX logo blue #005A9C, OKLCH hue 249.6). The anchor is a maximal-chroma blue, so the curve follows the sRGB gamut ceiling: min(0.17, gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "anchor": {
+        "$description": "Exact SAX logo brand color. The ramp's hue and chroma curve are calibrated through this point; it sits on the sRGB gamut boundary between steps 40 and 50.",
+        "$value": { "colorSpace": "oklch", "components": [0.4598, 0.129, 249.6], "alpha": 1, "hex": "#005a9c" }
+      },
+      "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.028, 249.6], "alpha": 1, "hex": "#00030b" } },
+      "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.042, 249.6], "alpha": 1, "hex": "#000c1c" } },
+      "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.056, 249.6], "alpha": 1, "hex": "#00172e" } },
+      "30": { "$value": { "colorSpace": "oklch", "components": [0.3, 0.084, 249.6], "alpha": 1, "hex": "#002f56" } },
+      "40": { "$value": { "colorSpace": "oklch", "components": [0.4, 0.112, 249.6], "alpha": 1, "hex": "#004981" } },
+      "50": { "$value": { "colorSpace": "oklch", "components": [0.5, 0.14, 249.6], "alpha": 1, "hex": "#0066af" } },
+      "60": { "$value": { "colorSpace": "oklch", "components": [0.6, 0.1681, 249.6], "alpha": 1, "hex": "#0083df" } },
+      "70": { "$value": { "colorSpace": "oklch", "components": [0.7, 0.1638, 249.6], "alpha": 1, "hex": "#3da3ff" } },
+      "80": { "$value": { "colorSpace": "oklch", "components": [0.8, 0.1051, 249.6], "alpha": 1, "hex": "#88c3ff" } },
+      "90": { "$value": { "colorSpace": "oklch", "components": [0.9, 0.0505, 249.6], "alpha": 1, "hex": "#c5e1ff" } },
+      "95": { "$value": { "colorSpace": "oklch", "components": [0.95, 0.0248, 249.6], "alpha": 1, "hex": "#e2f0ff" } },
+      "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0098, 249.6], "alpha": 1, "hex": "#f4f9ff" } }
     },
     "success": {
       "$description": "Success tonal ramp (OKLCH hue 150). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",

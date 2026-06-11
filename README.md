@@ -28,7 +28,7 @@ Overrides only remap references. A primitive change propagates everywhere becaus
 ## Color model
 
 - Palettes are OKLCH tonal ramps; step number = OKLCH lightness × 100.
-- Brand ramp chroma is gamut-proportional: `min(0.17, 0.85 × sRGB gamut max)` at each lightness, hue 250.
+- The brand ramp is anchored to the SAX logo blue (`color.brand.anchor`, `#005A9C`, OKLCH hue 249.6). The anchor is a maximal-chroma blue, so the ramp's chroma curve follows the sRGB gamut ceiling: `min(0.17, gamut max)` at each lightness. Status ramps remain gamut-proportional at `min(0.17, 0.85 × gamut max)`.
 - Every color token carries the full structured value (`colorSpace`, `components`, `alpha`) plus a `hex` fallback; the build verifies the fallback matches the components.
 - Contrast is gated with [APCA](https://github.com/Myndex/apca-w3) per the [APCA Readability Criterion](https://readtech.org/ARC/): Lc 75 body text, 60 headings/labels, 45 non-text. Pairs are declared in `config/contrast-pairs.json` and checked for every product × mode.
 
