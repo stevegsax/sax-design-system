@@ -14,6 +14,8 @@
   ],
   "scripts": {
     "validate": "ajv validate --spec=draft7 -c ajv-formats -s schemas/format.json -d 'tokens/**/*.tokens.json' && ajv validate --spec=draft7 -c ajv-formats -s schemas/resolver.json -d 'resolvers/*.resolver.json'",
+    "generate:ramps": "node scripts/generate-ramps.js",
+    "check:ramps": "node scripts/generate-ramps.js --check",
     "generate:resolvers": "sh scripts/generate-resolvers.sh",
     "build:tokens": "node scripts/build.js",
     "build:preview": "node scripts/build-preview.js",
@@ -22,7 +24,7 @@
     "build:presentation": "node scripts/build-presentation.js",
     "build:docs": "node scripts/build-docs.js",
     "check:color": "node scripts/check-color.js",
-    "build": "npm run generate:resolvers && npm run validate && npm run check:color && npm run build:tokens && npm run build:preview && npm run build:home && npm run build:blog && npm run build:presentation && npm run build:docs",
+    "build": "npm run check:ramps && npm run generate:resolvers && npm run validate && npm run check:color && npm run build:tokens && npm run build:preview && npm run build:home && npm run build:blog && npm run build:presentation && npm run build:docs",
     "version": "npm run build && git add -A dist resolvers README.md"
   },
   "devDependencies": {

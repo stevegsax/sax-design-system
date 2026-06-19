@@ -1,24 +1,15 @@
 import { globSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
-import { clampChroma, converter, formatHex } from 'culori';
 import StyleDictionary from 'style-dictionary';
+import { culoriToHex, culoriToRgb255, dtcgToCulori } from './lib/color.js';
 import { resolveTokens } from './lib/resolve.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const matrix = JSON.parse(readFileSync(path.join(ROOT, 'config/matrix.json'), 'utf8'));
 const { pairs } = JSON.parse(readFileSync(path.join(ROOT, 'config/contrast-pairs.json'), 'utf8'));
 
-const toRgb = converter('rgb');
 const failures = [];
-
-function dtcgToCulori(value) {
-  if (value.colorSpace !== 'oklch') {
-    throw new Error(`unsupported colorSpace ${value.colorSpace}`);
-  }
-  const [l, c, h] = value.components.map((component) => (component === 'none' ? 0 : component));
-  return { mode: 'oklch', l, c, h, alpha: value.alpha ?? 1 };
-}
 
 // 1. Every authored hex fallback must match its OKLCH components exactly.
 for (const file of globSync('tokens/**/*.tokens.json', { cwd: ROOT })) {
@@ -26,7 +17,7 @@ for (const file of globSync('tokens/**/*.tokens.json', { cwd: ROOT })) {
     if (node === null || typeof node !== 'object') return;
     const value = node.$value;
     if (value && typeof value === 'object' && value.hex) {
-      const derived = formatHex(clampChroma(dtcgToCulori(value), 'oklch', 'rgb'));
+      const derived = culoriToHex(dtcgToCulori(value));
       if (derived !== value.hex.toLowerCase()) {
         failures.push(`${file}: ${tokenPath} hex ${value.hex} != ${derived} derived from components`);
       }
@@ -40,8 +31,7 @@ for (const file of globSync('tokens/**/*.tokens.json', { cwd: ROOT })) {
 
 // 2. APCA Lc gates per product x mode.
 function apcaY(value) {
-  const rgb = toRgb(clampChroma(dtcgToCulori(value), 'oklch', 'rgb'));
-  return sRGBtoY([rgb.r * 255, rgb.g * 255, rgb.b * 255]);
+  return sRGBtoY(culoriToRgb255(dtcgToCulori(value)));
 }
 
 for (const product of matrix.products) {

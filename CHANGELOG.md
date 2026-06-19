@@ -7,6 +7,11 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 ### Added
 
 - README section documenting how to reuse this repo as the starting point for a new design system: clone with this repo as `upstream`, set a new `origin`, disable upstream push, and `git pull upstream main` for pipeline improvements over time.
+- Primitive color ramps are now generated from `config/ramps.json` (a hue + chroma rule per ramp) by `npm run generate:ramps`, replacing hand-maintained OKLCH components. The chroma rules are `const`, `ceiling` (`min(cap, gamutMax)`), and `proportional` (`min(cap, factor x gamutMax)`); the brand anchor stays pinned. `scripts/lib/color.js` holds the shared OKLCH/sRGB helpers now used by both the generator and `check-color.js`.
+
+### Changed
+
+- `npm run build` now runs `check:ramps` first, failing if `tokens/primitive/color.tokens.json` has drifted from `config/ramps.json`. Consequence: primitive color values are no longer hand-editable — change the palette by editing the spec and running `npm run generate:ramps`.
 
 ### Fixed
 

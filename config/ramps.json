@@ -1,0 +1,48 @@
+{
+  "$description": "Source spec for tokens/primitive/color.tokens.json. Each ramp declares a hue and a chroma rule; scripts/generate-ramps.js expands it into per-step OKLCH values with sRGB hex fallbacks. Edit this (and the anchor) to re-skin a design system, then run `npm run generate:ramps`.",
+  "schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "cap": 0.17,
+  "decimals": 4,
+  "ramps": [
+    {
+      "name": "neutral",
+      "hue": 250,
+      "description": "Near-achromatic tonal ramp with a faint cool tint (OKLCH hue 250, chroma 0.006). Step number = OKLCH lightness x 100.",
+      "rule": { "kind": "const", "value": 0.006 },
+      "steps": [0, 5, 10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+    },
+    {
+      "name": "brand",
+      "hue": 249.6,
+      "description": "Brand tonal ramp derived from the anchor (SAX logo blue #005A9C, OKLCH hue 249.6). The anchor is a maximal-chroma blue, so the curve follows the sRGB gamut ceiling: min(0.17, gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "rule": { "kind": "ceiling" },
+      "anchor": {
+        "description": "Exact SAX logo brand color. The ramp's hue and chroma curve are calibrated through this point; it sits on the sRGB gamut boundary between steps 40 and 50.",
+        "lightness": 0.4598,
+        "chroma": 0.129
+      },
+      "steps": [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98]
+    },
+    {
+      "name": "success",
+      "hue": 150,
+      "description": "Success tonal ramp (OKLCH hue 150). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "rule": { "kind": "proportional", "factor": 0.85 },
+      "steps": [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98]
+    },
+    {
+      "name": "warning",
+      "hue": 85,
+      "description": "Warning tonal ramp (OKLCH hue 85). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "rule": { "kind": "proportional", "factor": 0.85 },
+      "steps": [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98]
+    },
+    {
+      "name": "danger",
+      "hue": 25,
+      "description": "Danger tonal ramp (OKLCH hue 25). Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Step number = OKLCH lightness x 100.",
+      "rule": { "kind": "proportional", "factor": 0.85 },
+      "steps": [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98]
+    }
+  ]
+}
