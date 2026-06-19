@@ -234,3 +234,30 @@ git push --follow-tags
 ```
 
 `npm version` runs the build again after bumping (so generated headers carry the new version), stages the regenerated artifacts into the tag commit, and creates the `vX.Y.Z` tag that consumers pin. The package stays `private: true` — it is consumed as a git dependency, never published to a registry.
+
+## Starting a new design system from this repo
+
+This repo doubles as the starting point for a new design system. There is no copier template, rename script, or template branch: clone it, keep this repo as `upstream`, and edit tokens. The new project is a token-development sandbox, so the SAX names and demo copy are left in place — they are scaffolding, not output. The only branded artifacts are the logo SVGs in `static-assets/logos/`; replace those when the sandbox renders UI you care about.
+
+Clone with this repo's remote named `upstream`, then create your own repo as `origin`:
+
+```sh
+git clone -o upstream https://github.com/stevegsax/sax-design-system.git my-design-system
+cd my-design-system
+gh repo create <owner>/my-design-system --private --source=. --remote=origin --push
+```
+
+`gh ... --push` sets `main` to track `origin/main`, so `git push` and `git pull` default to your repo. Disable pushing to `upstream` so commits can never land here by accident:
+
+```sh
+git remote set-url --push upstream DISABLED
+git branch -vv        # confirm main tracks origin/main, not upstream/main
+```
+
+Pull pipeline improvements (schemas, color checks, build scripts) from this repo whenever you want them:
+
+```sh
+git pull upstream main        # conflicts, when any, are confined to tokens you diverged
+```
+
+Then set the palette. Editing base colors is not search-and-replace: `check:color` fails when a token's `hex` and OKLCH `components` disagree, so compute new ramp steps with culori (`clampChroma` to sRGB, then `formatHex`) and write the full structured value. The clone is sound once `npm run build` is green and `git remote -v` shows `origin` as your repo and `upstream` as this one.

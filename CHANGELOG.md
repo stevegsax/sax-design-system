@@ -4,6 +4,14 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+### Added
+
+- README section documenting how to reuse this repo as the starting point for a new design system: clone with this repo as `upstream`, set a new `origin`, disable upstream push, and `git pull upstream main` for pipeline improvements over time.
+
+### Fixed
+
+- `.gitignore` anchored the Python-derived `lib/` and `lib64/` patterns to the repo root (`/lib/`, `/lib64/`). The unanchored `lib/` also matched `scripts/lib/`, which left `scripts/lib/resolve.js` untracked — so a fresh clone failed `npm run build` at `check:color` with a missing-module error. The library files are now committed and the pattern can no longer re-trap them.
+
 ## [0.2.0] - 2026-06-11
 
 ### Added
