@@ -33,6 +33,7 @@
     "apca-w3": "0.1.9",
     "culori": "4.0.2",
     "reveal.js": "6.0.1",
-    "style-dictionary": "5.4.4"
+    "style-dictionary": "5.4.4",
+    "stylelint": "17.13.0"
   }
 }
