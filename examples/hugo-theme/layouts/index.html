@@ -1,0 +1,48 @@
+{{ define "main" }}
+<section class="hero wrap wrap-wide">
+  <h1>{{ with .Params.hero }}{{ .heading | default $.Title }}{{ else }}{{ .Title }}{{ end }}</h1>
+  {{ with .Params.hero }}
+  <p>{{ .lead }}</p>
+  <div class="actions">
+    {{ range .actions }}<a class="btn {{ .style }}" href="{{ .url }}">{{ .label }}</a>{{ end }}
+  </div>
+  {{ end }}
+</section>
+
+{{ with .Params.features }}
+<section class="features wrap wrap-wide">
+  {{ range . }}
+  <div class="card">
+    <h3>{{ .title }}</h3>
+    <p>{{ .body | safeHTML }}</p>
+  </div>
+  {{ end }}
+</section>
+{{ end }}
+
+{{ with .Params.stats }}
+<section class="stats">
+  <div class="bar wrap wrap-wide">
+    {{ range . }}<dl class="stat"><dt>{{ .label }}</dt><dd>{{ .value }}</dd></dl>{{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.signup }}
+<section class="signup wrap">
+  <h2>{{ .heading | default "Request access" }}</h2>
+  <form>
+    <div class="field">
+      <label for="name">Full name</label>
+      <input id="name" type="text" placeholder="Jane Doe">
+    </div>
+    <div class="field">
+      <label for="email">Work email</label>
+      <input id="email" type="email" placeholder="jane@firm.com">
+    </div>
+    <button class="btn primary" type="button">{{ .button | default "Request access" }}</button>
+  </form>
+  {{ with .notice }}<div class="notice">{{ . }}</div>{{ end }}
+</section>
+{{ end }}
+{{ end }}

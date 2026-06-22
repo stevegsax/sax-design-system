@@ -1,0 +1,6 @@
+<footer class="site">
+  <div class="bar wrap wrap-wide">
+    <p>&copy; {{ now.Year }} {{ site.Title }}. All rights reserved.</p>
+    <p>{{ range $i, $l := site.Params.footer_links }}{{ if $i }} &middot; {{ end }}<a href="{{ $l.url }}">{{ $l.label }}</a>{{ end }}</p>
+  </div>
+</footer>

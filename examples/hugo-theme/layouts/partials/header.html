@@ -1,0 +1,10 @@
+<header class="site">
+  <div class="bar wrap wrap-wide">
+    <a class="brand" href="{{ "" | relURL }}"><img src="{{ "img/sax-logo-symbol.svg" | relURL }}" alt="">{{ site.Title }}</a>
+    <span class="links">
+      {{ range site.Menus.main }}<a href="{{ .URL | relLangURL }}">{{ .Name }}</a>{{ end }}
+    </span>
+    {{ with site.Params.signin_url }}<a class="btn secondary" href="{{ . }}">Sign in</a>{{ end }}
+    {{ with site.Params.cta_url }}<a class="btn primary" href="{{ . }}">{{ site.Params.cta_label | default "Open an account" }}</a>{{ end }}
+  </div>
+</header>

@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="page-head">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with (.Description | default .Params.subtitle) }}<p class="page-sub">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ range .Pages.ByDate.Reverse }}
+  <article class="post-card">
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }} &middot; {{ .ReadingTime }} min read</p>
+    {{ with .Params.tags }}
+    <div class="tags">{{ range . }}<a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relLangURL }}">{{ . }}</a>{{ end }}</div>
+    {{ end }}
+    {{ .Summary }}
+    {{ if .Truncated }}<p><a href="{{ .RelPermalink }}">Read more &rarr;</a></p>{{ end }}
+  </article>
+  {{ else }}
+  <p class="page-sub">No posts yet.</p>
+  {{ end }}
+</div>
+{{ end }}

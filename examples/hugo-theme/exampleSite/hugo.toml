@@ -1,0 +1,39 @@
+baseURL = "https://www.saxcapital.example/"
+defaultContentLanguage = "en"
+title = "SAX Capital"
+theme = "hugo-theme"
+
+[languages.en]
+locale = "en-us"
+
+[params]
+description = "Systematic strategies with rigorous risk controls."
+signin_url = "#"
+cta_url = "#"
+cta_label = "Open an account"
+
+[[params.footer_links]]
+label = "Disclosures"
+url = "#"
+[[params.footer_links]]
+label = "Privacy"
+url = "#"
+
+[[menu.main]]
+name = "Strategies"
+url = "#"
+weight = 10
+[[menu.main]]
+name = "Research Notes"
+url = "/blog/"
+weight = 20
+[[menu.main]]
+name = "About"
+url = "#"
+weight = 30
+
+[taxonomies]
+tag = "tags"
+
+[markup.goldmark.renderer]
+unsafe = true
