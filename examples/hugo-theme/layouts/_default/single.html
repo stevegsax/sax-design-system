@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="post wrap">
+  <header class="post-header">
+    <h1>{{ .Title }}</h1>
+    <p class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} &middot; {{ . }}{{ end }} &middot; {{ .ReadingTime }} min read</p>
+    {{ with .Params.tags }}
+    <div class="tags">{{ range . }}<a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relLangURL }}">{{ . }}</a>{{ end }}</div>
+    {{ end }}
+  </header>
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  <p class="post-footer">
+    {{ with .Params.tags }}Filed under {{ delimit . ", " }} &middot; {{ end }}<a href="{{ with .Parent }}{{ .RelPermalink }}{{ end }}">&larr; All research notes</a>
+  </p>
+</article>
+{{ end }}
