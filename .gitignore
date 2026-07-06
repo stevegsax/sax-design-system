@@ -67,3 +67,10 @@ node_modules/
 # Token build output is committed: git-dependency consumers install prebuilt CSS
 !dist/
 !dist/**
+
+# Storybook / visual regression
+storybook-static/
+test-results/
+playwright-report/
+# Baseline screenshots must survive the global *.png rule above
+!tests/visual/**/*.png
