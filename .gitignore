@@ -49,7 +49,7 @@ ocr-output.txt
 .python-version
 
 sample-flows/**/*.svg
-.DS_Store
+**/.DS_Store
 
 # Runtime artifacts
 .coverage
