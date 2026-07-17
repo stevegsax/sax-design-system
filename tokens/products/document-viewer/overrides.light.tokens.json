@@ -1,0 +1,4 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "document-viewer light-mode overrides: none in v1 (uses the shared light semantics)."
+}

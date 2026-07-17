@@ -1,0 +1,38 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Elevation (box-shadow) effect roles. Mode-agnostic on purpose: a shadow token must resolve to the SAME value in light and dark, because the build wraps only differing values in light-dark(), which is a color function and cannot wrap a composite box-shadow string. The shadow color is a translucent near-black (an effect parameter, not a palette hue).",
+  "elevation": {
+    "$type": "shadow",
+    "sm": {
+      "$description": "Subtle raise for resting surfaces (cards, chips).",
+      "$value": [
+        {
+          "color": { "colorSpace": "oklch", "components": [0, 0, 0], "alpha": 0.12, "hex": "#000000" },
+          "offsetX": { "value": 0, "unit": "px" },
+          "offsetY": { "value": 1, "unit": "px" },
+          "blur": { "value": 2, "unit": "px" },
+          "spread": { "value": 0, "unit": "px" }
+        }
+      ]
+    },
+    "md": {
+      "$description": "Floating surfaces (toolbars, popovers, toasts, selection bar).",
+      "$value": [
+        {
+          "color": { "colorSpace": "oklch", "components": [0, 0, 0], "alpha": 0.16, "hex": "#000000" },
+          "offsetX": { "value": 0, "unit": "px" },
+          "offsetY": { "value": 2, "unit": "px" },
+          "blur": { "value": 8, "unit": "px" },
+          "spread": { "value": 0, "unit": "px" }
+        },
+        {
+          "color": { "colorSpace": "oklch", "components": [0, 0, 0], "alpha": 0.12, "hex": "#000000" },
+          "offsetX": { "value": 0, "unit": "px" },
+          "offsetY": { "value": 1, "unit": "px" },
+          "blur": { "value": 2, "unit": "px" },
+          "spread": { "value": 0, "unit": "px" }
+        }
+      ]
+    }
+  }
+}

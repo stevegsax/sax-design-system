@@ -96,6 +96,10 @@ The preferred tier for consumers. Every component token is a reference into the 
 
 | Token | CSS custom property | References |
 | --- | --- | --- |
+| `annotation.highlight` | `--annotation-highlight` | `{color.highlight.90}` |
+| `annotation.selected` | `--annotation-selected` | `{color.marker.70}` |
+| `annotation.selection-bar-surface` | `--annotation-selection-bar-surface` | `{color.neutral.20}` |
+| `annotation.selection-bar-text` | `--annotation-selection-bar-text` | `{color.neutral.98}` |
 | `button.label-font` | `--button-label-font` | `{typography.label}` |
 | `button.padding-block` | `--button-padding-block` | `{space.xs}` |
 | `button.padding-inline` | `--button-padding-inline` | `{space.md}` |

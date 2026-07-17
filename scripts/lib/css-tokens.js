@@ -7,7 +7,7 @@ const ROOT = path.resolve(import.meta.dirname, '..', '..');
 
 // Primitive tiers stay out of the deployable CSS: consumers use component
 // tokens first, semantic tokens as a fallback, never raw scale steps.
-const RAMPS = new Set(['neutral', 'brand', 'success', 'warning', 'danger']);
+const RAMPS = new Set(['neutral', 'brand', 'success', 'warning', 'danger', 'highlight', 'marker']);
 
 export const isPrimitive = (token) =>
   (token.path[0] === 'color' && RAMPS.has(token.path[1])) ||
@@ -40,6 +40,9 @@ export async function cssTokensFor(product, mode) {
           'dimension/css',
           transforms.fontFamilyCss,
           transforms.typographyCssShorthand,
+          // Composite box-shadow tokens ($type: shadow) → CSS shorthand; the
+          // built-in transform resolves and OKLCH-formats the shadow color.
+          transforms.shadowCssShorthand,
         ],
       },
     },

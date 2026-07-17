@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
-  "name": "blog-page-dark",
+  "name": "document-viewer-light",
   "description": "Generated from config/matrix.json by scripts/generate-resolvers.sh. Do not edit by hand.",
   "version": "2025.10",
   "sets": {
@@ -20,7 +20,7 @@
     "semantic": {
       "sources": [
         {
-          "$ref": "../tokens/semantic/color.dark.tokens.json"
+          "$ref": "../tokens/semantic/color.light.tokens.json"
         },
         {
           "$ref": "../tokens/semantic/dimension.tokens.json"
@@ -49,10 +49,10 @@
     "product": {
       "sources": [
         {
-          "$ref": "../tokens/products/blog-page/overrides.tokens.json"
+          "$ref": "../tokens/products/document-viewer/overrides.tokens.json"
         },
         {
-          "$ref": "../tokens/products/blog-page/overrides.dark.tokens.json"
+          "$ref": "../tokens/products/document-viewer/overrides.light.tokens.json"
         }
       ]
     }

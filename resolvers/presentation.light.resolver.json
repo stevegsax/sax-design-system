@@ -27,6 +27,9 @@
         },
         {
           "$ref": "../tokens/semantic/typography.tokens.json"
+        },
+        {
+          "$ref": "../tokens/semantic/effect.tokens.json"
         }
       ]
     },

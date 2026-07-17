@@ -17,7 +17,8 @@
       "sources": [
         { "$ref": "../tokens/semantic/color.\($mode).tokens.json" },
         { "$ref": "../tokens/semantic/dimension.tokens.json" },
-        { "$ref": "../tokens/semantic/typography.tokens.json" }
+        { "$ref": "../tokens/semantic/typography.tokens.json" },
+        { "$ref": "../tokens/semantic/effect.tokens.json" }
       ]
     },
     "component": {

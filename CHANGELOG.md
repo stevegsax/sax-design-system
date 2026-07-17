@@ -6,6 +6,11 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ### Added
 
+- **`document-viewer` product** (`dist/document-viewer/tokens.css`) for the SAX PDF annotation viewer. v1 consumes the shared semantics unchanged (empty product overrides); the viewer-specific surface is carried by the new tokens below.
+- **`annotation.*` component color tokens** — `annotation.highlight` (highlighter yellow), `annotation.selected` (marker orange), `annotation.selection-bar-surface` / `annotation.selection-bar-text` (the floating selection action bar). Mode-agnostic: they sit on the theme-independent rendered page, and the consuming app applies its own translucency/blend.
+- **`highlight` (OKLCH hue 104) and `marker` (hue 63) primitive ramps** in `config/ramps.json`, backing the annotation marks; `scripts/lib/css-tokens.js` recognizes both as primitive so their raw steps stay out of `dist`.
+- **`elevation.sm` / `elevation.md` shadow tokens** (`tokens/semantic/effect.tokens.json`, `$type: shadow`) — the design system's first effect tier. `scripts/lib/css-tokens.js` now wires Style Dictionary's `shadow/css/shorthand` transform so composite box-shadows emit as CSS. Shadows are mode-agnostic by contract (a `light-dark()` wrapper cannot wrap a box-shadow string); their color is a translucent near-black effect parameter.
+- Because the component and effect tiers are shared, the existing products (`product-home-page`, `blog-page`, `presentation`) also now carry `--annotation-*` and `--elevation-*` custom properties — additive, no value changes to their existing tokens.
 - Storybook token catalog (`npm run storybook`) rendering every custom property from each product's built `tokens.css`, light and dark side by side, and a Playwright visual regression harness (`npm run test:visual`) that screenshots each catalog story against committed baselines. Baselines are platform-suffixed; regenerate intentionally with `npm run test:visual:update` after reviewing the diff in `test-results/`.
 
 - README section documenting how to reuse this repo as the starting point for a new design system: clone with this repo as `upstream`, set a new `origin`, disable upstream push, and `git pull upstream main` for pipeline improvements over time.

@@ -22,6 +22,7 @@
     { "foreground": "color.text.link", "background": "color.background.inset", "minLc": 60, "usage": "syntax title/function on inset" },
     { "foreground": "color.status.success.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax string on inset" },
     { "foreground": "color.status.warning.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax number on inset" },
-    { "foreground": "color.status.danger.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax keyword on inset" }
+    { "foreground": "color.status.danger.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax keyword on inset" },
+    { "foreground": "annotation.selection-bar-text", "background": "annotation.selection-bar-surface", "minLc": 75, "usage": "document-viewer selection action bar label" }
   ]
 }

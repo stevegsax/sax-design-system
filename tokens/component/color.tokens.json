@@ -31,5 +31,13 @@
     "$type": "color",
     "text": { "$value": "{color.text.link}" },
     "text-hover": { "$value": "{color.accent.active}" }
+  },
+  "annotation": {
+    "$type": "color",
+    "$description": "Document-annotation marks for the document-viewer product. These sit on the rendered page, which is theme-independent, so each references a mode-agnostic marker ramp and stays identical in light and dark; the consuming app applies its own translucency/blend.",
+    "highlight": { "$value": "{color.highlight.90}" },
+    "selected": { "$value": "{color.marker.70}" },
+    "selection-bar-surface": { "$value": "{color.neutral.20}" },
+    "selection-bar-text": { "$value": "{color.neutral.98}" }
   }
 }
