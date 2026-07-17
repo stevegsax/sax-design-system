@@ -4,6 +4,16 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-07-17
+
+### Fixed
+
+- The `effect`/shadow tier shipped in `tokens.css` but was invisible to the README generator and the Storybook catalog (both are category-aware), so `elevation.*` was absent from the docs and had no catalog preview while `annotation.*` appeared. `scripts/build-docs.js` now emits an Effect table; `stories/lib/catalog.js` gains an `effect` section, a shadow swatch renderer, and the `document-viewer` product, and every product gets an Effect story plus a `document-viewer` catalog page.
+
+### Added
+
+- `CLAUDE.md` "Extending the system" checklist — every file to touch when adding a token type, tier file, prefix, or product, so a new category can't be left out of the README lists and the catalog again (the three-surface definition of done: `dist` + README + catalog).
+
 ## [0.3.0] - 2026-07-17
 
 ### Added
