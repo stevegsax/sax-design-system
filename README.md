@@ -203,6 +203,15 @@ Composite roles; the table shows the scale positions each role draws from. All u
 | `typography.caption` | `--typography-caption` | `{font.size.100}` | `{font.weight.regular}` | `{font.line-height.snug}` |
 | `typography.code` | `--typography-code` | `{font.size.200}` | `{font.weight.regular}` | `{font.line-height.normal}` |
 
+### Effect
+
+Composite box-shadows (`$type: shadow`). Mode-agnostic — identical in light and dark, because `light-dark()` cannot wrap a box-shadow string. The color is a translucent near-black; the table shows each layer's `offsetX offsetY blur spread @alpha`.
+
+| Token | CSS custom property | Layers |
+| --- | --- | --- |
+| `elevation.sm` | `--elevation-sm` | `0px 1px 2px 0px @12%` |
+| `elevation.md` | `--elevation-md` | `0px 2px 8px 0px @16% + 0px 1px 2px 0px @12%` |
+
 <!-- /generated:semantic-tokens -->
 
 ## Color model

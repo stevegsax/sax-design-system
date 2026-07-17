@@ -21,6 +21,14 @@ const light = leaves(load('semantic', 'color.light.tokens.json'));
 const dark = new Map(leaves(load('semantic', 'color.dark.tokens.json')));
 const dimension = leaves(load('semantic', 'dimension.tokens.json'));
 const typography = leaves(load('semantic', 'typography.tokens.json'));
+const effect = leaves(load('semantic', 'effect.tokens.json'));
+
+/** One shadow layer -> "offsetX offsetY blur spread @alpha% black" for docs. */
+const dim = (d) => `${d.value}${d.unit}`;
+const shadowLayer = (l) =>
+  `${dim(l.offsetX)} ${dim(l.offsetY)} ${dim(l.blur)} ${dim(l.spread)} @${Math.round(l.color.alpha * 100)}%`;
+const formatShadow = (value) =>
+  (Array.isArray(value) ? value : [value]).map(shadowLayer).join(' + ');
 
 const component = ['color', 'dimension', 'typography']
   .flatMap((type) => leaves(load('component', `${type}.tokens.json`)))
@@ -34,6 +42,7 @@ const typographyRows = typography.map(
   ([p, v]) =>
     `| \`${p}\` | \`${cssVar(p)}\` | \`${v.fontSize}\` | \`${v.fontWeight}\` | \`${v.lineHeight}\` |`,
 );
+const effectRows = effect.map(([p, v]) => `| \`${p}\` | \`${cssVar(p)}\` | \`${formatShadow(v)}\` |`);
 
 const componentRows = component.map(([p, v]) => `| \`${p}\` | \`${cssVar(p)}\` | \`${v}\` |`);
 
@@ -58,6 +67,14 @@ Composite roles; the table shows the scale positions each role draws from. All u
 | Token | CSS custom property | Size | Weight | Line height |
 | --- | --- | --- | --- | --- |
 ${typographyRows.join('\n')}
+
+### Effect
+
+Composite box-shadows (\`$type: shadow\`). Mode-agnostic — identical in light and dark, because \`light-dark()\` cannot wrap a box-shadow string. The color is a translucent near-black; the table shows each layer's \`offsetX offsetY blur spread @alpha\`.
+
+| Token | CSS custom property | Layers |
+| --- | --- | --- |
+${effectRows.join('\n')}
 `;
 
 const componentSection = `
@@ -81,5 +98,5 @@ for (const [name, body] of [
 }
 writeFileSync(README, readme);
 console.log(
-  `README.md token lists regenerated (${light.length} semantic color, ${dimension.length} dimension, ${typography.length} typography, ${component.length} component)`,
+  `README.md token lists regenerated (${light.length} semantic color, ${dimension.length} dimension, ${typography.length} typography, ${effect.length} effect, ${component.length} component)`,
 );

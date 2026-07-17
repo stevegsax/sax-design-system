@@ -10,11 +10,13 @@
 import blogCss from '../../dist/blog-page/tokens.css?raw';
 import presentationCss from '../../dist/presentation/tokens.css?raw';
 import homeCss from '../../dist/product-home-page/tokens.css?raw';
+import documentViewerCss from '../../dist/document-viewer/tokens.css?raw';
 
 const PRODUCT_CSS = {
   'product-home-page': homeCss,
   'blog-page': blogCss,
   presentation: presentationCss,
+  'document-viewer': documentViewerCss,
 };
 
 /** Flatten `--name: value;` declarations out of a tokens.css string. */
@@ -36,12 +38,16 @@ const SECTION_FILTERS = {
   typography: ({ name }) => name.startsWith('--typography-'),
   dimension: ({ name }) =>
     name.startsWith('--space-') || name.startsWith('--radius-') || name.startsWith('--border-width-'),
+  effect: ({ name }) => name.startsWith('--elevation-'),
 };
 const CLAIMED = Object.values(SECTION_FILTERS);
 SECTION_FILTERS.component = (v) => !CLAIMED.some((match) => match(v));
 
 /** Classify a raw CSS value so component tokens pick the right renderer. */
 export function valueKind(value) {
+  // Composite box-shadow: length tokens followed by a color. Checked before
+  // the color test, which only matches a value that STARTS with a color.
+  if (/\dpx\b/.test(value) && /(oklch|rgb|#|light-dark)/.test(value)) return 'shadow';
   if (/^(light-dark|oklch|rgb|#)/.test(value)) return 'color';
   if (/^\d{3}\s/.test(value)) return 'font';
   if (/^-?[\d.]+(rem|px|em)$/.test(value)) return 'dimension';
@@ -71,6 +77,11 @@ const renderers = {
       <code class="tc-name">${name}</code>
     </div>`;
   },
+  shadow: ({ name }) => `
+    <div class="tc-item">
+      <div class="tc-shadow" style="box-shadow: var(${name})"></div>
+      <code class="tc-name">${name}</code>
+    </div>`,
   other: ({ name, value }) => `
     <div class="tc-item tc-wide">
       <code class="tc-value">${value}</code>
@@ -102,6 +113,12 @@ const CHROME_CSS = `
     border: 1px solid var(--color-border-default);
   }
   .tc-bar { height: 12px; background: var(--color-accent-default); }
+  .tc-shadow {
+    height: 40px;
+    margin: 8px;
+    border-radius: 6px;
+    background: var(--color-background-surface);
+  }
   .tc-radius {
     width: 48px;
     height: 48px;
