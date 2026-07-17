@@ -4,6 +4,8 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-17
+
 ### Added
 
 - **`document-viewer` product** (`dist/document-viewer/tokens.css`) for the SAX PDF annotation viewer. v1 consumes the shared semantics unchanged (empty product overrides); the viewer-specific surface is carried by the new tokens below.
