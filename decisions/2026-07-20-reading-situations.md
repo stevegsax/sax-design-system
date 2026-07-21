@@ -1,5 +1,5 @@
 ---
-status: Approved
+status: Approved (v0.4.0)
 date: 2026-07-20
 requested-by: Steven Greenberg with Claude (grill session reorganize-usage-scenarios), sax-design-system
 ---

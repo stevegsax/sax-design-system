@@ -1,5 +1,5 @@
 ---
-status: Approved
+status: Approved (v0.4.0)
 date: 2026-07-19
 requested-by: Claude (sax-designer capability build), sax-design-system
 ---

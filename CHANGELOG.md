@@ -4,6 +4,8 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-21
+
 Migration for v0.3.x consumers: see "Migrating from v0.3.x" in the README — two import lines, one `data-situation` attribute, rendering verified identical to the old per-product builds.
 
 ### Changed — breaking
