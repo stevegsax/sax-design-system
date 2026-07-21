@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-situation="presentation">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,17 +81,17 @@
           <tr><td>Non-text</td><td>45</td><td>Focus rings, indicators</td></tr>
         </tbody>
       </table>
-      <p class="muted">Every pairing in <code>config/contrast-pairs.json</code>, checked per product &times; mode.</p>
+      <p class="muted">Every pairing in <code>config/contrast-pairs.json</code>, checked per situation &times; mode.</p>
     </section>
 
     <section>
       <h2>The pipeline</h2>
       <pre><code data-trim class="language-plaintext">npm run build
-  1 generate:resolvers   product x mode matrix -> 6 resolvers
+  1 generate:resolvers   situation x mode matrix -> 12 resolvers
   2 validate             ajv vs official DTCG schemas
   3 check:color          hex sync + APCA gates
-  4 build:tokens         light-dark() CSS per product
-  5-8 previews           catalog, home, blog, this deck</code></pre>
+  4 build:tokens         one stylesheet: base + situation deltas
+  5-9 previews           base.css, catalogs, samples, this deck</code></pre>
     </section>
 
     <section>
@@ -114,7 +114,7 @@ console.log(`accent = ${accent}`, 0xff);</code></pre>
         <p class="muted">More below &darr;</p>
       </section>
       <section>
-        <h3>This product: <code>presentation</code></h3>
+        <h3>This situation: <code>presentation</code></h3>
         <p>One override: dark-mode page is <strong>true black</strong> for projectors and OLED.</p>
         <pre><code data-trim class="language-json">{
   "background": {
@@ -126,7 +126,7 @@ console.log(`accent = ${accent}`, 0xff);</code></pre>
 
     <section>
       <h1>Questions?</h1>
-      <p><a href="preview.html">Token catalog</a> &middot; <a href="https://www.designtokens.org/tr/2025.10/format/">DTCG spec</a></p>
+      <p><a href="../preview/presentation.html">Token catalog</a> &middot; <a href="https://www.designtokens.org/tr/2025.10/format/">DTCG spec</a></p>
     </section>
 
   </div>

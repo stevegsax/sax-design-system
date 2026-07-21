@@ -24,5 +24,17 @@
     "default": { "$value": "{dimension.line.1}" },
     "thick": { "$value": "{dimension.line.2}" },
     "focus": { "$value": "{dimension.line.2}" }
+  },
+  "container": {
+    "$type": "dimension",
+    "$description": "Page-level content measure; situations remap max per reading ergonomics.",
+    "max": { "$value": "{dimension.container.56}" },
+    "gutter": { "$value": "{space.lg}" }
+  },
+  "rhythm": {
+    "$type": "dimension",
+    "$description": "Prose rhythm roles (paragraph flow, section separation). Situations vary these instead of remapping the space scale: prose density and control density are different dials.",
+    "flow": { "$value": "{dimension.scale.4}" },
+    "section": { "$value": "{dimension.scale.12}" }
   }
 }

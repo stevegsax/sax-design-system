@@ -6,18 +6,21 @@
       "page": { "$value": "{color.neutral.10}" },
       "surface": { "$value": "{color.neutral.15}" },
       "surface-raised": { "$value": "{color.neutral.20}" },
-      "inset": { "$value": "{color.neutral.5}" }
+      "inset": { "$value": "{color.neutral.5}" },
+      "disabled": { "$value": "{color.neutral.20}" }
     },
     "text": {
       "heading": { "$value": "{color.neutral.95}" },
       "body": { "$value": "{color.neutral.90}" },
       "muted": { "$value": "{color.neutral.80}" },
+      "disabled": { "$value": "{color.neutral.50}" },
       "on-accent": { "$value": "{color.brand.15}" },
       "link": { "$value": "{color.brand.80}" }
     },
     "border": {
       "default": { "$value": "{color.neutral.30}" },
       "strong": { "$value": "{color.neutral.50}" },
+      "disabled": { "$value": "{color.neutral.30}" },
       "focus": { "$value": "{color.brand.80}" }
     },
     "accent": {

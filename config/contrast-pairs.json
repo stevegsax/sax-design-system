@@ -1,5 +1,5 @@
 {
-  "$description": "APCA Readability Criterion gates, checked for every product x mode resolver. minLc thresholds follow ARC Bronze: 75 body text, 60 large/heading and UI labels, 45 non-text indicators.",
+  "$description": "APCA Readability Criterion gates, checked for base plus every situation x mode resolver. minLc thresholds follow ARC Bronze: 75 body text, 60 large/heading and UI labels, 45 non-text indicators. Disabled-state pairings are deliberately absent: disabled controls are exempt per decisions/2026-07-19-disabled-state.md.",
   "pairs": [
     { "foreground": "color.text.body", "background": "color.background.page", "minLc": 75, "usage": "body text on page" },
     { "foreground": "color.text.body", "background": "color.background.surface", "minLc": 75, "usage": "body text on surface" },
@@ -23,6 +23,6 @@
     { "foreground": "color.status.success.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax string on inset" },
     { "foreground": "color.status.warning.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax number on inset" },
     { "foreground": "color.status.danger.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax keyword on inset" },
-    { "foreground": "annotation.selection-bar-text", "background": "annotation.selection-bar-surface", "minLc": 75, "usage": "document-viewer selection action bar label" }
+    { "foreground": "annotation.selection-bar-text", "background": "annotation.selection-bar-surface", "minLc": 75, "usage": "annotation selection action bar label" }
   ]
 }

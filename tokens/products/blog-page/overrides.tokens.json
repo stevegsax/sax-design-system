@@ -1,8 +1,0 @@
-{
-  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "blog-page mode-agnostic overrides: denser UI relies on visible borders.",
-  "card": {
-    "$type": "color",
-    "border": { "$value": "{color.border.strong}" }
-  }
-}

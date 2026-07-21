@@ -1,5 +1,5 @@
 {
-  "$description": "Product x mode matrix. resolvers/ and dist/ are generated from this file; do not hand-edit resolvers.",
-  "products": ["product-home-page", "blog-page", "presentation", "document-viewer"],
+  "$description": "Situation x mode matrix (ADR 2026-07-20-reading-situations). resolvers/ and dist/ are generated from this file; do not hand-edit resolvers.",
+  "situations": ["literary", "documentation", "marketing", "presentation", "application"],
   "modes": ["light", "dark"]
 }

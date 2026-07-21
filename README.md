@@ -1,6 +1,6 @@
 # sax-design-system
 
-This repository is the SAX Capital design system: one versioned source for the colors, spacing, and typography shared by SAX products. Each design decision is recorded once as a design token — a named value like `color.text.heading` — in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/) JSON, and [Style Dictionary v5](https://styledictionary.com/) transforms those tokens into one deployable CSS file per product. Products pin a version of this package, so a change made here (a palette adjustment, a new spacing step) reaches every product on its next dependency update, with accessibility verified by the build before anything ships.
+This repository is the SAX Capital design system: one versioned source for the colors, spacing, and typography shared by SAX products. Each design decision is recorded once as a design token — a named value like `color.text.heading` — in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/) JSON, and [Style Dictionary v5](https://styledictionary.com/) transforms those tokens into one deployable stylesheet serving five *reading situations* (see below). Products pin a version of this package, so a change made here (a palette adjustment, a new spacing step) reaches every product on its next dependency update, with accessibility verified by the build before anything ships.
 
 ## Using the tokens
 
@@ -12,13 +12,20 @@ Depend on this repository at a release tag — the tag is the version pin:
 }
 ```
 
-`dist/` is committed and prebuilt, so installing needs no toolchain. Import the stylesheet for your product:
+`dist/` is committed and prebuilt, so installing needs no toolchain. Import the system stylesheet and the base layer, then declare a reading situation:
 
 ```css
-@import '@sax/design-tokens/dist/product-home-page/tokens.css';
+@import '@sax/design-tokens/dist/tokens.css';
+@import '@sax/design-tokens/dist/base.css';
 ```
 
-Style with the custom properties it defines. Reach for **component tokens** first; where none exists for your case, fall back to **semantic tokens**:
+```html
+<body data-situation="application">
+```
+
+Every page declares its primary situation on `<body>` (or `<html>`); any region may re-scope with its own `data-situation`. A page that declares none renders deliberately, unmistakably broken — an unclassified page is a bug, not a default. `base.css` provides the reset and classless element styles (scoped to declared situations; unlayered consumer rules always win); `tokens.css` is custom properties only and never changes rendering by itself.
+
+Style with the custom properties. Reach for **component tokens** first; where none exists for your case, fall back to **semantic tokens**:
 
 ```css
 .confirm-button {
@@ -44,7 +51,74 @@ Rules of the road:
 - Typography tokens are CSS `font` shorthand values: `font: var(--typography-body)`.
 - Light and dark mode need no code: every color is a `light-dark()` pair and the stylesheet sets `color-scheme: light dark`, so the browser follows the OS/page preference. To force a mode on a subtree, set `color-scheme: light` (or `dark`) on its container.
 - Releases follow semver: palette value changes are patch/minor; renaming or removing a token is a breaking change. Move your pin deliberately.
-- See `dist/<product>/preview.html` for a rendered catalog of every available token.
+- See `dist/preview/<situation>.html` for a rendered catalog of every token as that situation resolves it, `dist/index.html` for the situations index, and `dist/mixing.html` for several situations coexisting on one page.
+
+## Reading situations
+
+The consumption axis is the *reading situation* — how the user reads the page, not which product renders it ([ADR](decisions/2026-07-20-reading-situations.md)):
+
+| Situation | Reading behavior | Sample |
+| --- | --- | --- |
+| `literary` | Linear long-form reading; book measure; links de-emphasized until hover | `dist/samples/literary.html` |
+| `documentation` | Skim and jump; airier rhythm; visible links, lists, code, tables | `dist/samples/documentation.html` |
+| `marketing` | Visual impact; wide stage; engagement over density | `dist/samples/marketing.html` |
+| `presentation` | One idea per surface; reveal.js kit; true-black dark | `dist/presentation/presentation.html` |
+| `application` | Dense, interactive tool chrome: forms, tables, navigation | `dist/samples/application.html` |
+
+One stylesheet serves all five: `tokens.css` holds a base `:root` block plus one small delta block per situation under `[data-situation="…"]`. Situations may remap only the roles in the situation contract (page/inset backgrounds, `card.border`, `container.*`, `rhythm.*`, typography leading); everything else — brand hue, status colors, control styling, the spacing scale — is identity and stays uniform. Mixing is per-region: wrap any element in `data-situation` and its subtree re-resolves.
+
+## Migrating from v0.3.x
+
+v0.3.x shipped one stylesheet per product (`dist/<product>/tokens.css`); those files no longer exist. Three steps restore your exact previous rendering:
+
+1. **Replace the import.** One old import line becomes two:
+
+   ```css
+   /* before */
+   @import '@sax/design-tokens/dist/product-home-page/tokens.css';
+   /* after */
+   @import '@sax/design-tokens/dist/tokens.css';
+   @import '@sax/design-tokens/dist/base.css';
+   ```
+
+2. **Declare the situation your product's old stylesheet mapped to** on `<body>` (or `<html>`):
+
+   | v0.3.x import | Declare |
+   | --- | --- |
+   | `dist/product-home-page/tokens.css` | `data-situation="marketing"` |
+   | `dist/blog-page/tokens.css` | `data-situation="literary"` |
+   | `dist/presentation/tokens.css` | `data-situation="presentation"` (on `<html>`; see below) |
+   | `dist/document-viewer/tokens.css` | `data-situation="application"` |
+
+3. **Verify.** Open the page: a magenta striped banner means the attribute is missing (that failure is deliberate). Compare against `dist/samples/` if anything looks off.
+
+No `var()` usage changes: every v0.3.x custom property still exists, and under the mapped situation each one resolves to the identical value your old product stylesheet shipped (verified against the v0.3.1 builds during this release). The values your product build used to bake in — blog's tinted page, home's pure white — now live in the situation's delta block, which is why the attribute is not optional: with `base.css` a missing attribute renders loudly broken, and without `base.css` it silently drifts to the base values.
+
+Notes:
+
+- `base.css` also carries a reset and classless element styles, all inside `@layer`, so your existing unlayered CSS always wins. Keep your own reset through the migration and delete it at leisure.
+- **Presentation decks:** re-copy the kit directory (it still carries its own `tokens.css`) and add `data-situation="presentation"` to `<html>` — without it the true-black dark page is gone. Stylesheet link order is unchanged.
+- Token previews moved from `dist/<product>/preview.html` to `dist/preview/<situation>.html`.
+- If you copied the `sax-designer` skill, re-copy it after moving the pin (see below).
+- New in this version, adopt when convenient: `--container-max`/`--container-gutter` (replace hardcoded page measures), `--rhythm-flow`/`--rhythm-section`, and the disabled-state tokens (`--button-disabled-*`, `--input-disabled-*`, `--color-text-disabled`, …).
+
+### Designing mockups (sax-designer skill)
+
+The package ships a Claude Code skill that turns design requests ("design a
+settings page", "add a collapsible sidebar") into token-compliant HTML mockups
+in your product repo. One-time setup, repeated whenever you move the version pin:
+
+```sh
+mkdir -p .claude/skills
+cp -R node_modules/@sax/design-tokens/.claude/skills/sax-designer .claude/skills/
+```
+
+Mockups land in `mockups/<slug>/index.html`, styled only by the token custom
+properties, and open in your browser. When a design needs a token, pattern, or
+standard the system lacks, the skill styles the gap provisionally, files an ADR
+to this repository (`decisions/`), and moves on; a design review here approves
+and releases the change, after which the product bumps its pin and the
+provisional styling is replaced.
 
 ### Presentations
 
@@ -57,7 +131,7 @@ Rules of the road:
 <link rel="stylesheet" href="theme.css">
 ```
 
-`theme.css` follows reveal.js's [theme-authoring convention](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md): a `:root` block of `--r-*` settings mapped to token custom properties, applied across the elements reveal's template covers (headings `h1`–`h6`, lists, code, blockquote, tables, selection, controls). For syntax-highlighted code, the kit also ships reveal's highlight plugin (`highlight.js`) with a token-driven highlight.js theme (`highlight.css`) — link it after `theme.css`, load the plugin, and register `RevealHighlight`. `dist/presentation/presentation.html` is a sample deck built this way. For the design decisions behind the theme — and how to verify a change by rendering — see `tokens/products/presentation/README.md`.
+The deck must declare `data-situation="presentation"` on `<html>` — the situation's token deltas (including the true-black dark page) are scoped to that attribute. `theme.css` follows reveal.js's [theme-authoring convention](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md): a `:root` block of `--r-*` settings mapped to token custom properties, applied across the elements reveal's template covers (headings `h1`–`h6`, lists, code, blockquote, tables, selection, controls). For syntax-highlighted code, the kit also ships reveal's highlight plugin (`highlight.js`) with a token-driven highlight.js theme (`highlight.css`) — link it after `theme.css`, load the plugin, and register `RevealHighlight`. `dist/presentation/presentation.html` is a sample deck built this way. For the design decisions behind the theme — and how to verify a change by rendering — see `tokens/situations/presentation/README.md`.
 
 ### Hugo theme
 
@@ -70,15 +144,23 @@ Rules of the road:
 │   ├── primitive/           OKLCH tonal ramps (color generated from config/ramps.json), spacing/type scales, font stacks
 │   ├── semantic/            Role tokens: color per mode (light, dark); dimension and typography mode-agnostic
 │   ├── component/           Component tokens, mode-agnostic, reference semantic roles
-│   └── products/<name>/     Override sets per product (common + per-mode)
+│   └── situations/<name>/   Override sets per reading situation (common + per-mode)
 ├── config/
 │   ├── ramps.json           Primitive color ramp spec (hue + chroma rule); generates primitive/color.tokens.json
-│   ├── matrix.json          Product × mode matrix; drives resolver generation
+│   ├── matrix.json          Situation × mode matrix; drives resolver generation
 │   └── contrast-pairs.json  APCA Lc gates checked on every build
+├── decisions/               ADRs — every style-system change is proposed and recorded here
+├── patterns/                Page-level pattern library shipped to consumers (ADR-gated)
 ├── resolvers/               Generated DTCG resolver documents (do not edit)
 ├── schemas/                 Vendored official DTCG 2025.10 JSON schemas
 ├── scripts/                 Resolver generation, build, color checks
-├── dist/<product>/          Generated CSS + preview/sample pages (committed; consumers install prebuilt)
+├── dist/                    Generated output (committed; consumers install prebuilt)
+│   ├── tokens.css           Base :root + per-situation [data-situation] delta blocks
+│   ├── base.css             Diagnostic, reset, and classless base layers
+│   ├── index.html           Situations index; mixing.html — several situations on one page
+│   ├── preview/             Token catalog per situation
+│   ├── samples/             Sample page per situation
+│   └── presentation/        Self-contained reveal.js kit
 └── examples/hugo-theme/     Hand-authored Hugo theme consuming tokens.css (not generated)
 ```
 
@@ -86,11 +168,11 @@ Rules of the road:
 
 Consumers use **component tokens** first (`--button-primary-background`), **semantic tokens** as a fallback (`--color-text-heading`), and never primitives — primitive ramps are excluded from the CSS output. Tokens are named by role, never by value.
 
-Overrides only remap references. A primitive change propagates everywhere because nothing redeclares palette values.
+Overrides (situation sets, mode files) only remap references. A primitive change propagates everywhere because nothing redeclares palette values.
 
 ## Component tokens
 
-The preferred tier for consumers. Every component token is a reference into the semantic tier, so component styling follows mode and product overrides automatically. Regenerated by `npm run build` (`build:docs`) from `tokens/component/` — do not edit by hand.
+The preferred tier for consumers. Every component token is a reference into the semantic tier, so component styling follows mode and situation overrides automatically. Regenerated by `npm run build` (`build:docs`) from `tokens/component/` — do not edit by hand.
 
 <!-- generated:component-tokens -->
 
@@ -100,6 +182,8 @@ The preferred tier for consumers. Every component token is a reference into the 
 | `annotation.selected` | `--annotation-selected` | `{color.marker.70}` |
 | `annotation.selection-bar-surface` | `--annotation-selection-bar-surface` | `{color.neutral.20}` |
 | `annotation.selection-bar-text` | `--annotation-selection-bar-text` | `{color.neutral.98}` |
+| `button.disabled.background` | `--button-disabled-background` | `{color.background.disabled}` |
+| `button.disabled.text` | `--button-disabled-text` | `{color.text.disabled}` |
 | `button.label-font` | `--button-label-font` | `{typography.label}` |
 | `button.padding-block` | `--button-padding-block` | `{space.xs}` |
 | `button.padding-inline` | `--button-padding-inline` | `{space.md}` |
@@ -120,6 +204,9 @@ The preferred tier for consumers. Every component token is a reference into the 
 | `input.border-focus` | `--input-border-focus` | `{color.border.focus}` |
 | `input.border-width` | `--input-border-width` | `{border-width.default}` |
 | `input.border-width-focus` | `--input-border-width-focus` | `{border-width.focus}` |
+| `input.disabled.background` | `--input-disabled-background` | `{color.background.disabled}` |
+| `input.disabled.border` | `--input-disabled-border` | `{color.border.disabled}` |
+| `input.disabled.text` | `--input-disabled-text` | `{color.text.disabled}` |
 | `input.label-font` | `--input-label-font` | `{typography.label}` |
 | `input.padding-block` | `--input-padding-block` | `{space.xs}` |
 | `input.padding-inline` | `--input-padding-inline` | `{space.sm}` |
@@ -134,7 +221,7 @@ The preferred tier for consumers. Every component token is a reference into the 
 
 ## Semantic tokens
 
-The fallback tier when no component token fits. Regenerated by `build:docs` from `tokens/semantic/` — do not edit by hand. See `dist/<product>/preview.html` for the rendered catalog.
+The fallback tier when no component token fits. Regenerated by `build:docs` from `tokens/semantic/` — do not edit by hand. See `dist/preview/<situation>.html` for the rendered catalog.
 
 <!-- generated:semantic-tokens -->
 
@@ -146,13 +233,16 @@ The fallback tier when no component token fits. Regenerated by `build:docs` from
 | `color.background.surface` | `--color-background-surface` | `{color.neutral.100}` | `{color.neutral.15}` |
 | `color.background.surface-raised` | `--color-background-surface-raised` | `{color.neutral.100}` | `{color.neutral.20}` |
 | `color.background.inset` | `--color-background-inset` | `{color.neutral.95}` | `{color.neutral.5}` |
+| `color.background.disabled` | `--color-background-disabled` | `{color.neutral.95}` | `{color.neutral.20}` |
 | `color.text.heading` | `--color-text-heading` | `{color.neutral.10}` | `{color.neutral.95}` |
 | `color.text.body` | `--color-text-body` | `{color.neutral.20}` | `{color.neutral.90}` |
 | `color.text.muted` | `--color-text-muted` | `{color.neutral.40}` | `{color.neutral.80}` |
+| `color.text.disabled` | `--color-text-disabled` | `{color.neutral.60}` | `{color.neutral.50}` |
 | `color.text.on-accent` | `--color-text-on-accent` | `{color.neutral.100}` | `{color.brand.15}` |
 | `color.text.link` | `--color-text-link` | `{color.brand.40}` | `{color.brand.80}` |
 | `color.border.default` | `--color-border-default` | `{color.neutral.80}` | `{color.neutral.30}` |
 | `color.border.strong` | `--color-border-strong` | `{color.neutral.60}` | `{color.neutral.50}` |
+| `color.border.disabled` | `--color-border-disabled` | `{color.neutral.80}` | `{color.neutral.30}` |
 | `color.border.focus` | `--color-border-focus` | `{color.brand.50}` | `{color.brand.80}` |
 | `color.accent.default` | `--color-accent-default` | `{color.brand.50}` | `{color.brand.80}` |
 | `color.accent.hover` | `--color-accent-hover` | `{color.brand.40}` | `{color.brand.90}` |
@@ -187,6 +277,10 @@ The fallback tier when no component token fits. Regenerated by `build:docs` from
 | `border-width.default` | `--border-width-default` | `{dimension.line.1}` |
 | `border-width.thick` | `--border-width-thick` | `{dimension.line.2}` |
 | `border-width.focus` | `--border-width-focus` | `{dimension.line.2}` |
+| `container.max` | `--container-max` | `{dimension.container.56}` |
+| `container.gutter` | `--container-gutter` | `{space.lg}` |
+| `rhythm.flow` | `--rhythm-flow` | `{dimension.scale.4}` |
+| `rhythm.section` | `--rhythm-section` | `{dimension.scale.12}` |
 
 ### Typography
 
@@ -219,7 +313,7 @@ Composite box-shadows (`$type: shadow`). Mode-agnostic — identical in light an
 - Palettes are OKLCH tonal ramps; step number = OKLCH lightness × 100.
 - The brand ramp is anchored to the SAX logo blue (`color.brand.anchor`, `#005A9C`, OKLCH hue 249.6). The anchor is a maximal-chroma blue, so the ramp's chroma curve follows the sRGB gamut ceiling: `min(0.17, gamut max)` at each lightness. Status ramps remain gamut-proportional at `min(0.17, 0.85 × gamut max)`.
 - Every color token carries the full structured value (`colorSpace`, `components`, `alpha`) plus a `hex` fallback; the build verifies the fallback matches the components.
-- Contrast is gated with [APCA](https://github.com/Myndex/apca-w3) per the [APCA Readability Criterion](https://readtech.org/ARC/): Lc 75 body text, 60 headings/labels, 45 non-text. Pairs are declared in `config/contrast-pairs.json` and checked for every product × mode.
+- Contrast is gated with [APCA](https://github.com/Myndex/apca-w3) per the [APCA Readability Criterion](https://readtech.org/ARC/): Lc 75 body text, 60 headings/labels, 45 non-text. Pairs are declared in `config/contrast-pairs.json` and checked for base plus every situation × mode. Disabled controls are exempt by recorded decision.
 
 ## Build
 
@@ -228,17 +322,17 @@ npm run build
 ```
 
 1. `check:ramps` — verifies `tokens/primitive/color.tokens.json` still matches `config/ramps.json`. Fails the build if a primitive color was hand-edited instead of regenerated.
-2. `generate:resolvers` — emits one resolver per cell of the product × mode matrix (jq, from `config/matrix.json`).
+2. `generate:resolvers` — emits one resolver per cell of the situation × mode matrix, plus `base.<mode>` resolvers for the shared resolution (jq, from `config/matrix.json`).
 3. `validate` — ajv validates token files against the DTCG format schema and resolvers against the resolver schema.
-4. `check:color` — hex-fallback consistency + APCA contrast gates. Fails the build on violation.
-5. `build:tokens` — one Style Dictionary build per resolver; each product's light and dark resolutions are merged into a single `dist/<product>/tokens.css` using `light-dark()` (no separate mode artifacts, no `prefers-color-scheme` blocks). Mode-invariant tokens (dimensions, typography) emit as plain values; typography composites emit as CSS `font` shorthand, e.g. `font: var(--typography-body)`.
-6. `build:preview` — emits `dist/<product>/preview.html`, a static page that renders every token: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
-7. `build:home` — emits `dist/product-home-page/home.html`, a sample marketing page built exclusively from the emitted custom properties; a realistic smoke test of the tokens in a real layout.
-8. `build:blog` — emits `dist/blog-page/blog.html`, a sample blog index with posts (tags, blockquote, code block) under the same constraint: token custom properties only.
-9. `build:presentation` — emits `dist/presentation/theme.css`, the reveal.js theme layer (maps reveal's `--r-*` variables onto the token custom properties and consumes them — reveal's own CSS is structure only), and `presentation.html`, a sample deck that links it. reveal.js is pinned and vendored from npm.
+4. `check:color` — hex-fallback consistency + APCA contrast gates, per base and situation × mode. Fails the build on violation.
+5. `build:tokens` — one Style Dictionary resolution per resolver; light and dark merge into `light-dark()` values, then each situation's resolved values are diffed against base and emitted as a `[data-situation]` delta block in the single `dist/tokens.css`. Mode-invariant tokens emit as plain values; typography composites emit as CSS `font` shorthand, e.g. `font: var(--typography-body)`.
+6. `build:base` — emits `dist/base.css`: the `sax-diagnostic` layer (a page with no declared situation renders unmistakably broken), plus `sax-reset` and `sax-base` (classless element styles over the tokens), both scoped to `[data-situation]`.
+7. `build:preview` — emits `dist/preview/<situation>.html`, a static catalog per situation: primitive ramps, color roles in side-by-side light/dark panels (via `color-scheme`), dimension and typography scales, and component specimens.
+8. `build:samples` — emits `dist/samples/<situation>.html` (marketing page, literary essay, documentation page, application workspace), the situations index (`dist/index.html`), and the mixing demo (`dist/mixing.html`) — all built exclusively from the emitted custom properties and `base.css`, each declaring its situation.
+9. `build:presentation` — emits `dist/presentation/theme.css`, the reveal.js theme layer (maps reveal's `--r-*` variables onto the token custom properties and consumes them — reveal's own CSS is structure only), and `presentation.html`, a sample deck that links it. The kit carries its own copy of `tokens.css` so the directory stays self-contained. reveal.js is pinned and vendored from npm.
 10. `build:docs` — regenerates the semantic and component token lists in this README from `tokens/semantic/` and `tokens/component/`.
 
-To change the color palette, edit the hues and chroma rules in `config/ramps.json` and run `npm run generate:ramps` (never hand-edit `tokens/primitive/color.tokens.json` — `check:ramps` will reject it). To add a product or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/products/`.
+To change the color palette, edit the hues and chroma rules in `config/ramps.json` and run `npm run generate:ramps` (never hand-edit `tokens/primitive/color.tokens.json` — `check:ramps` will reject it). To add a situation or mode, edit `config/matrix.json` and add the corresponding override files under `tokens/situations/`.
 
 All tooling is pinned to exact versions (`.npmrc` sets `save-exact`) so rebuilding never produces diff noise from a floating transform tool.
 

@@ -1,43 +1,53 @@
 /**
- * Token catalog renderer. Each story shows every custom property from one
- * product's built tokens.css, light and dark side by side, so a Playwright
- * screenshot of the story is a visual fingerprint of that product's tokens.
+ * Token catalog renderer. Each story shows every custom property one reading
+ * situation resolves from the built tokens.css (base :root merged with that
+ * situation's [data-situation] delta block), light and dark side by side, so
+ * a Playwright screenshot of the story is a visual fingerprint of that
+ * situation's tokens.
  *
  * The built CSS is the single source: variables are parsed out of the file
- * text, so new tokens appear in the catalog (and in snapshots) without
- * touching this file.
+ * text per selector block, so new tokens appear in the catalog (and in
+ * snapshots) without touching this file.
  */
-import blogCss from '../../dist/blog-page/tokens.css?raw';
-import presentationCss from '../../dist/presentation/tokens.css?raw';
-import homeCss from '../../dist/product-home-page/tokens.css?raw';
-import documentViewerCss from '../../dist/document-viewer/tokens.css?raw';
+import tokensCss from '../../dist/tokens.css?raw';
 
-const PRODUCT_CSS = {
-  'product-home-page': homeCss,
-  'blog-page': blogCss,
-  presentation: presentationCss,
-  'document-viewer': documentViewerCss,
-};
-
-/** Flatten `--name: value;` declarations out of a tokens.css string. */
-export function parseVars(css) {
-  return [...css.matchAll(/(--[a-z0-9-]+):\s*([^;]+);/g)].map(([, name, value]) => ({
-    name,
-    value: value.trim(),
+/** Split a tokens.css string into { selector, declarations } blocks. */
+export function parseBlocks(css) {
+  const uncommented = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  return [...uncommented.matchAll(/([^{}]+)\{([^}]*)\}/g)].map(([, selector, body]) => ({
+    selector: selector.trim(),
+    declarations: [...body.matchAll(/(--[a-z0-9-]+):\s*([^;]+);/g)].map(([, name, value]) => ({
+      name,
+      value: value.trim(),
+    })),
   }));
 }
 
-/** Re-target the single :root block at a class so products can coexist. */
-export function scopeCss(css, selector) {
-  if (!css.includes(':root')) throw new Error('expected a :root block in tokens.css');
-  return css.replace(':root', selector);
+/**
+ * The custom properties one situation resolves: base :root overlaid with the
+ * situation's delta block. Order follows :root, so screenshots stay stable as
+ * deltas move between blocks.
+ */
+export function situationVars(css, situation) {
+  const blocks = parseBlocks(css);
+  const root = blocks.find((b) => b.selector === ':root');
+  if (!root) throw new Error('expected a :root block in tokens.css');
+  const delta = blocks.find((b) => b.selector === `[data-situation="${situation}"]`);
+  if (!delta) throw new Error(`no [data-situation="${situation}"] block in tokens.css`);
+  const merged = new Map(root.declarations.map(({ name, value }) => [name, value]));
+  for (const { name, value } of delta.declarations) merged.set(name, value);
+  return [...merged].map(([name, value]) => ({ name, value }));
 }
 
 const SECTION_FILTERS = {
   color: ({ name }) => name.startsWith('--color-'),
   typography: ({ name }) => name.startsWith('--typography-'),
   dimension: ({ name }) =>
-    name.startsWith('--space-') || name.startsWith('--radius-') || name.startsWith('--border-width-'),
+    name.startsWith('--space-') ||
+    name.startsWith('--radius-') ||
+    name.startsWith('--border-width-') ||
+    name.startsWith('--container-') ||
+    name.startsWith('--rhythm-'),
   effect: ({ name }) => name.startsWith('--elevation-'),
 };
 const CLAIMED = Object.values(SECTION_FILTERS);
@@ -112,7 +122,7 @@ const CHROME_CSS = `
     border-radius: 4px;
     border: 1px solid var(--color-border-default);
   }
-  .tc-bar { height: 12px; background: var(--color-accent-default); }
+  .tc-bar { height: 12px; background: var(--color-accent-default); max-width: 100%; }
   .tc-shadow {
     height: 40px;
     margin: 8px;
@@ -149,22 +159,27 @@ function renderPanel(scheme, vars) {
     </section>`;
 }
 
-export function renderCatalog(product, section) {
-  const css = PRODUCT_CSS[product];
-  if (!css) throw new Error(`unknown product: ${product}`);
-  const vars = parseVars(css).filter(SECTION_FILTERS[section]);
-  const scope = `tc-scope-${product}`;
+export function renderCatalog(situation, section) {
+  const allVars = situationVars(tokensCss, situation);
+  const vars = allVars.filter(SECTION_FILTERS[section]);
+  const scope = `tc-scope-${situation}`;
+  const scopedCss = [
+    `.${scope} {`,
+    '  color-scheme: light dark;',
+    ...allVars.map(({ name, value }) => `  ${name}: ${value};`),
+    '}',
+  ].join('\n');
   const root = document.createElement('div');
   root.className = `token-catalog ${scope}`;
   root.innerHTML = `
     <style>${CHROME_CSS}</style>
-    <style>${scopeCss(css, `.${scope}`)}</style>
+    <style>${scopedCss}</style>
     ${renderPanel('light', vars)}
     ${renderPanel('dark', vars)}`;
   return root;
 }
 
-/** CSF story factory: one story per (product, section). */
-export function catalogStory(product, section) {
-  return { render: () => renderCatalog(product, section) };
+/** CSF story factory: one story per (situation, section). */
+export function catalogStory(situation, section) {
+  return { render: () => renderCatalog(situation, section) };
 }

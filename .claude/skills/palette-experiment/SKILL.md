@@ -39,16 +39,19 @@ pixels — you move hues, chroma, and which tonal step each role points at.
    (`{color.neutral.98}`). A reference to a step NOT in the ladder is schema-valid, so
    `validate` (ajv) PASSES it — then resolution CRASHES ("Reference Errors: Some token
    references could not be found", from `build:tokens` / `check-color`). Valid steps:
+
    ```
    neutral                        0 5 10 15 20 30 40 50 60 70 80 90 95 98 100
    brand success warning danger   10 15 20 30 40 50 60 70 80 90 95 98   (brand also: anchor)
    ```
+
    There is no `.25`, `.45`, `.55`, `.85`. Change hue/chroma/cap freely; leave the ladder alone.
-4. **Product overrides win — reconcile them.** Resolution order is primitive → semantic →
-   component → **product**. `tokens/products/<product>/overrides.{light,dark}.tokens.json`
+4. **Situation overrides win — reconcile them.** Resolution order is primitive → semantic →
+   component → **situation**. `tokens/situations/<situation>/overrides.{light,dark}.tokens.json`
    re-pin tokens after semantic, so a semantic change to a re-pinned token is silently ignored
-   for that product. Today every product re-pins `background.page` (home→`neutral.100`,
-   blog→`.95`/`.5`, presentation dark→`neutral.0`). Edit the override too, or accept the product's value.
+   for that situation. Today three situations re-pin `background.page`
+   (marketing→`neutral.100`, literary→`.95`/`.5`, presentation dark→`neutral.0`). Edit the
+   override too, or accept the situation's value.
 5. **Relaxations stay on the branch.** Lowering a gate edits the committed
    `config/contrast-pairs.json`; that is fine on an experiment branch and only there.
 
@@ -69,21 +72,21 @@ tokens/semantic/color.dark.tokens.json    ← luminance + contrast levers (dark)
 ├── accent.{default,hover,active,subtle}
 └── status.{success,warning,danger}.{text,background,border}
 
-tokens/products/<product>/overrides.{light,dark}.tokens.json   ← PRODUCT tier — WINS over semantic
-└── today each re-pins background.page: home→neutral.100, blog→.95/.5, presentation(dark)→neutral.0
+tokens/situations/<situation>/overrides.{light,dark}.tokens.json   ← SITUATION tier — WINS over semantic
+└── re-pins today: background.page marketing→neutral.100, literary→.95/.5, presentation(dark)→neutral.0
 
-config/contrast-pairs.json             ← the build's APCA gate (22 pairs)
+config/contrast-pairs.json             ← the build's APCA gate (23 pairs)
 └── pairs[].minLc   75 body · 60 headings/labels/alerts · 45 non-text
 ```
 
 The four eye-strain levers map to these:
 
-| Lever              | Where            | How                                              |
-|--------------------|------------------|--------------------------------------------------|
-| Warmer temperature | `ramps.json` hue | move `neutral.hue` off 250 toward warm (~70–90)  |
-| Reduced saturation | `ramps.json` cap | lower `cap` (e.g. 0.17 → 0.13)                    |
-| Lower peak luminance | semantic bg **+ product override** | `background.page` off pure white (.98→.95) — also in the product's override file, which re-pins it |
-| Softer contrast    | semantic text    | narrow the text↔bg gap (`text.body` .20→.40) — **the lever that breaches Lc 75** |
+| Lever | Where | How |
+| --- | --- | --- |
+| Warmer temperature | `ramps.json` hue | move `neutral.hue` off 250 toward warm (~70–90) |
+| Reduced saturation | `ramps.json` cap | lower `cap` (e.g. 0.17 → 0.13) |
+| Lower peak luminance | semantic bg **+ situation override** | `background.page` off pure white (.98→.95) — also in any situation's override file that re-pins it |
+| Softer contrast | semantic text | narrow the text↔bg gap (`text.body` .20→.40) — **the lever that breaches Lc 75** |
 
 Warmth and saturation are APCA-cheap (luminance barely moves). Luminance and
 contrast move APCA and are where the soft floor and the relax protocol come in.
@@ -94,25 +97,31 @@ contrast move APCA and are where the soft floor and the relax protocol come in.
 2. **Resolve a reference.** For a named scheme (Solarized, Gruvbox, sepia) use its
    known hexes; for a vibe, propose a small reference set and confirm with the user.
    Convert hexes to OKLCH:
+
    ```sh
    node --input-type=module -e 'import {converter} from "culori"; const ok=converter("oklch"); for (const h of ["#fdf6e3","#268bd2"]) {const c=ok(h); console.log(h, `L=${c.l.toFixed(3)} C=${c.c.toFixed(3)} H=${(c.h??0).toFixed(0)}`);}'
    ```
+
 3. **Best-fit primitives.** In `config/ramps.json`: set each ramp's `hue` from the
    reference (neutral from the base tones, brand/success/warning/danger from accents),
    and `cap` for the saturation lever. When the reference's neutral drifts in hue,
    pick the end that serves the target (warm for eye strain). Keep `steps`. Then:
+
    ```sh
    npm run generate:ramps
    ```
-4. **Remap semantics, then reconcile product overrides.** Change luminance + contrast in both
+
+4. **Remap semantics, then reconcile situation overrides.** Change luminance + contrast in both
    `tokens/semantic/color.light.tokens.json` and `.dark.tokens.json`. Then, for each token you
-   changed, grep `tokens/products/*/overrides.*.tokens.json` — any product that re-pins it (today:
-   `background.page` for all three) overrides your change, so edit the override too or accept that
-   product keeps its own value.
+   changed, grep `tokens/situations/*/overrides.*.tokens.json` — any situation that re-pins it
+   (today: `background.page` in marketing, literary, and presentation-dark) overrides your change,
+   so edit the override too or accept that situation keeps its own value.
 5. **Measure + advise.** Regenerate resolvers if missing, then run the advisor:
+
    ```sh
    npm run generate:resolvers && node scripts/advise-color.js
    ```
+
    For every pair it prints the APCA Lc, flags those below the committed gate, and names
    the nearest clearing step (the **fix**) plus the **relax** target. (`node scripts/check-color.js`
    prints every raw line if you want it.)
@@ -123,10 +132,12 @@ contrast move APCA and are where the soft floor and the relax protocol come in.
    keeps below 75, lower that pair's `minLc` in `config/contrast-pairs.json` to ≤ the
    achieved Lc so the build can go green.
 8. **Build + preview.**
+
    ```sh
    npm run build
-   open dist/product-home-page/preview.html   # or blog-page / presentation
+   open dist/preview/marketing.html   # or literary / documentation / presentation / application
    ```
+
    Iterate from step 3 until it looks right by eye.
 
 ## The recommender
@@ -136,10 +147,12 @@ resolves every product × mode, reports each pair's Lc, flags those below the ga
 for each names the nearest ramp step that clears it plus the relax target:
 
 ```
-below blog-page/light  Lc  70.1 < 75  body text on page
+below literary/light  Lc  70.1 < 75  body text on page
         fix:   neutral.50 -> neutral.40 (Lc 81.3)
         relax: minLc 75 -> 70  (>= soft floor 60)
 ```
+
+(Cells are `base` plus each situation × mode; filter with `--situation literary --mode dark`.)
 
 Under the hood it holds the background fixed and walks the foreground ramp's steps with
 the same OKLCH/APCA math as `check-color.js`. To check a single what-if by hand:
@@ -204,14 +217,14 @@ step nearest Solarized's body, base00 L0.57) on a `neutral.95` page lands at **L
 — it clears the soft floor (60) but breaches the body gate (75). The only darker neutral
 step is `.40` (Lc 81 — the ladder jumps 40→50→60, there is no `.45`), so either darken to
 `.40` or keep `.50` and relax `body text on page` / `on surface` / `code text on inset` to
-`minLc: 65`. Also reconcile product overrides: product-home-page re-pins `background.page` to
-`neutral.100` (white) — lower it to `{color.neutral.95}` too, or that product stays pure white.
+`minLc: 65`. Also reconcile situation overrides: marketing re-pins `background.page` to
+`neutral.100` (white) — lower it to `{color.neutral.95}` too, or that situation stays pure white.
 In dark mode keep `page` at `.10` (the only step below `surface`=`.15`; `.15` collapses them) and
 dim the text instead (`text.body .90→.80`) — that softening pulls dark body to ~Lc 67, the same
 soft breach you relax in light.
 
 ## Done
 
-"Done" is by eye: open `preview.html`, confirm the warm low-strain feel, and confirm
+"Done" is by eye: open the situation previews (`dist/preview/*.html`), confirm the warm low-strain feel, and confirm
 the Lc report shows nothing below the experiment's chosen floor. Leave the work on the
 branch; do not merge to `main`.

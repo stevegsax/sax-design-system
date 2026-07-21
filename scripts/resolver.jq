@@ -1,11 +1,13 @@
-# Emits one DTCG 2025.10 resolver document for a (product, mode) pair.
-# Invoked by generate-resolvers.sh with --arg product / --arg mode.
+# Emits one DTCG 2025.10 resolver document for a (situation, mode) cell.
+# Invoked by generate-resolvers.sh with --arg situation / --arg mode.
+# $situation == "base" emits the shared resolution with no situation set —
+# the :root baseline that per-situation delta blocks are diffed against.
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
-  "name": "\($product)-\($mode)",
+  "name": "\($situation)-\($mode)",
   "description": "Generated from config/matrix.json by scripts/generate-resolvers.sh. Do not edit by hand.",
   "version": "2025.10",
-  "sets": {
+  "sets": ({
     "primitive": {
       "sources": [
         { "$ref": "../tokens/primitive/color.tokens.json" },
@@ -27,18 +29,20 @@
         { "$ref": "../tokens/component/dimension.tokens.json" },
         { "$ref": "../tokens/component/typography.tokens.json" }
       ]
-    },
-    "product": {
+    }
+  } + (if $situation == "base" then {} else {
+    "situation": {
       "sources": [
-        { "$ref": "../tokens/products/\($product)/overrides.tokens.json" },
-        { "$ref": "../tokens/products/\($product)/overrides.\($mode).tokens.json" }
+        { "$ref": "../tokens/situations/\($situation)/overrides.tokens.json" },
+        { "$ref": "../tokens/situations/\($situation)/overrides.\($mode).tokens.json" }
       ]
     }
-  },
-  "resolutionOrder": [
+  } end)),
+  "resolutionOrder": ([
     { "$ref": "#/sets/primitive" },
     { "$ref": "#/sets/semantic" },
-    { "$ref": "#/sets/component" },
-    { "$ref": "#/sets/product" }
-  ]
+    { "$ref": "#/sets/component" }
+  ] + (if $situation == "base" then [] else [
+    { "$ref": "#/sets/situation" }
+  ] end))
 }

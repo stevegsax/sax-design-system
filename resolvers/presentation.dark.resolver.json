@@ -46,13 +46,13 @@
         }
       ]
     },
-    "product": {
+    "situation": {
       "sources": [
         {
-          "$ref": "../tokens/products/presentation/overrides.tokens.json"
+          "$ref": "../tokens/situations/presentation/overrides.tokens.json"
         },
         {
-          "$ref": "../tokens/products/presentation/overrides.dark.tokens.json"
+          "$ref": "../tokens/situations/presentation/overrides.dark.tokens.json"
         }
       ]
     }
@@ -68,7 +68,7 @@
       "$ref": "#/sets/component"
     },
     {
-      "$ref": "#/sets/product"
+      "$ref": "#/sets/situation"
     }
   ]
 }

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document Workspace — SAX Capital</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<style>
+  .wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
+  header.site { border-block-end: var(--border-width-default) solid var(--color-border-default);
+                background: var(--color-background-surface); margin-block-end: var(--rhythm-section); }
+  header.site .wrap { display: flex; align-items: center; gap: var(--space-md); padding-block: var(--space-sm); }
+  .brand { font: var(--typography-heading-3); color: var(--color-text-heading); text-decoration: none;
+           display: inline-flex; align-items: center; gap: var(--space-xs); }
+  .brand img { display: inline-block; height: var(--space-lg); }
+  .masthead { font: var(--typography-label); color: var(--color-text-muted); }
+  footer.site { border-block-start: var(--border-width-default) solid var(--color-border-default);
+                padding-block: var(--space-lg); margin-block-start: var(--rhythm-section); }
+  footer.site .wrap { display: flex; justify-content: space-between; }
+  footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
+
+  body { display: grid; grid-template-rows: auto 1fr; min-height: 100vh; }
+  header.site { margin-block-end: 0; }
+  header.site .wrap { max-width: none; }
+  .toolbar { display: flex; gap: var(--space-sm); align-items: center; flex: 1; justify-content: end; }
+  .app { display: grid; grid-template-columns: 18rem 1fr; min-height: 0; }
+  main { max-width: none; margin: 0; padding: var(--space-lg); }
+
+  .sidebar { background: var(--color-background-surface);
+             border-inline-end: var(--border-width-default) solid var(--color-border-default);
+             padding: var(--space-md); overflow-y: auto; }
+  .sidebar h2 { font: var(--typography-label); color: var(--color-text-muted);
+                text-transform: uppercase; margin-block-end: var(--space-sm); }
+  .annotation-card { background: var(--card-background);
+                     border: var(--border-width-default) solid var(--card-border);
+                     border-inline-start: var(--border-width-thick) solid var(--annotation-highlight);
+                     border-radius: var(--radius-md); padding: var(--space-sm);
+                     margin-block-end: var(--space-sm); }
+  .annotation-card.selected { border-inline-start-color: var(--annotation-selected); }
+  .annotation-card p { font: var(--typography-body-small); margin: 0; }
+  .annotation-card .meta { font: var(--typography-caption); color: var(--color-text-muted); }
+
+  .btn { font: var(--button-label-font); border-radius: var(--button-radius);
+         padding: var(--button-padding-block) var(--button-padding-inline); cursor: pointer; }
+  .btn.primary { background: var(--button-primary-background); color: var(--button-primary-text); border: none; }
+  .btn.primary:hover { background: var(--button-primary-background-hover); }
+
+  .doc-table { width: 100%; }
+  .doc-table td a { text-decoration: none; font: var(--typography-label); }
+  .filters { display: flex; gap: var(--space-sm); align-items: end; margin-block-end: var(--space-md); }
+  .filters .field { display: grid; gap: var(--space-2xs); }
+  .filters label { font: var(--input-label-font); color: var(--color-text-heading); }
+</style>
+</head>
+<body data-situation="application">
+<header class="site">
+  <div class="wrap">
+    <span class="brand"><img src="../sax-logo-symbol.svg" alt="">Document Workspace</span>
+    <span class="toolbar">
+      <input type="search" placeholder="Search documents" aria-label="Search documents">
+      <button class="btn primary" type="button">Upload</button>
+      <button type="button" disabled>Export</button>
+    </span>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar">
+    <h2>Annotations</h2>
+    <div class="annotation-card selected">
+      <p>"drawdown budgets are constraints, not circuit breakers"</p>
+      <p class="meta">methodology.pdf &middot; p. 12</p>
+    </div>
+    <div class="annotation-card">
+      <p>"content-addressed snapshots survive vendor restatements"</p>
+      <p class="meta">harness-spec.pdf &middot; p. 3</p>
+    </div>
+    <div class="annotation-card">
+      <p>"daily attribution is a diagnosis, not a story"</p>
+      <p class="meta">reporting-q2.pdf &middot; p. 7</p>
+    </div>
+  </aside>
+
+  <main>
+    <h1>Recently uploaded</h1>
+    <form class="filters">
+      <div class="field">
+        <label for="type">Type</label>
+        <select id="type">
+          <option>All</option>
+          <option>Research</option>
+          <option>Compliance</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="owner">Owner</label>
+        <input id="owner" type="text" placeholder="Any owner">
+      </div>
+      <div class="field">
+        <label for="archived">Archive tag</label>
+        <input id="archived" type="text" value="read-only" disabled>
+      </div>
+    </form>
+    <table class="doc-table">
+      <thead>
+        <tr><th>Document</th><th>Owner</th><th>Uploaded</th><th>Pages</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="#">methodology.pdf</a></td><td>M. Okafor</td><td>Jul 18, 2026</td><td>44</td></tr>
+        <tr><td><a href="#">harness-spec.pdf</a></td><td>J. Lindqvist</td><td>Jul 17, 2026</td><td>12</td></tr>
+        <tr><td><a href="#">reporting-q2.pdf</a></td><td>M. Okafor</td><td>Jul 15, 2026</td><td>28</td></tr>
+        <tr><td><a href="#">custody-brief.pdf</a></td><td>A. Whitfield</td><td>Jul 11, 2026</td><td>6</td></tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

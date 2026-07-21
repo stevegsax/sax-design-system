@@ -3,11 +3,11 @@
 // Read-only APCA advisor for palette experiments
 // (see .claude/skills/palette-experiment/SKILL.md).
 //
-// For every fg/bg pair in config/contrast-pairs.json, across every product x mode
-// in config/matrix.json, it reports the APCA Lc, flags pairs below the build gate,
-// and for each one recommends the nearest existing ramp step that would clear the
-// gate -- plus whether the current value already meets a relaxed "soft" floor, so
-// you can choose fix-vs-relax per palette.
+// For every fg/bg pair in config/contrast-pairs.json, across base plus every
+// situation x mode in config/matrix.json, it reports the APCA Lc, flags pairs
+// below the build gate, and for each one recommends the nearest existing ramp
+// step that would clear the gate -- plus whether the current value already meets
+// a relaxed "soft" floor, so you can choose fix-vs-relax per palette.
 //
 // It reuses the same OKLCH/APCA math as scripts/check-color.js, so its numbers
 // match the gate exactly. It NEVER edits files; it only advises.
@@ -15,7 +15,7 @@
 // Usage:
 //   node scripts/advise-color.js                      # soft floor 60, all cells
 //   node scripts/advise-color.js --soft 65
-//   node scripts/advise-color.js --product blog-page --mode dark
+//   node scripts/advise-color.js --situation literary --mode dark
 //   node scripts/advise-color.js --all                # also list passing pairs
 
 import { readFileSync } from 'node:fs';
@@ -95,10 +95,10 @@ export function advisePair({ pair, fg, bg, primitives, soft }) {
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
-  const args = { soft: 60, product: null, mode: null, all: false };
+  const args = { soft: 60, situation: null, mode: null, all: false };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--soft') args.soft = Number(argv[(i += 1)]);
-    else if (argv[i] === '--product') args.product = argv[(i += 1)];
+    else if (argv[i] === '--situation') args.situation = argv[(i += 1)];
     else if (argv[i] === '--mode') args.mode = argv[(i += 1)];
     else if (argv[i] === '--all') args.all = true;
   }
@@ -114,13 +114,13 @@ async function main() {
     JSON.parse(readFileSync(path.join(ROOT, 'tokens/primitive/color.tokens.json'), 'utf8')).color,
   );
 
-  const products = args.product ? [args.product] : matrix.products;
+  const situations = args.situation ? [args.situation] : ['base', ...matrix.situations];
   const modes = args.mode ? [args.mode] : matrix.modes;
   let below = 0;
 
-  for (const product of products) {
+  for (const situation of situations) {
     for (const mode of modes) {
-      const resolverPath = path.join(ROOT, 'resolvers', `${product}.${mode}.resolver.json`);
+      const resolverPath = path.join(ROOT, 'resolvers', `${situation}.${mode}.resolver.json`);
       const sd = new StyleDictionary({
         tokens: resolveTokens(resolverPath),
         log: { verbosity: 'silent' },
@@ -133,16 +133,16 @@ async function main() {
         const fg = byPath.get(pair.foreground);
         const bg = byPath.get(pair.background);
         if (!fg || !bg) {
-          console.log(`miss  ${product}/${mode}  ${pair.usage}  (missing ${!fg ? pair.foreground : pair.background})`);
+          console.log(`miss  ${situation}/${mode}  ${pair.usage}  (missing ${!fg ? pair.foreground : pair.background})`);
           continue;
         }
         const f = advisePair({ pair, fg, bg, primitives, soft: args.soft });
         if (f.passes) {
-          if (args.all) console.log(`ok    ${product}/${mode}  Lc ${f.lc.toFixed(1).padStart(5)} >= ${f.minLc}  ${f.usage}`);
+          if (args.all) console.log(`ok    ${situation}/${mode}  Lc ${f.lc.toFixed(1).padStart(5)} >= ${f.minLc}  ${f.usage}`);
           continue;
         }
         below += 1;
-        console.log(`below ${product}/${mode}  Lc ${f.lc.toFixed(1).padStart(5)} < ${f.minLc}  ${f.usage}`);
+        console.log(`below ${situation}/${mode}  Lc ${f.lc.toFixed(1).padStart(5)} < ${f.minLc}  ${f.usage}`);
         console.log(`        fix:   ${f.from ?? '(fg not a ramp step)'}${f.fix ? ` -> ${f.fix.to} (Lc ${f.fix.lc.toFixed(1)})` : ` -- no step clears ${f.minLc}`}`);
         console.log(`        relax: minLc ${f.minLc} -> ${Math.floor(f.lc)}  ${f.clearsSoft ? `(>= soft floor ${f.softFloor})` : `(below soft floor ${f.softFloor}; prefer the fix)`}`);
       }

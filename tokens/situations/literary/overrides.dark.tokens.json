@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "literary dark-mode overrides: deeper page so surfaces read as raised cards while long-form text stays low-glare.",
+  "color": {
+    "$type": "color",
+    "background": {
+      "page": { "$value": "{color.neutral.5}" }
+    }
+  }
+}

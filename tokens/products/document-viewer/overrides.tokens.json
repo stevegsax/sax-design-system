@@ -1,4 +1,0 @@
-{
-  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "document-viewer mode-agnostic overrides: the PDF viewer consumes the shared SAX semantics unchanged for v1 (only remap references here; never redeclare palette values)."
-}

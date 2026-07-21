@@ -25,6 +25,12 @@
     "max": {
       "$description": "Effectively infinite length for pill shapes.",
       "$value": { "value": 9999, "unit": "px" }
+    },
+    "container": {
+      "$description": "Content measure caps in rem, named by width. Referenced by the semantic container roles; reading situations remap per measure (ADR 2026-07-20-reading-situations).",
+      "44": { "$value": { "value": 44, "unit": "rem" } },
+      "56": { "$value": { "value": 56, "unit": "rem" } },
+      "70": { "$value": { "value": 70, "unit": "rem" } }
     }
   }
 }

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backtest Harness — SAX Capital Docs</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<style>
+  .wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
+  header.site { border-block-end: var(--border-width-default) solid var(--color-border-default);
+                background: var(--color-background-surface); margin-block-end: var(--rhythm-section); }
+  header.site .wrap { display: flex; align-items: center; gap: var(--space-md); padding-block: var(--space-sm); }
+  .brand { font: var(--typography-heading-3); color: var(--color-text-heading); text-decoration: none;
+           display: inline-flex; align-items: center; gap: var(--space-xs); }
+  .brand img { display: inline-block; height: var(--space-lg); }
+  .masthead { font: var(--typography-label); color: var(--color-text-muted); }
+  footer.site { border-block-start: var(--border-width-default) solid var(--color-border-default);
+                padding-block: var(--space-lg); margin-block-start: var(--rhythm-section); }
+  footer.site .wrap { display: flex; justify-content: space-between; }
+  footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
+
+  main a { text-decoration: underline; text-underline-offset: 0.15em; }
+  .toc { background: var(--color-background-surface); border: var(--border-width-default) solid var(--color-border-default);
+         border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+  .toc ul { margin: 0; }
+  .callout { background: var(--color-status-warning-background); color: var(--color-status-warning-text);
+             border: var(--border-width-default) solid var(--color-status-warning-border);
+             border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md);
+             font: var(--typography-body-small); }
+</style>
+</head>
+<body data-situation="documentation">
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="../sax-logo-symbol.svg" alt="">SAX Capital</a>
+    <span class="masthead">Documentation</span>
+  </div>
+</header>
+
+<main>
+  <h1>Backtest harness</h1>
+  <p>The harness pins strategy code and data snapshots so every result can be regenerated
+     byte-for-byte. This page covers the run command, snapshot resolution, and common
+     failure modes. See also <a href="#">Strategy packaging</a> and <a href="#">Data vendors</a>.</p>
+
+  <nav class="toc">
+    <ul>
+      <li><a href="#run">Running a backtest</a></li>
+      <li><a href="#snapshots">Snapshot resolution</a></li>
+      <li><a href="#failures">Common failures</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="run">Running a backtest</h2>
+  <p>Every run names a strategy, a snapshot, and a seed:</p>
+  <pre><code>sax backtest run --strategy momentum-v3 \
+  --snapshot 2026-05-15T00:00Z --seed 42</code></pre>
+  <p>Results land in the content-addressed store; the run id printed on completion is the
+     only thing a research note needs to cite.</p>
+
+  <h2 id="snapshots">Snapshot resolution</h2>
+  <p>The <code>--snapshot</code> flag resolves through three sources, first match wins:</p>
+  <ul>
+    <li>An exact content address (<code>sha256:…</code>)</li>
+    <li>A vendor timestamp, resolved against the snapshot index</li>
+    <li>The literal <code>latest</code>, which is refused in CI</li>
+  </ul>
+  <table>
+    <thead>
+      <tr><th>Form</th><th>Reproducible</th><th>Allowed in CI</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>sha256:…</code></td><td>yes</td><td>yes</td></tr>
+      <tr><td>timestamp</td><td>yes</td><td>yes</td></tr>
+      <tr><td><code>latest</code></td><td>no</td><td>no</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="failures">Common failures</h2>
+  <p class="callout">Vendor restatements change history. A timestamp that resolved
+     yesterday can resolve differently after a restatement — always cite the content
+     address in published results.</p>
+  <p>Exit codes: <code>2</code> unresolved snapshot, <code>3</code> strategy hash mismatch,
+     <code>4</code> seed drift. Anything else is a bug — <a href="#">file it</a>.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>&copy; 2026 SAX Capital. All rights reserved.</p>
+    <p><a href="#">Disclosures</a> &middot; <a href="#">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "literary light-mode overrides: softly tinted page in place of near-white, easing sustained reading.",
+  "color": {
+    "$type": "color",
+    "background": {
+      "page": { "$value": "{color.neutral.95}" }
+    }
+  }
+}

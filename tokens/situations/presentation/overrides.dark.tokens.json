@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "presentation dark-mode overrides: true-black page for projectors and OLED, maximizing contrast headroom in darkened rooms.",
+  "color": {
+    "$type": "color",
+    "background": {
+      "page": { "$value": "{color.neutral.0}" }
+    }
+  }
+}

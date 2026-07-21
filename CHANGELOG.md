@@ -4,6 +4,23 @@ Notable changes to the SAX design tokens. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+Migration for v0.3.x consumers: see "Migrating from v0.3.x" in the README — two import lines, one `data-situation` attribute, rendering verified identical to the old per-product builds.
+
+### Changed — breaking
+
+- **Reading situations replace the product axis** ([ADR](decisions/2026-07-20-reading-situations.md)). `config/matrix.json` now defines `situations` (`literary`, `documentation`, `marketing`, `presentation`, `application`); `tokens/products/` is now `tokens/situations/`, with the former product overrides redistributed (blog-page → literary, product-home-page → marketing, presentation unchanged; document-viewer's role is carried by the application sample).
+- **One stylesheet.** `dist/<product>/tokens.css` is replaced by a single `dist/tokens.css`: a base `:root` block plus one `[data-situation="…"]` delta block per situation, computed at build time by diffing each situation's resolved values against base. Consumers import `dist/tokens.css`, declare `data-situation` on `<body>` (or `<html>`), and may re-scope any region; situations mix per-region on one page.
+- Per-product sample pages are replaced by `dist/samples/<situation>.html`, `dist/preview/<situation>.html`, a situations index (`dist/index.html`), and a mixing demo (`dist/mixing.html`). The reveal.js kit stays under `dist/presentation/` and now carries its own copy of `tokens.css`; decks must declare `data-situation="presentation"` on `<html>`.
+- `scripts/advise-color.js` flag `--product` is now `--situation`; contrast gates run for base plus every situation × mode.
+
+### Added
+
+- `dist/base.css` — three cascade layers: `sax-diagnostic` (a page with no declared situation renders unmistakably broken, by design), plus `sax-reset` and `sax-base` (classless element styles over the tokens), both scoped to `[data-situation]`. Unlayered consumer rules always win.
+- Layout roles: `container.max`, `container.gutter` (per-situation content measure; primitive `dimension.container` steps 44/56/70) and `rhythm.flow`, `rhythm.section` (prose rhythm — situations vary these instead of remapping the spacing scale).
+- Disabled-state roles ([ADR](decisions/2026-07-19-disabled-state.md)): semantic `color.text.disabled`, `color.background.disabled`, `color.border.disabled`; component `button.disabled.*` and `input.disabled.*`. Disabled pairings are exempt from the APCA gates by recorded decision.
+- `decisions/` (ADR record and process), `patterns/` (ADR-gated pattern library scaffold), and the `sax-designer` skill, shipped to consumers via the package `files` field together with `config/` and `patterns/`.
+- The Hugo example now demonstrates situation mixing: home declares `marketing`, blog pages `literary`, and the theme's content measure follows `--container-max`.
+
 ## [0.3.1] - 2026-07-17
 
 ### Fixed

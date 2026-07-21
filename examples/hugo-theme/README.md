@@ -35,6 +35,7 @@ hugo-theme/
 │   └── partials/{head,header,footer}.html
 ├── static/
 │   ├── css/tokens.css          Vendored from @sax/design-tokens (see below)
+│   ├── css/base.css            Vendored reset/base layers, situation-scoped
 │   ├── css/theme.css           Component styles, token custom properties only
 │   └── img/sax-logo-symbol.svg
 └── exampleSite/                Runnable demo site
@@ -58,18 +59,21 @@ it writes to `exampleSite/public/`.
 
 ## Using the tokens in your own site
 
-The theme links two stylesheets, tokens first:
+The theme links three stylesheets, tokens first:
 
 ```html
 <link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/theme.css">
 ```
 
-`static/css/tokens.css` here is a committed copy of
-`@sax/design-tokens/dist/blog-page/tokens.css` — the blog product build, whose
-stronger card borders and dimmer page suit a content-heavy site. To retune for a
-different surface, replace it with another product's build (for example
-`dist/product-home-page/tokens.css` for an airier marketing canvas); `theme.css`
-does not change. In a real consumer that installs the package as a git dependency,
-copy or symlink the file from `node_modules/@sax/design-tokens/dist/<product>/tokens.css`
-during deploy rather than vendoring it by hand.
+and each layout declares its reading situation on `<body>`
+(`layouts/_default/baseof.html`): the home page is `marketing` (wide,
+pure-white canvas), everything else is `literary` (book measure, tinted
+page, stronger card borders). The situation drives `--container-max`, so
+the theme has no hardcoded measures — one site mixing two situations is
+the point of the example. `static/css/tokens.css` and `base.css` are
+committed copies of `@sax/design-tokens/dist/{tokens,base}.css`. In a real
+consumer that installs the package as a git dependency, copy or symlink
+them from `node_modules/@sax/design-tokens/dist/` during deploy rather
+than vendoring by hand.

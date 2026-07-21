@@ -1,0 +1,12 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "literary mode-agnostic overrides: book measure for linear long-form reading; visible card borders on the tinted page.",
+  "card": {
+    "$type": "color",
+    "border": { "$value": "{color.border.strong}" }
+  },
+  "container": {
+    "$type": "dimension",
+    "max": { "$value": "{dimension.container.44}" }
+  }
+}

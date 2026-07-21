@@ -1,21 +1,15 @@
 /* SAX Capital Hugo theme — component styles.
    Every value is a @sax/design-tokens custom property from tokens.css.
    No raw color, spacing, or type values live here: retheme by swapping
-   tokens.css, never by editing this file. */
+   tokens.css, never by editing this file.
+   The reset and element defaults come from base.css, scoped to the
+   data-situation each layout declares on <body> (home → marketing,
+   blog → literary); this file carries only the theme's own components. */
 
-* { box-sizing: border-box; margin: 0; }
-
-body {
-  background: var(--color-background-page);
-  color: var(--color-text-body);
-  font: var(--typography-body);
-}
-
-a { color: var(--link-text); }
-a:hover { color: var(--link-text-hover); }
-
-/* Containers: narrow reading column by default, wide column for marketing. */
-.wrap { max-width: 44rem; margin-inline: auto; padding-inline: var(--space-lg); }
+/* Containers: the content measure follows the page's reading situation
+   (--container-max is 70rem under marketing, 44rem under literary).
+   .wrap-wide pins chrome (header/footer) to the wide measure everywhere. */
+.wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
 .wrap-wide { max-width: 70rem; }
 
 /* Buttons */

@@ -26,9 +26,9 @@ StyleDictionary.registerTransform({
   },
 });
 
-/** All tokens for one product x mode, transformed to CSS values, primitives included. */
-export async function cssTokensFor(product, mode) {
-  const resolverPath = path.join(ROOT, 'resolvers', `${product}.${mode}.resolver.json`);
+/** All tokens for one situation x mode (or 'base' x mode), transformed to CSS values, primitives included. */
+export async function cssTokensFor(situation, mode) {
+  const resolverPath = path.join(ROOT, 'resolvers', `${situation}.${mode}.resolver.json`);
   const sd = new StyleDictionary({
     tokens: resolveTokens(resolverPath),
     log: { verbosity: 'silent' },

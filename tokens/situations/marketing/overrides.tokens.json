@@ -1,0 +1,8 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "marketing mode-agnostic overrides: wide stage for visual impact.",
+  "container": {
+    "$type": "dimension",
+    "max": { "$value": "{dimension.container.70}" }
+  }
+}

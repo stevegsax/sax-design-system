@@ -85,7 +85,7 @@
       "98": { "$value": { "colorSpace": "oklch", "components": [0.98, 0.0082, 25], "alpha": 1, "hex": "#fef6f6" } }
     },
     "highlight": {
-      "$description": "Highlighter-yellow tonal ramp (OKLCH hue 104) for document annotation marks. Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Consumed by the document-viewer product as a translucent overlay on the (theme-independent) page; step number = OKLCH lightness x 100.",
+      "$description": "Highlighter-yellow tonal ramp (OKLCH hue 104) for document annotation marks. Chroma is gamut-proportional: min(0.17, 0.85 x sRGB gamut maximum at each lightness). Consumed by document-annotation UI (application situation) as a translucent overlay on the (theme-independent) rendered page; step number = OKLCH lightness x 100.",
       "10": { "$value": { "colorSpace": "oklch", "components": [0.1, 0.0179, 104], "alpha": 1, "hex": "#040300" } },
       "15": { "$value": { "colorSpace": "oklch", "components": [0.15, 0.0269, 104], "alpha": 1, "hex": "#0d0c01" } },
       "20": { "$value": { "colorSpace": "oklch", "components": [0.2, 0.0359, 104], "alpha": 1, "hex": "#191703" } },

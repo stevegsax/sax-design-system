@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAX design system — reading situations</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<style>
+  .wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
+  header.site { border-block-end: var(--border-width-default) solid var(--color-border-default);
+                background: var(--color-background-surface); margin-block-end: var(--rhythm-section); }
+  header.site .wrap { display: flex; align-items: center; gap: var(--space-md); padding-block: var(--space-sm); }
+  .brand { font: var(--typography-heading-3); color: var(--color-text-heading); text-decoration: none;
+           display: inline-flex; align-items: center; gap: var(--space-xs); }
+  .brand img { display: inline-block; height: var(--space-lg); }
+  .masthead { font: var(--typography-label); color: var(--color-text-muted); }
+  footer.site { border-block-start: var(--border-width-default) solid var(--color-border-default);
+                padding-block: var(--space-lg); margin-block-start: var(--rhythm-section); }
+  footer.site .wrap { display: flex; justify-content: space-between; }
+  footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
+
+  main a { text-decoration: underline; text-underline-offset: 0.15em; }
+</style>
+</head>
+<body data-situation="documentation">
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="sax-logo-symbol.svg" alt="">SAX Capital</a>
+    <span class="masthead">Design System</span>
+  </div>
+</header>
+
+<main>
+  <h1>Reading situations</h1>
+  <p>One stylesheet serves five reading situations. Import <code>tokens.css</code> and
+     <code>base.css</code>, declare <code>data-situation</code> on <code>&lt;body&gt;</code>
+     (or <code>&lt;html&gt;</code>), and re-scope any region with its own attribute.
+     A page that declares no situation renders deliberately broken. See the
+     <a href="mixing.html">mixing demo</a> for regions of several situations on one page.</p>
+  <table>
+    <thead><tr><th>Situation</th><th>Sample page</th><th>Tokens</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>literary</code></td>
+        <td><a href="samples/literary.html">sample</a></td>
+        <td><a href="preview/literary.html">token preview</a></td>
+      </tr>
+      <tr>
+        <td><code>documentation</code></td>
+        <td><a href="samples/documentation.html">sample</a></td>
+        <td><a href="preview/documentation.html">token preview</a></td>
+      </tr>
+      <tr>
+        <td><code>marketing</code></td>
+        <td><a href="samples/marketing.html">sample</a></td>
+        <td><a href="preview/marketing.html">token preview</a></td>
+      </tr>
+      <tr>
+        <td><code>presentation</code></td>
+        <td><a href="samples/../presentation/presentation.html">sample</a></td>
+        <td><a href="preview/presentation.html">token preview</a></td>
+      </tr>
+      <tr>
+        <td><code>application</code></td>
+        <td><a href="samples/application.html">sample</a></td>
+        <td><a href="preview/application.html">token preview</a></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>&copy; 2026 SAX Capital. All rights reserved.</p>
+    <p><a href="#">Disclosures</a> &middot; <a href="#">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

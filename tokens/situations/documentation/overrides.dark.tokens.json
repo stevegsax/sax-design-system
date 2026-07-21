@@ -1,0 +1,4 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "documentation dark-mode overrides: none for v1 (only remap references here; never redeclare palette values)."
+}

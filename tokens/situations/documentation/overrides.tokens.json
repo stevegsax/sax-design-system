@@ -1,0 +1,9 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "documentation mode-agnostic overrides: airier prose rhythm for skimming; the default container measure already suits longer reference lines.",
+  "rhythm": {
+    "$type": "dimension",
+    "flow": { "$value": "{dimension.scale.6}" },
+    "section": { "$value": "{dimension.scale.16}" }
+  }
+}

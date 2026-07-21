@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAX Capital</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<style>
+  .wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
+  header.site { border-block-end: var(--border-width-default) solid var(--color-border-default);
+                background: var(--color-background-surface); margin-block-end: var(--rhythm-section); }
+  header.site .wrap { display: flex; align-items: center; gap: var(--space-md); padding-block: var(--space-sm); }
+  .brand { font: var(--typography-heading-3); color: var(--color-text-heading); text-decoration: none;
+           display: inline-flex; align-items: center; gap: var(--space-xs); }
+  .brand img { display: inline-block; height: var(--space-lg); }
+  .masthead { font: var(--typography-label); color: var(--color-text-muted); }
+  footer.site { border-block-start: var(--border-width-default) solid var(--color-border-default);
+                padding-block: var(--space-lg); margin-block-start: var(--rhythm-section); }
+  footer.site .wrap { display: flex; justify-content: space-between; }
+  footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
+
+  /* Full-bleed sections manage their own wrap; unlayered rules win over sax-base. */
+  main { max-width: none; padding-inline: 0; }
+
+  .btn { font: var(--button-label-font); border-radius: var(--button-radius);
+         padding: var(--button-padding-block) var(--button-padding-inline);
+         cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn.primary { background: var(--button-primary-background); color: var(--button-primary-text); border: none; }
+  .btn.primary:hover { background: var(--button-primary-background-hover); }
+  .btn.primary:active { background: var(--button-primary-background-active); }
+  .btn.secondary { background: var(--button-secondary-background); color: var(--button-secondary-text);
+                   border: var(--border-width-default) solid var(--button-secondary-border); }
+
+  header.site { margin-block-end: 0; }
+  header.site .wrap { gap: var(--space-lg); }
+  .links { display: flex; gap: var(--space-md); flex: 1; }
+  .links a { font: var(--typography-label); color: var(--color-text-body); text-decoration: none; }
+  .links a:hover { color: var(--color-accent-hover); }
+
+  .hero { padding-block: var(--space-3xl); }
+  .hero h1 { max-width: 36rem; }
+  .hero p { color: var(--color-text-muted); max-width: 40rem; margin-block-end: var(--space-lg); }
+  .hero .actions { display: flex; gap: var(--space-sm); }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
+              padding-block-end: var(--space-2xl); }
+  .card { background: var(--card-background); border: var(--border-width-default) solid var(--card-border);
+          border-radius: var(--card-radius); padding: var(--card-padding); }
+  .card h3 { margin-block-end: var(--space-xs); }
+  .card p { font: var(--typography-body-small); color: var(--color-text-muted); margin: 0; }
+
+  .stats { background: var(--color-accent-subtle); padding-block: var(--space-xl); }
+  .stats .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .stat { margin: 0; }
+  .stat dt { font: var(--typography-caption); color: var(--color-text-muted); text-transform: uppercase; }
+  .stat dd { font: var(--typography-heading-2); color: var(--color-text-heading); }
+
+  .signup { padding-block: var(--space-2xl); max-width: 28rem; }
+  .field { display: grid; gap: var(--space-2xs); margin-block-end: var(--space-md); }
+  .field label { font: var(--input-label-font); color: var(--color-text-heading); }
+  .notice { background: var(--color-status-success-background); color: var(--color-status-success-text);
+            border: var(--border-width-default) solid var(--color-status-success-border);
+            border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md);
+            font: var(--typography-body-small); margin-block-start: var(--space-md); }
+  footer.site { margin-block-start: 0; }
+</style>
+</head>
+<body data-situation="marketing">
+<header class="site">
+  <nav class="wrap">
+    <span class="brand"><img src="../sax-logo-symbol.svg" alt="">SAX Capital</span>
+    <span class="links">
+      <a href="#">Strategies</a>
+      <a href="#">Insights</a>
+      <a href="#">About</a>
+    </span>
+    <a class="btn secondary" href="#">Sign in</a>
+    <a class="btn primary" href="#">Open an account</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <h1>Disciplined exposure, measured risk</h1>
+    <p>SAX Capital pairs systematic strategies with rigorous risk controls.
+       Transparent reporting, daily liquidity, and a research process you can audit.</p>
+    <div class="actions">
+      <a class="btn primary" href="#">Get started</a>
+      <a class="btn secondary" href="#">Read our methodology</a>
+    </div>
+  </section>
+
+  <section class="features wrap">
+    <div class="card">
+      <h3>Systematic strategies</h3>
+      <p>Rules-based allocation across asset classes, rebalanced on signal rather than sentiment.</p>
+    </div>
+    <div class="card">
+      <h3>Risk first</h3>
+      <p>Position limits, drawdown budgets, and stress tests are constraints in the optimizer, not afterthoughts.</p>
+    </div>
+    <div class="card">
+      <h3>Transparent reporting</h3>
+      <p>Daily attribution and exposure reports. <a href="#">See a sample report</a>.</p>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap">
+      <dl class="stat"><dt>Assets under management</dt><dd>$2.4B</dd></dl>
+      <dl class="stat"><dt>Track record</dt><dd>12 years</dd></dl>
+      <dl class="stat"><dt>Reporting cadence</dt><dd>Daily</dd></dl>
+    </div>
+  </section>
+
+  <section class="signup wrap">
+    <h2>Request access</h2>
+    <form>
+      <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" type="text" placeholder="Jane Doe">
+      </div>
+      <div class="field">
+        <label for="email">Work email</label>
+        <input id="email" type="email" placeholder="jane@firm.com">
+      </div>
+      <button class="btn primary" type="button">Request access</button>
+    </form>
+    <div class="notice">Accredited investors only. We respond within one business day.</div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>&copy; 2026 SAX Capital. All rights reserved.</p>
+    <p><a href="#">Disclosures</a> &middot; <a href="#">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

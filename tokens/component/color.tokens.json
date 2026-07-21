@@ -12,6 +12,11 @@
       "background": { "$value": "{color.background.surface}" },
       "border": { "$value": "{color.border.strong}" },
       "text": { "$value": "{color.text.link}" }
+    },
+    "disabled": {
+      "$description": "Disabled controls are exempt from the APCA gates by recorded decision (decisions/2026-07-19-disabled-state.md).",
+      "background": { "$value": "{color.background.disabled}" },
+      "text": { "$value": "{color.text.disabled}" }
     }
   },
   "card": {
@@ -25,7 +30,13 @@
     "text": { "$value": "{color.text.body}" },
     "placeholder": { "$value": "{color.text.muted}" },
     "border": { "$value": "{color.border.strong}" },
-    "border-focus": { "$value": "{color.border.focus}" }
+    "border-focus": { "$value": "{color.border.focus}" },
+    "disabled": {
+      "$description": "Disabled controls are exempt from the APCA gates by recorded decision (decisions/2026-07-19-disabled-state.md).",
+      "background": { "$value": "{color.background.disabled}" },
+      "text": { "$value": "{color.text.disabled}" },
+      "border": { "$value": "{color.border.disabled}" }
+    }
   },
   "link": {
     "$type": "color",
@@ -34,7 +45,7 @@
   },
   "annotation": {
     "$type": "color",
-    "$description": "Document-annotation marks for the document-viewer product. These sit on the rendered page, which is theme-independent, so each references a mode-agnostic marker ramp and stays identical in light and dark; the consuming app applies its own translucency/blend.",
+    "$description": "Document-annotation marks for document-viewing application UI. These sit on the rendered page, which is theme-independent, so each references a mode-agnostic marker ramp and stays identical in light and dark; the consuming app applies its own translucency/blend.",
     "highlight": { "$value": "{color.highlight.90}" },
     "selected": { "$value": "{color.marker.70}" },
     "selection-bar-surface": { "$value": "{color.neutral.20}" },

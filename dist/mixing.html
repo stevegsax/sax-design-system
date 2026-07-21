@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixing situations — SAX design system</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<style>
+  .wrap { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-gutter); }
+  header.site { border-block-end: var(--border-width-default) solid var(--color-border-default);
+                background: var(--color-background-surface); margin-block-end: var(--rhythm-section); }
+  header.site .wrap { display: flex; align-items: center; gap: var(--space-md); padding-block: var(--space-sm); }
+  .brand { font: var(--typography-heading-3); color: var(--color-text-heading); text-decoration: none;
+           display: inline-flex; align-items: center; gap: var(--space-xs); }
+  .brand img { display: inline-block; height: var(--space-lg); }
+  .masthead { font: var(--typography-label); color: var(--color-text-muted); }
+  footer.site { border-block-start: var(--border-width-default) solid var(--color-border-default);
+                padding-block: var(--space-lg); margin-block-start: var(--rhythm-section); }
+  footer.site .wrap { display: flex; justify-content: space-between; }
+  footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
+
+  main { padding-block-end: var(--space-2xl); }
+  .region { border: var(--border-width-thick) dashed var(--color-border-strong);
+            border-radius: var(--radius-lg); margin-block-end: var(--space-xl);
+            padding: var(--space-xl) var(--space-lg); }
+  .region-label { font: var(--typography-caption); color: var(--color-text-muted);
+                  text-transform: uppercase; margin-block-end: var(--space-md); }
+</style>
+</head>
+<body data-situation="application">
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="sax-logo-symbol.svg" alt="">SAX Capital</a>
+    <span class="masthead">Mixing demo</span>
+  </div>
+</header>
+
+<main>
+  <h1>One page, four situations</h1>
+  <p class="region-label">page chrome: application</p>
+
+  <section class="region" data-situation="marketing">
+    <p class="region-label">region: marketing</p>
+    <h2>Disciplined exposure, measured risk</h2>
+    <p>Wide stage, pure-white canvas in light mode, engagement over density.</p>
+  </section>
+
+  <article class="region" data-situation="literary">
+    <p class="region-label">region: literary</p>
+    <p>There is a moment, familiar to anyone who has managed money through a drawdown,
+       when the strongest position available is no position at all. The tinted page and
+       book measure belong to the literary situation even inside an application frame.</p>
+  </article>
+
+  <section class="region" data-situation="documentation">
+    <p class="region-label">region: documentation</p>
+    <p>Airier rhythm, visible links: see <a href="#">snapshot resolution</a> for how
+       <code>--snapshot</code> forms are ranked.</p>
+    <ul>
+      <li>Exact content address</li>
+      <li>Vendor timestamp</li>
+      <li><code>latest</code> (refused in CI)</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>&copy; 2026 SAX Capital. All rights reserved.</p>
+    <p><a href="#">Disclosures</a> &middot; <a href="#">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

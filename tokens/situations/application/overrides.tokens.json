@@ -1,0 +1,8 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "application mode-agnostic overrides: tool chrome fills the viewport; the container cap is effectively unbounded and layout is the app's concern.",
+  "container": {
+    "$type": "dimension",
+    "max": { "$value": "{dimension.max}" }
+  }
+}

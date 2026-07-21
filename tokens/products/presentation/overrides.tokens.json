@@ -1,4 +1,0 @@
-{
-  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "presentation mode-agnostic overrides. Only remap references here; never redeclare palette values."
-}
