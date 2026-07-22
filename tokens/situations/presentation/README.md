@@ -2,7 +2,7 @@
 
 Token overrides for the `presentation` reading situation — reveal.js slide decks. One override: the dark-mode page is true black (`{color.neutral.0}`) for projectors and OLED displays. Decks must declare `data-situation="presentation"` on `<html>`: the override ships as a `[data-situation="presentation"]` delta block in the shared `dist/tokens.css`, and `theme.css`'s `:root` mapping resolves against `<html>`'s custom properties. The kit's copy of `tokens.css` is refreshed by `build:presentation` so the directory stays self-contained.
 
-The build emits the deck kit to `dist/presentation/`: `reveal.js`, `reset.css`, `reveal.css`, `tokens.css`, `theme.css`, the optional `highlight.js` + `highlight.css` (syntax highlighting), and a sample `presentation.html`. This file records what we learned wiring the tokens to reveal.js, so the lessons survive the next theme change.
+The build emits the deck kit to `dist/presentation/`: `reveal.js`, `reset.css`, `reveal.css`, `tokens.css`, `theme.css`, the optional `highlight.js` + `highlight.css` (syntax highlighting), a sample `presentation.html`, and `sax-logo-symbol.svg` (the title-slide logo). This file records what we learned wiring the tokens to reveal.js, so the lessons survive the next theme change.
 
 ## reveal.js styling is two layers, and reveal ships only one of them
 

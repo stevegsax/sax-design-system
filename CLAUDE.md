@@ -14,12 +14,12 @@
 
 ## Extending the system (tokens, types, products)
 
-A token is not "added" until it appears in **three** places: `dist/<product>/tokens.css`, the README token tables, and the Storybook catalog. `dist` updates automatically from the resolver, but the README generator (`scripts/build-docs.js`) and the catalog (`stories/lib/catalog.js`) are **category-aware** — they enumerate known token files and known CSS-var prefixes. A new token *value* in an existing tier+type flows everywhere for free; a new token *type, tier file, prefix, or product* ships to `dist` but silently vanishes from the README and catalog until you teach those tools its category. (This is how the `effect`/shadow tier first shipped invisible.) Match the change to its checklist:
+A token is not "added" until it appears in **three** places: `dist/tokens.css`, the README token tables, and the Storybook catalog. `dist` updates automatically from the resolver, but the README generator (`scripts/build-docs.js`) and the catalog (`stories/lib/catalog.js`) are **category-aware** — they enumerate known token files and known CSS-var prefixes. A new token *value* in an existing tier+type flows everywhere for free; a new token *type, tier file, prefix, or situation* ships to `dist` but silently vanishes from the README and catalog until you teach those tools its category. (This is how the `effect`/shadow tier first shipped invisible.) Match the change to its checklist:
 
 - **New token in an existing tier + type** (e.g. another `semantic/color`, another `component/dimension`): edit the JSON, `npm run build`. Appears in all three surfaces automatically.
-- **New primitive ramp (a new hue):** edit `config/ramps.json`, run `npm run generate:ramps`, **and** add the ramp name to the `RAMPS` set in `scripts/lib/css-tokens.js` — otherwise its raw steps leak into every product's `dist` instead of being filtered as primitives. Reference the steps from semantic/component tokens.
+- **New primitive ramp (a new hue):** edit `config/ramps.json`, run `npm run generate:ramps`, **and** add the ramp name to the `RAMPS` set in `scripts/lib/css-tokens.js` — otherwise its raw steps leak into the emitted `dist/tokens.css` instead of being filtered as primitives. Reference the steps from semantic/component tokens.
 - **New token `$type` or new tier file** (the most wiring — e.g. `tokens/semantic/effect.tokens.json`, `$type: shadow`): touch **all** of —
-  - `scripts/resolver.jq` — add the file to the correct `sets.sources`, or it is never resolved into any product.
+  - `scripts/resolver.jq` — add the file to the correct `sets.sources`, or it is never resolved into any output.
   - `scripts/lib/css-tokens.js` — register any Style-Dictionary transform the type needs in the `css` platform (e.g. `transforms.shadowCssShorthand`); extend `isPrimitive` if it lives under a primitive path.
   - `scripts/build-docs.js` — `leaves(load(...))` the file, add a rows/table + a `###` section, and update the console count line, or the README omits it.
   - `stories/lib/catalog.js` — add a `SECTION_FILTERS` entry keyed on the new CSS-var prefix **before** the `component` catch-all (so it is claimed, not lumped into component), plus a `valueKind` branch + a renderer if the value needs a bespoke preview (shadows get a swatch that casts the box-shadow).
@@ -29,7 +29,7 @@ A token is not "added" until it appears in **three** places: `dist/<product>/tok
 
 ## Design requests (ADRs) and the pattern library
 
-- Any change to the style system — token, pattern, standard — originates as an ADR in `decisions/` (`YYYY-MM-DD-<slug>.md`, `status: Proposed`), usually filed as a PR by the `sax-designer` skill running in a product repo. Design review happens here: set the status (`Accepted (vX.Y.Z)` / `Rejected` / `Superseded`), implement accepted ADRs via the checklists above, ship a release, and record the version in the ADR. ADRs are permanent records — never delete one. Process details: `decisions/README.md`.
+- Any change to the style system — token, pattern, standard — originates as an ADR in `decisions/` (`YYYY-MM-DD-<slug>.md`, `status: Proposed`), usually filed as a PR by the `sax-designer` skill running in a product repo. Design review happens here: set the status (`Approved (vX.Y.Z)` / `Rejected` / `Superseded by <file>`), implement approved ADRs via the checklists above, ship a release, and record the version in the ADR. ADRs are permanent records — never delete one. Process details: `decisions/README.md`.
 - `patterns/` is the page-level pattern library shipped to consumers. Additions are ADR-gated; every pattern needs a Storybook story and visual baseline before release.
 - `.claude/skills/sax-designer/` ships to consumers via the package `files` field (verify with `npm pack --dry-run` after touching `files`); consumers copy it into their repo on install and on every pin bump. Treat edits to that skill as consumer-facing: they only reach products through a release.
 

@@ -5,9 +5,10 @@ Reusable page-level markup patterns (page shell, table, sidebar, dropdown,
 tokens: tokens say what a color or size *is*; a pattern says how a page
 region is *built* from them.
 
-Currently empty: the first pattern (`page-shell`) is proposed in
-`decisions/2026-07-19-layout-and-page-shell.md` and lands when that ADR is
-accepted.
+Currently empty. There is no single canonical page shell — shells are
+per-reading-situation and are proposed on demand, one ADR per pattern, per
+`decisions/2026-07-20-reading-situations.md` (which superseded the original
+`page-shell` proposal in `decisions/2026-07-19-layout-and-page-shell.md`).
 
 ## Format
 

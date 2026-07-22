@@ -96,7 +96,10 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/stevegsax/sax-design-system/compare/v0.3.1...v0.4.0
+[0.3.1]: https://github.com/stevegsax/sax-design-system/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/stevegsax/sax-design-system/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/stevegsax/sax-design-system/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/stevegsax/sax-design-system/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/stevegsax/sax-design-system/releases/tag/v0.1.0

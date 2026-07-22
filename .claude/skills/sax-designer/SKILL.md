@@ -120,7 +120,7 @@ properties, or quietly inline a value. Instead:
 4. **Move on.** Finish the mockup with the provisional styling and continue
    with the next task; never wait for approval. A large design may leave
    several ADRs open at once — that is expected.
-5. **When an ADR is accepted and released:** bump the dependency pin,
+5. **When an ADR is approved and released:** bump the dependency pin,
    re-copy this skill from `node_modules` (it ships with the package), swap
    each provisional block for the real tokens or pattern, and remove the
    `data-provisional` markers.
@@ -130,7 +130,7 @@ properties, or quietly inline a value. Instead:
 - Answer and explain, grounded in the files under "Ground truth" — quote
   current values, never recite from memory.
 - Review CSS, HTML, or mockups against the checklist below.
-- Review `Proposed` ADRs in `decisions/` against the standards; an accepted
+- Review `Proposed` ADRs in `decisions/` against the standards; an approved
   ADR is implemented via the repo CLAUDE.md "Extending the system" checklist
   and shipped as a release, with the version recorded in the ADR.
 
@@ -164,8 +164,8 @@ properties, or quietly inline a value. Instead:
 - **Spacing and effects:** fixed scales only (`--space-2xs` … `--space-3xl`,
   `--radius-sm/md/lg/full`, `--border-width-*`); shadows via
   `--elevation-sm/md`, never hand-written `box-shadow`.
-- **Product overrides:** resolution order is primitive → semantic →
-  component → product, and product wins; overrides may only remap
+- **Situation overrides:** resolution order is primitive → semantic →
+  component → situation, and the situation wins; overrides may only remap
   `{references}`.
 
 ## Ground truth — look up, never recite
@@ -201,7 +201,7 @@ When reviewing a design, stylesheet, or mockup, flag:
 
 - Palette experiments and re-skins → the `palette-experiment` skill, on an
   experiment branch (design-system repo only).
-- Implementing accepted ADRs (token wiring, new types, products) → the
+- Implementing approved ADRs (token wiring, new types, situations) → the
   design-system repo CLAUDE.md "Extending the system" checklist.
 - The reveal.js presentation theme → read
-  `tokens/products/presentation/README.md` first.
+  `tokens/situations/presentation/README.md` first.

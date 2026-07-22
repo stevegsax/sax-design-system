@@ -40,5 +40,6 @@ vs. new type/tier/product (full checklist).
 Each with the reason it was rejected.
 ```
 
-Statuses after review: `Accepted (vX.Y.Z)` once implemented and released,
-`Rejected` (file stays as a record), `Superseded by <file>`.
+Statuses after review: `Approved` (implementation may proceed), then
+`Approved (vX.Y.Z)` once implemented and released; `Rejected` (file stays
+as a record); `Superseded by <file>`.

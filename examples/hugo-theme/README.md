@@ -23,7 +23,7 @@ Light and dark are automatic: `tokens.css` emits `light-dark()` values under
 
 ## Layout
 
-```
+```text
 hugo-theme/
 ├── theme.toml
 ├── archetypes/default.md
@@ -71,8 +71,9 @@ and each layout declares its reading situation on `<body>`
 (`layouts/_default/baseof.html`): the home page is `marketing` (wide,
 pure-white canvas), everything else is `literary` (book measure, tinted
 page, stronger card borders). The situation drives `--container-max`, so
-the theme has no hardcoded measures — one site mixing two situations is
-the point of the example. `static/css/tokens.css` and `base.css` are
+the main content measure follows the situation (chrome and a few prose/form
+caps stay fixed in `theme.css`) — one site mixing two situations is the
+point of the example. `static/css/tokens.css` and `base.css` are
 committed copies of `@sax/design-tokens/dist/{tokens,base}.css`. In a real
 consumer that installs the package as a git dependency, copy or symlink
 them from `node_modules/@sax/design-tokens/dist/` during deploy rather

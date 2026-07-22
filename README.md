@@ -113,8 +113,10 @@ mkdir -p .claude/skills
 cp -R node_modules/@sax/design-tokens/.claude/skills/sax-designer .claude/skills/
 ```
 
-Mockups land in `mockups/<slug>/index.html`, styled only by the token custom
-properties, and open in your browser. When a design needs a token, pattern, or
+Mockups land in `mockups/<slug>/index.html` — each links `dist/tokens.css`
+and `dist/base.css`, declares `data-situation` on `<body>` (regions may
+re-scope), styles only with the token custom properties, and opens in your
+browser. When a design needs a token, pattern, or
 standard the system lacks, the skill styles the gap provisionally, files an ADR
 to this repository (`decisions/`), and moves on; a design review here approves
 and releases the change, after which the product bumps its pin and the
@@ -374,4 +376,4 @@ Pull pipeline improvements (schemas, color checks, build scripts) from this repo
 git pull upstream main        # conflicts, when any, are confined to tokens you diverged
 ```
 
-Then set the palette. Editing base colors is not search-and-replace: `check:color` fails when a token's `hex` and OKLCH `components` disagree, so compute new ramp steps with culori (`clampChroma` to sRGB, then `formatHex`) and write the full structured value. The clone is sound once `npm run build` is green and `git remote -v` shows `origin` as your repo and `upstream` as this one.
+Then set the palette. Edit the hues, chroma rules, and brand `anchor` in `config/ramps.json` and run `npm run generate:ramps` — never hand-write `tokens/primitive/color.tokens.json`; `check:ramps` rejects any drift from the spec, and `check:color` separately verifies every hex fallback against its OKLCH components. The clone is sound once `npm run build` is green and `git remote -v` shows `origin` as your repo and `upstream` as this one.

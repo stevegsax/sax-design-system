@@ -10,7 +10,7 @@
 
 /* Themeable surface, grouped as in reveal's css/theme/template/settings.scss.
    Discrete font family/weight/line-height are intentionally absent: the
-   typography composites below own those (see the product README). */
+   typography composites below own those (see this situation's README). */
 :root {
   /* Background */
   --r-background-color: var(--color-background-page);

@@ -14,7 +14,7 @@ description: >-
 
 Improvise alternate palettes on a disposable branch while `main` stays strict.
 You edit the **spec** (`config/ramps.json`) and the **semantic** tokens, then the
-existing pipeline expands them into `dist/<product>/tokens.css`. You never paint
+existing pipeline expands them into `dist/tokens.css`. You never paint
 pixels — you move hues, chroma, and which tonal step each role points at.
 
 ## What this does and does not do
@@ -40,9 +40,9 @@ pixels — you move hues, chroma, and which tonal step each role points at.
    `validate` (ajv) PASSES it — then resolution CRASHES ("Reference Errors: Some token
    references could not be found", from `build:tokens` / `check-color`). Valid steps:
 
-   ```
-   neutral                        0 5 10 15 20 30 40 50 60 70 80 90 95 98 100
-   brand success warning danger   10 15 20 30 40 50 60 70 80 90 95 98   (brand also: anchor)
+   ```text
+   neutral                                         0 5 10 15 20 30 40 50 60 70 80 90 95 98 100
+   brand success warning danger highlight marker   10 15 20 30 40 50 60 70 80 90 95 98   (brand also: anchor)
    ```
 
    There is no `.25`, `.45`, `.55`, `.85`. Change hue/chroma/cap freely; leave the ladder alone.
@@ -57,11 +57,11 @@ pixels — you move hues, chroma, and which tonal step each role points at.
 
 ## The knobs
 
-```
+```text
 config/ramps.json                      ← hue + saturation levers (primitive tier)
 ├── cap            0.17                 global chroma ceiling — lower to desaturate
-├── ramps[].hue                        per-ramp hue (neutral 250, brand 249.6,
-│                                        success 150, warning 85, danger 25)
+├── ramps[].hue                        per-ramp hue (neutral 250, brand 249.6, success 150,
+│                                        warning 85, danger 25, highlight 104, marker 63)
 └── ramps[].rule   const|ceiling|proportional   neutral is const 0.006
 
 tokens/semantic/color.light.tokens.json   ← luminance + contrast levers (light)
@@ -143,10 +143,10 @@ contrast move APCA and are where the soft floor and the relax protocol come in.
 ## The recommender
 
 `scripts/advise-color.js` is the recommender — run it after `generate:ramps`. It
-resolves every product × mode, reports each pair's Lc, flags those below the gate, and
+resolves base plus every situation × mode, reports each pair's Lc, flags those below the gate, and
 for each names the nearest ramp step that clears it plus the relax target:
 
-```
+```text
 below literary/light  Lc  70.1 < 75  body text on page
         fix:   neutral.50 -> neutral.40 (Lc 81.3)
         relax: minLc 75 -> 70  (>= soft floor 60)
@@ -193,7 +193,7 @@ Solarized's neutrals drift from teal (base03, H≈220) in the darks to warm crea
 
 `config/ramps.json`:
 
-```
+```text
 cap: 0.17 → 0.13                       # gentle desaturation
 neutral.hue: 250 → 88                  # warm cream tint
 neutral.rule.value: 0.006 → 0.02       # a touch more warmth in the greys
@@ -205,7 +205,7 @@ danger.hue:  25 → 27                   # Solarized red (already there)
 
 `tokens/semantic/color.light.tokens.json` (luminance + contrast):
 
-```
+```text
 background.page:   {color.neutral.98} → {color.neutral.95}   # warm off-white
 background.surface:{color.neutral.100} → {color.neutral.98}  # no pure white
 text.heading:      {color.neutral.10} → {color.neutral.40}

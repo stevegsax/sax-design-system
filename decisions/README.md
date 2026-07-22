@@ -15,9 +15,9 @@ permanently.
 2. **Review.** A design review in this repository accepts or rejects the
    proposal by editing the ADR's `status`. Date-prefixed filenames keep
    concurrent filings from colliding.
-3. **Implement.** An accepted ADR is implemented via the "Extending the
+3. **Implement.** An approved ADR is implemented via the "Extending the
    system" checklist in `CLAUDE.md`, shipped as a release, and its status
-   updated to `Accepted (vX.Y.Z)`. Product repos then bump their pin and
+   updated to `Approved (vX.Y.Z)`. Product repos then bump their pin and
    replace the provisional styling that referenced the ADR.
 4. **Record.** ADRs are never deleted. A rejected ADR keeps
    `status: Rejected`; a later reversal files a new ADR and marks the old
@@ -26,6 +26,7 @@ permanently.
 ## Statuses
 
 - `Proposed` — awaiting design review.
-- `Accepted (vX.Y.Z)` — implemented and released in that version.
+- `Approved` — design review passed; implementation may proceed.
+- `Approved (vX.Y.Z)` — implemented and released in that version.
 - `Rejected` — declined; kept as a record.
 - `Superseded by <file>` — replaced by a later decision.
