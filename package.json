@@ -1,6 +1,6 @@
 {
   "name": "@sax/design-system",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "SAX Capital design tokens. DTCG 2025.10 JSON is the source of truth; Style Dictionary v5 transforms it into one deployable stylesheet serving five reading situations.",
   "type": "module",
