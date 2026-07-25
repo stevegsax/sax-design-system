@@ -4,6 +4,8 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-07-25
+
 ### Added
 
 - `sax-designer` skill: **migration mode** — a workflow for restyling existing product UI onto the system (audit into a value→token map, approval gate, per-page foundation via `data-situation` scoping, ladder-ordered replacement, ADR gate for gaps, mode/contrast verification). The skill description now triggers on migration requests, and `guidelines/building-pages.md` gains a "Migrating an existing page" section documenting the incremental-adoption property.
@@ -130,7 +132,8 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/stevegsax/sax-design-system/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/stevegsax/sax-design-system/compare/v0.3.1...v0.4.0
