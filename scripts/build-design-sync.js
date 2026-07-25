@@ -302,7 +302,10 @@ const INPUT_JSX = `import React from 'react';
  * Labelled form field: label above control, styled from the --input-*
  * component tokens (the "field" pattern).
  */
-export function Input({ label, id, disabled = false, style, inputStyle, ...rest }) {
+export function Input({ label, id, disabled = false, style, inputStyle, children, ...rest }) {
+  // String children become the label: <input> is a void element, so children
+  // must never reach it (design-tool imports pass text content as children).
+  const labelText = label ?? (typeof children === 'string' ? children : undefined);
   const control = {
     font: 'var(--input-value-font)',
     padding: 'var(--input-padding-block) var(--input-padding-inline)',
@@ -323,9 +326,9 @@ export function Input({ label, id, disabled = false, style, inputStyle, ...rest 
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2xs)', ...style }}>
-      {label && (
+      {labelText && (
         <label htmlFor={id} style={{ font: 'var(--input-label-font)' }}>
-          {label}
+          {labelText}
         </label>
       )}
       <input
@@ -357,6 +360,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   style?: React.CSSProperties;
   /** Extra styles for the <input> itself. */
   inputStyle?: React.CSSProperties;
+  /** String children are treated as the label; never passed to the <input>. */
+  children?: React.ReactNode;
 }
 
 export function Input(props: InputProps): JSX.Element;
@@ -370,6 +375,7 @@ const INPUT_PROMPT = `Labelled text field — one control per field block.
 
 - Focus shows the accent outline (\`--input-border-focus\`); disabled uses the disabled color roles.
 - Placeholder styling needs a stylesheet rule (\`::placeholder\`); in full pages base.css provides it.
+- String children are treated as the label (\`<Input>Work email</Input>\`); children are never forwarded to the void \`<input>\` element.
 `;
 
 const CARD_JSX = `import React from 'react';
@@ -945,9 +951,9 @@ write(
   img { height: 72px; }
 `,
     body: `<div class="row">
-  <div class="item"><img src="../static-assets/logos/full/SAX_logo_full.svg" alt="SAX Capital full lockup"><span>full</span></div>
-  <div class="item"><img src="../static-assets/logos/wordmark-only/SAX_logo_wordmark.svg" alt="SAX Capital wordmark"><span>wordmark</span></div>
-  <div class="item"><img src="../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="SAX Capital symbol"><span>symbol</span></div>
+  <div class="item"><img src="../static-assets/logos/full/SAX_logo_full.png" alt="SAX Capital full lockup"><span>full</span></div>
+  <div class="item"><img src="../static-assets/logos/wordmark-only/SAX_logo_wordmark.png" alt="SAX Capital wordmark"><span>wordmark</span></div>
+  <div class="item"><img src="../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="SAX Capital symbol"><span>symbol</span></div>
 </div>`,
   }),
 );
@@ -980,7 +986,7 @@ write(
   .tags { display: flex; gap: var(--space-sm); }
 `,
     `<div class="slide">
-  <img src="../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="SAX Capital">
+  <img src="../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="SAX Capital">
   <h1>Disciplined exposure, measured risk</h1>
   <p class="tagline">Systematic strategies. Rigorous risk controls. Reporting you can audit.</p>
   <div class="tags"><span class="tag">2026 outlook</span><span class="tag">Investor briefing</span></div>
@@ -1110,7 +1116,7 @@ write(
   <header style="border-block-end: var(--border-width-default) solid var(--color-border-default); background: var(--color-background-surface);">
     <div style="max-width: 44rem; margin-inline: auto; padding: var(--space-sm) var(--space-lg); display: flex; align-items: center; gap: var(--space-md);">
       <a href="#" style="display: inline-flex; align-items: center; gap: var(--space-xs); text-decoration: none;">
-        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="" style="height: var(--space-lg);">
+        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="" style="height: var(--space-lg);">
         <span style="font: var(--typography-heading-3); color: var(--color-text-heading);">SAX Capital</span>
       </a>
       <span style="font: var(--typography-label); color: var(--color-text-muted);">Research Notes</span>
@@ -1163,7 +1169,7 @@ write(
   <header style="border-block-end: var(--border-width-default) solid var(--color-border-default); background: var(--color-background-surface);">
     <div style="max-width: 70rem; margin-inline: auto; padding: var(--space-sm) var(--space-lg); display: flex; align-items: center; gap: var(--space-lg);">
       <span style="display: inline-flex; align-items: center; gap: var(--space-xs);">
-        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="" style="height: var(--space-lg);">
+        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="" style="height: var(--space-lg);">
         <span style="font: var(--typography-heading-3); color: var(--color-text-heading);">SAX Capital</span>
       </span>
       <nav style="display: flex; gap: var(--space-md); flex: 1; font: var(--typography-label);">
@@ -1203,7 +1209,10 @@ write(
     <div style="max-width: 32rem;">
       <h2 style="font: var(--typography-heading-2); color: var(--color-text-heading); margin: 0 0 var(--space-md);">Request access</h2>
       <div style="display: flex; gap: var(--space-sm); align-items: end;">
-        <x-import component-from-global-scope="${GLOBAL}.Input" hint-size="280px,64px">Work email</x-import>
+        <div style="display: flex; flex-direction: column; gap: var(--space-2xs); flex: 1;">
+          <label for="access-email" style="font: var(--input-label-font);">Work email</label>
+          <input id="access-email" type="email" style="font: var(--input-value-font); padding: var(--input-padding-block) var(--input-padding-inline); border: var(--input-border-width) solid var(--input-border); border-radius: var(--input-radius); background: var(--input-background); color: var(--input-text);">
+        </div>
         <x-import component-from-global-scope="${GLOBAL}.Button" hint-size="150px,36px">Request access</x-import>
       </div>
       <p style="font: var(--typography-body-small); color: var(--color-text-muted); margin: var(--space-sm) 0 0;">Accredited investors only. We respond within one business day.</p>
@@ -1226,7 +1235,7 @@ const rebaseSample = (file, marker) =>
   `${marker}\n${readFileSync(path.join(ROOT, 'dist/samples', file), 'utf8')
     .replaceAll('href="../tokens.css"', 'href="../../styles.css"')
     .replaceAll('href="../base.css"', 'href="../../base.css"')
-    .replaceAll('../sax-logo-symbol.svg', '../../static-assets/logos/symbol-only/SAX_logo_symbol.svg')}`;
+    .replaceAll('../sax-logo-symbol.svg', '../../static-assets/logos/symbol-only/SAX_logo_symbol.png')}`;
 
 write(
   'ui_kits/marketing/index.html',
