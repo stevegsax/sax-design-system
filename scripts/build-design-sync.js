@@ -96,8 +96,13 @@ ${body}
 `;
 }
 
-// A component card: React + babel + the pane's compiled bundle.
-export function componentCard({ viewport, name, subtitle, css, demo }) {
+// A component card: React + babel, with the component source inlined so the
+// card renders correctly even before the pane recompiles _ds_bundle.js.
+export function inlineSource(jsx) {
+  return jsx.replace(/^import React from 'react';\n+/, '').replaceAll('export function', 'function');
+}
+
+export function componentCard({ viewport, name, subtitle, css, sources, demo }) {
   return `<!-- @dsCard group="Components" viewport="${viewport}" name="${name}" subtitle="${subtitle}" -->
 <!DOCTYPE html>
 <html lang="en">
@@ -105,7 +110,6 @@ export function componentCard({ viewport, name, subtitle, css, demo }) {
 <meta charset="utf-8">
 <link rel="stylesheet" href="../../styles.css">
 ${REACT_SCRIPTS}
-<script src="../../_ds_bundle.js"></script>
 <style>
   body { margin: 0; padding: var(--space-lg); background: var(--color-background-page);
          font: var(--typography-body); color: var(--color-text-body); }
@@ -114,6 +118,7 @@ ${css}</style>
 <body>
 <div id="root"></div>
 <script type="text/babel">
+${sources.map(inlineSource).join('\n')}
 ${demo}
 </script>
 </body>
@@ -619,6 +624,14 @@ write(
   'styles.css',
   `/* SAX Capital Design System — global entry point. Generated from ${stamp};\n   do not edit here, edit the repo (github.com/stevegsax/sax-design-system).\n   tokens.css is the shipped stylesheet verbatim (base :root + per-situation\n   delta blocks); primitives.css exists only for ramp specimen cards. */\n@import "tokens/primitives.css";\n@import "tokens/tokens.css";\n`,
 );
+write('base.css', baseCss);
+
+// Brand marks: the script owns the mirror's copies (SVG + PNG from the repo).
+for (const rel of readdirSync(path.join(ROOT, 'static-assets/logos'), { recursive: true })) {
+  const src = path.join(ROOT, 'static-assets/logos', rel);
+  if (!/\.(svg|png)$/.test(rel)) continue;
+  write(path.join('static-assets/logos', rel), readFileSync(src));
+}
 
 // --- Pattern cards ------------------------------------------------------------
 
@@ -654,8 +667,8 @@ write(
     name: 'Buttons & Links',
     subtitle: 'Primary / secondary / disabled buttons and inline links',
     css: '  .row { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }\n',
-    demo: `const { Button, Link } = window.${GLOBAL};
-function Demo() {
+    sources: [BUTTON_JSX, LINK_JSX],
+    demo: `function Demo() {
   return (
     <div className="row">
       <Button>Request access</Button>
@@ -676,8 +689,8 @@ write(
     name: 'Input',
     subtitle: 'Labelled field with focus and disabled states',
     css: '  .row { display: flex; gap: var(--space-lg); align-items: end; flex-wrap: wrap; }\n',
-    demo: `const { Input } = window.${GLOBAL};
-function Demo() {
+    sources: [INPUT_JSX],
+    demo: `function Demo() {
   return (
     <div className="row">
       <Input label="Work email" id="email" type="email" />
@@ -696,8 +709,8 @@ write(
     name: 'Card, Tag & Alert',
     subtitle: 'Surface container, metadata pills, status notices',
     css: '  .col { display: flex; flex-direction: column; gap: var(--space-md); max-width: 40rem; }\n  h3 { font: var(--typography-heading-3); color: var(--color-text-heading); margin: 0 0 var(--space-xs); }\n  p { margin: 0; }\n',
-    demo: `const { Card, Tag, Alert } = window.${GLOBAL};
-function Demo() {
+    sources: [CARD_JSX, TAG_JSX, ALERT_JSX],
+    demo: `function Demo() {
   return (
     <div className="col">
       <Card>
@@ -724,8 +737,8 @@ write(
     name: 'Callouts',
     subtitle: 'Authored admonitions — note / tip / important / warning / caution',
     css: '  .col { display: flex; flex-direction: column; gap: var(--space-md); max-width: 44rem; }\n  p { margin: 0; }\n',
-    demo: `const { Callout } = window.${GLOBAL};
-function Demo() {
+    sources: [CALLOUT_JSX],
+    demo: `function Demo() {
   return (
     <div className="col">
       <Callout variant="note"><p>Vendor restatements change history; cite the content address in published results.</p></Callout>
@@ -1206,13 +1219,13 @@ write(
   }),
 );
 
-// --- UI kits (shipped sample pages, logo path rebased) -----------------------------
+// --- UI kits (shipped sample pages, links rebased to mirror paths) -----------------
 
 const rebaseSample = (file) =>
-  readFileSync(path.join(ROOT, 'dist/samples', file), 'utf8').replaceAll(
-    '../sax-logo-symbol.svg',
-    '../../static-assets/logos/symbol-only/SAX_logo_symbol.svg',
-  );
+  readFileSync(path.join(ROOT, 'dist/samples', file), 'utf8')
+    .replaceAll('href="../tokens.css"', 'href="../../styles.css"')
+    .replaceAll('href="../base.css"', 'href="../../base.css"')
+    .replaceAll('../sax-logo-symbol.svg', '../../static-assets/logos/symbol-only/SAX_logo_symbol.svg');
 
 write('ui_kits/marketing/index.html', rebaseSample('marketing.html'));
 write(
@@ -1248,7 +1261,8 @@ overwritten on the next sync.
 
 - \`styles.css\` — entry point; imports the shipped \`tokens/tokens.css\`
   (base \`:root\` plus one \`[data-situation]\` delta block per reading
-  situation) and specimen-only \`tokens/primitives.css\`.
+  situation) and specimen-only \`tokens/primitives.css\`. \`base.css\` is the
+  shipped element-styling layer, used by the UI kits and pattern cards.
 - \`patterns/\` — cards for the shipped pattern library (button, field,
   card, alert, tag, callout), rendered with the shipped \`base.css\`
   element styling under a declared situation.

@@ -7,6 +7,7 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 ### Added
 
 - `scripts/build-design-sync.js` — generates the claude.ai design-project mirror bundle from repo artifacts (tokens verbatim from `dist/`, pattern cards, React components with current token truths, specimen cards from token data, slides, Design Component templates, UI kits from `dist/samples/`). The mirror is fully generated as of 2026-07-25; only app-managed files (`_ds_bundle.js`, `_ds_manifest.json`, `support.js`, thumbnails) are not owned by the script. Not shipped to consumers (`scripts/` is outside the package `files` field).
+- `scripts/check-design-sync.js` — render-check for the mirror bundle: loads every card and UI-kit page in headless Chromium and fails on 404s, JS errors, the missing-situation diagnostic, or unresolved token variables. Caught the first sync's breakage: UI kits linked `dist`-relative stylesheets that don't exist in the mirror, and component cards depended on the pane's compiled bundle — cards now inline their component source, and the kits link the mirror's `styles.css`/`base.css`.
 
 ## [1.0.1] - 2026-07-25
 
