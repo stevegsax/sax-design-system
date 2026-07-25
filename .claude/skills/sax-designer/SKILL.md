@@ -73,8 +73,8 @@ mockup shows and what is still provisional — not token internals.
   JS, or CDN references.
 - Never hard-code a color, size, font, or shadow that a token covers.
   Structural CSS no token governs (grid templates, flex, `fr` units) is fine.
-  A value that *should* be a token but is not yet (e.g. a container width
-  before the layout ADR lands) must be marked provisional.
+  A value that *should* be a token or pattern but is not yet (e.g. a
+  page-shell grid before a shell pattern lands) must be marked provisional.
 - Both modes must work. Colors come through `light-dark()` automatically;
   verify by toggling `color-scheme` on `:root`; never hard-code white/black
   backgrounds.
@@ -92,14 +92,15 @@ Changes to the style system (a new token, pattern, or standard) are **never
 implemented locally**. Do not edit `node_modules`, redefine `--*` custom
 properties, or quietly inline a value. Instead:
 
-1. **Style it provisionally** from the nearest existing roles (e.g. disabled
-   → `--color-text-muted` on `--color-background-inset`), and mark it:
+1. **Style it provisionally** from the nearest existing roles (e.g. a nav
+   needing an icon set → Unicode glyphs in the text color, per the pending
+   decision in `guidelines/brand.md`), and mark it:
 
    ```html
-   <button data-provisional="2026-07-19-disabled-state" disabled>
+   <nav data-provisional="YYYY-MM-DD-icon-set">
    ```
 
-   with a matching CSS comment: `/* provisional: ADR 2026-07-19-disabled-state */`.
+   with a matching CSS comment: `/* provisional: ADR YYYY-MM-DD-icon-set */`.
 2. **Write the ADR** from `adr-template.md` in this skill directory: what is
    requested, why existing tokens/patterns fall short (name the ones
    considered), the provisional styling in use.
@@ -145,9 +146,9 @@ properties, or quietly inline a value. Instead:
   typography leading, and callout density/typography — `callout.padding-*`,
   `callout.radius`, `callout.title-font`, `callout.body-font`); everything
   else is identity and uniform. Widening the contract is an ADR.
-- **Decision ladder:** component token → semantic token → propose via ADR.
-  Primitives never appear in product CSS (they are excluded from the emitted
-  files on purpose).
+- **Decision ladder:** pattern → component token → semantic token →
+  propose via ADR. Primitives never appear in product CSS (they are
+  excluded from the emitted files on purpose).
 - **Naming:** by role, never by value or appearance — `color.text.muted`,
   not `gray-light`. Renames are breaking changes; get the role right first.
 - **Color:** OKLCH tonal ramps generated from `config/ramps.json`; step
@@ -188,7 +189,7 @@ before using or recommending it — never invent one.
 | Token source | `…/tokens/**/*.tokens.json` | `tokens/**/*.tokens.json` |
 | Situations, gates, ramps | `…/config/*.json` | `config/*.json` |
 | Patterns | `…/patterns/` | `patterns/` |
-| Brand guidelines | `…/guidelines/brand.md` | `guidelines/brand.md` |
+| Guides — brand, building-pages, adding-components | `…/guidelines/` | `guidelines/` |
 | ADR record | filed via PR/issue | `decisions/` |
 
 ## Review checklist

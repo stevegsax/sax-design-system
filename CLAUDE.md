@@ -36,6 +36,7 @@ A token is not "added" until it appears in **three** places: `dist/tokens.css`, 
 ## Releasing
 
 - Products consume this package as a git dependency pinned to a release tag (`github:stevegsax/sax-design-system#vX.Y.Z`). There is no registry publish; `private: true` stays.
+- Before `npm version`: re-read `.claude/skills/sax-designer/SKILL.md` end to end against the release's changes. It is the one consumer-facing artifact with no build gate — examples and its Standards section drift silently when a release fills a gap they describe (this is how the disabled-state and container-width examples went stale in v1.0.0).
 - Release flow: commit the change (with regenerated `dist/` and `resolvers/`, and a `CHANGELOG.md` entry), then `npm version patch|minor|major`, then `git push --follow-tags`. Move the Unreleased section of the changelog under the new version heading as part of the bump. The `version` script rebuilds after the bump so generated headers carry the new version, and stages the artifacts into the tag commit.
 - Semver contract: token value changes are patch/minor; renaming or removing a token is major.
 - Never add a `prepack` or `prepare` script: npm runs them on the consumer's machine when installing a git dependency, which would require Node, jq, and devDependencies in every consumer environment. Installs must stay zero-toolchain.

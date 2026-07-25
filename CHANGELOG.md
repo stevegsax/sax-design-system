@@ -4,6 +4,12 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-07-25
+
+### Fixed
+
+- `sax-designer` skill review (post-v1.0.0): the decision ladder now leads with patterns; the two provisional-styling examples referenced gaps filled in v0.4.0 (disabled state, container width) and now cite currently-open gaps (page shell, icon set); the ground-truth table points at all three `guidelines/` docs, not just `brand.md`. The release flow in `CLAUDE.md` gains a pre-`npm version` step: re-read the skill against the release, since it is the one consumer-facing artifact with no build gate.
+
 ## [1.0.0] - 2026-07-25
 
 Migration for v0.4.x consumers: the package is renamed `@sax/design-tokens` → `@sax/design-system` (repo URL unchanged). Update the dependency key in `package.json` and every `node_modules/@sax/design-tokens/…` path (mockup stylesheet links, vendored-CSS copy steps) to `@sax/design-system`. Token names and CSS custom properties are unchanged.
@@ -115,7 +121,8 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/stevegsax/sax-design-system/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/stevegsax/sax-design-system/compare/v0.3.0...v0.3.1
