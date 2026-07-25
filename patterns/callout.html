@@ -1,0 +1,51 @@
+<!--
+pattern: callout
+since: v1.0.0
+adr: decisions/2026-07-24-callout-pattern.md
+usage: Authored admonition in static documentation. <aside> is canonical; the same classes on <blockquote> are accepted for rendered markdown. Variants: note, tip, important, warning, caution.
+-->
+<style>
+  .callout {
+    background: var(--callout-background);
+    border: var(--callout-border-width) solid;
+    border-radius: var(--callout-radius);
+    padding: var(--callout-padding-block) var(--callout-padding-inline);
+    font: var(--callout-body-font);
+    margin-block-end: var(--rhythm-flow);
+  }
+  .callout > :last-child { margin-block-end: 0; }
+  .callout .callout-title {
+    font: var(--callout-title-font);
+    margin-block-end: var(--space-2xs);
+  }
+  .callout.note      { border-color: var(--callout-note-border); }
+  .callout.tip       { border-color: var(--callout-tip-border); }
+  .callout.important { border-color: var(--callout-important-border); }
+  .callout.warning   { border-color: var(--callout-warning-border); }
+  .callout.caution   { border-color: var(--callout-caution-border); }
+  .callout.note      .callout-title { color: var(--callout-note-title); }
+  .callout.tip       .callout-title { color: var(--callout-tip-title); }
+  .callout.important .callout-title { color: var(--callout-important-title); }
+  .callout.warning   .callout-title { color: var(--callout-warning-title); }
+  .callout.caution   .callout-title { color: var(--callout-caution-title); }
+</style>
+<aside class="callout note">
+  <p class="callout-title">Note</p>
+  <p>Vendor restatements change history; cite the content address in published results.</p>
+</aside>
+<aside class="callout tip">
+  <p class="callout-title">Tip</p>
+  <p>Pin the data snapshot in the run manifest to make reruns byte-for-byte identical.</p>
+</aside>
+<aside class="callout important">
+  <p class="callout-title">Important</p>
+  <p>Timestamps resolve against the content address, not the vendor feed.</p>
+</aside>
+<aside class="callout warning">
+  <p class="callout-title">Warning</p>
+  <p>A strategy hash mismatch invalidates every downstream attribution table.</p>
+</aside>
+<aside class="callout caution">
+  <p class="callout-title">Caution</p>
+  <p>Deleting a snapshot is irreversible and breaks reproduction of any run that cites it.</p>
+</aside>

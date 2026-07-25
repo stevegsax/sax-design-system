@@ -50,5 +50,35 @@
     "selected": { "$value": "{color.marker.70}" },
     "selection-bar-surface": { "$value": "{color.neutral.20}" },
     "selection-bar-text": { "$value": "{color.neutral.98}" }
+  },
+  "tag": {
+    "$type": "color",
+    "background": { "$value": "{color.accent.subtle}" },
+    "text": { "$value": "{color.text.link}" }
+  },
+  "callout": {
+    "$type": "color",
+    "$description": "Authored admonitions in static documentation (decisions/2026-07-24-callout-pattern.md). Uniform inset fill; only border and title ink vary per variant.",
+    "background": { "$value": "{color.background.inset}" },
+    "note": {
+      "border": { "$value": "{color.border.default}" },
+      "title": { "$value": "{color.text.heading}" }
+    },
+    "tip": {
+      "border": { "$value": "{color.status.success.text}" },
+      "title": { "$value": "{color.status.success.text}" }
+    },
+    "important": {
+      "border": { "$value": "{color.accent.default}" },
+      "title": { "$value": "{color.text.link}" }
+    },
+    "warning": {
+      "border": { "$value": "{color.status.warning.text}" },
+      "title": { "$value": "{color.status.warning.text}" }
+    },
+    "caution": {
+      "border": { "$value": "{color.status.danger.text}" },
+      "title": { "$value": "{color.status.danger.text}" }
+    }
   }
 }

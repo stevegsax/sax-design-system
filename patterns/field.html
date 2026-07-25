@@ -1,0 +1,25 @@
+<!--
+pattern: field
+since: v1.0.0
+adr: decisions/2026-07-24-field-pattern.md
+usage: Labelled form control, one per block. Label typography comes from base.css; works unchanged for input, select, and textarea.
+-->
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin-block-end: var(--rhythm-flow);
+  }
+</style>
+<div class="field">
+  <label for="field-email">Work email</label>
+  <input id="field-email" type="email" autocomplete="email">
+</div>
+<div class="field">
+  <label for="field-mandate">Mandate</label>
+  <select id="field-mandate">
+    <option>Systematic global macro</option>
+    <option>Defensive equity</option>
+  </select>
+</div>

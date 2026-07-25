@@ -1,5 +1,5 @@
 {
-  "name": "@sax/design-tokens",
+  "name": "@sax/design-system",
   "version": "0.4.0",
   "private": true,
   "description": "SAX Capital design tokens. DTCG 2025.10 JSON is the source of truth; Style Dictionary v5 transforms it into one deployable stylesheet serving five reading situations.",
@@ -13,6 +13,8 @@
     "tokens",
     "config",
     "patterns",
+    "guidelines",
+    "static-assets",
     ".claude/skills/sax-designer"
   ],
   "scripts": {

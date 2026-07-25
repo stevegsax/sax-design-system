@@ -18,5 +18,19 @@
     "padding-block": { "$value": "{space.xs}" },
     "border-width": { "$value": "{border-width.default}" },
     "border-width-focus": { "$value": "{border-width.focus}" }
+  },
+  "tag": {
+    "$type": "dimension",
+    "radius": { "$value": "{radius.full}" },
+    "padding-inline": { "$value": "{space.xs}" },
+    "padding-block": { "$value": "{space.2xs}" }
+  },
+  "callout": {
+    "$type": "dimension",
+    "$description": "Situation-contract roles: situations may remap callout density (decisions/2026-07-24-callout-pattern.md).",
+    "radius": { "$value": "{radius.md}" },
+    "padding-inline": { "$value": "{space.md}" },
+    "padding-block": { "$value": "{space.sm}" },
+    "border-width": { "$value": "{border-width.default}" }
   }
 }

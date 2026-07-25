@@ -1,0 +1,36 @@
+<!--
+pattern: button
+since: v1.0.0
+adr: decisions/2026-07-24-button-pattern.md
+usage: Actions. Bare <button> renders as secondary via base.css; use .btn on <a> or <button>, and .btn.primary for the single accent action per view.
+-->
+<style>
+  .btn {
+    font: var(--button-label-font);
+    border-radius: var(--button-radius);
+    padding: var(--button-padding-block) var(--button-padding-inline);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn.primary {
+    background: var(--button-primary-background);
+    color: var(--button-primary-text);
+    border: none;
+  }
+  .btn.primary:hover { background: var(--button-primary-background-hover); }
+  .btn.primary:active { background: var(--button-primary-background-active); }
+  .btn.secondary {
+    background: var(--button-secondary-background);
+    color: var(--button-secondary-text);
+    border: var(--border-width-default) solid var(--button-secondary-border);
+  }
+  .btn:disabled {
+    background: var(--button-disabled-background);
+    color: var(--button-disabled-text);
+    cursor: default;
+  }
+</style>
+<button class="btn primary" type="button">Request access</button>
+<button class="btn secondary" type="button">Read our methodology</button>
+<button class="btn secondary" type="button" disabled>Open an account</button>

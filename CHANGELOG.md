@@ -1,8 +1,27 @@
 # Changelog
 
-Notable changes to the SAX design tokens. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semver (token value changes are patch/minor; renaming or removing a token is major).
+Notable changes to the SAX design system. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semver (token value changes are patch/minor; renaming or removing a token is major).
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-07-25
+
+Migration for v0.4.x consumers: the package is renamed `@sax/design-tokens` → `@sax/design-system` (repo URL unchanged). Update the dependency key in `package.json` and every `node_modules/@sax/design-tokens/…` path (mockup stylesheet links, vendored-CSS copy steps) to `@sax/design-system`. Token names and CSS custom properties are unchanged.
+
+### Changed — breaking
+
+- **Package renamed to `@sax/design-system`.** The system now ships patterns, brand guidelines, and logos alongside the tokens; the old name undersold the scope. Consumers pin the same repo (`github:stevegsax/sax-design-system#vX.Y.Z`) under the new name.
+
+### Added
+
+- **Pattern library, first six patterns** (one ADR each, dated 2026-07-24): `button`, `field`, `card`, `alert`, `tag`, `callout`. Links are deliberately not a pattern — `base.css` element coverage is the recorded standard ([ADR](decisions/2026-07-24-link-element-coverage.md)). Each pattern has a Storybook story per situation and committed visual baselines.
+- **Tag component tokens** ([ADR](decisions/2026-07-24-tag-component.md)): `tag.background`, `tag.text`, `tag.label-font`, `tag.radius`, `tag.padding-*`; gated `tag.text` on `tag.background` at Lc 60 (measured 66.6–80.9 across all situations × modes).
+- **Callout component tokens** ([ADR](decisions/2026-07-24-callout-pattern.md)): uniform inset fill with per-variant border/title inks for the five GitHub admonition types (`note`, `tip`, `important`, `warning`, `caution`); `<aside>` canonical, same classes accepted on `blockquote` for rendered markdown. The situation contract widens to callout density/typography (`callout.padding-*`, `callout.radius`, `callout.title-font`, `callout.body-font`). Status-border candidates failed the Lc 45 gate and were implemented as status text inks (see the ADR's implementation note); four new non-text border gates.
+- **`base.css`: `label` element styling** ([ADR](decisions/2026-07-24-field-pattern.md)) — applies `--input-label-font`, closing the gap where the token existed but nothing used it.
+- **Brand guidelines** (`guidelines/brand.md`, [ADR](decisions/2026-07-24-brand-guidelines.md)): ratified voice/copy standards, four mechanical review gates (sentence case, no emoji, no exclamation marks, formal punctuation), visual-restraint guidance, and recorded pending decisions (typefaces, icon set, imagery). The blanket no-icon/no-imagery/no-gradient rules from the claude.ai mirror were struck as unratified inference.
+- **Logos ship with the package**: `guidelines` and `static-assets` join the `files` field.
+- **How-to guides**: `guidelines/building-pages.md` (composing pages — decision ladder, situations, modes, layout sources) and `guidelines/adding-components.md` (the ADR path for new components, with the 2026-07-24 ADRs as worked examples).
+- Storybook: a `Patterns` story per situation renders every shipped pattern under that situation's tokens, light and dark side by side.
 
 ## [0.4.0] - 2026-07-21
 
@@ -96,7 +115,8 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/stevegsax/sax-design-system/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/stevegsax/sax-design-system/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/stevegsax/sax-design-system/compare/v0.2.0...v0.3.0

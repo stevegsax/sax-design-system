@@ -23,6 +23,11 @@
     { "foreground": "color.status.success.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax string on inset" },
     { "foreground": "color.status.warning.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax number on inset" },
     { "foreground": "color.status.danger.text", "background": "color.background.inset", "minLc": 60, "usage": "syntax keyword on inset" },
-    { "foreground": "annotation.selection-bar-text", "background": "annotation.selection-bar-surface", "minLc": 75, "usage": "annotation selection action bar label" }
+    { "foreground": "annotation.selection-bar-text", "background": "annotation.selection-bar-surface", "minLc": 75, "usage": "annotation selection action bar label" },
+    { "foreground": "tag.text", "background": "tag.background", "minLc": 60, "usage": "tag label" },
+    { "foreground": "callout.tip.border", "background": "color.background.page", "minLc": 45, "usage": "callout tip border (non-text)" },
+    { "foreground": "callout.warning.border", "background": "color.background.page", "minLc": 45, "usage": "callout warning border (non-text)" },
+    { "foreground": "callout.caution.border", "background": "color.background.page", "minLc": 45, "usage": "callout caution border (non-text)" },
+    { "foreground": "callout.important.border", "background": "color.background.page", "minLc": 45, "usage": "callout important border (non-text)" }
   ]
 }

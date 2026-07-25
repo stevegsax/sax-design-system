@@ -19,7 +19,7 @@ Act as a visual designer working within the SAX design system. Every design
 decision is a token choice: roles, tiers, patterns — never raw values. Detect
 the context first:
 
-- **Product repo** — `node_modules/@sax/design-tokens/` exists → mockup mode.
+- **Product repo** — `node_modules/@sax/design-system/` exists → mockup mode.
 - **Design-system repo** (or a clone seeded from it) — `config/ramps.json` and
   `tokens/` at the repo root → advisory mode.
 
@@ -36,17 +36,17 @@ mockup shows and what is still provisional — not token internals.
    (settings, lists, dashboards, tools) → `application`; long-form prose →
    `literary`; docs/manuals/tutorials → `documentation`; landing/home pages
    → `marketing`; decks → `presentation`. The live list is in
-   `node_modules/@sax/design-tokens/config/matrix.json`. State the choice;
+   `node_modules/@sax/design-system/config/matrix.json`. State the choice;
    switching is one attribute. A mockup of an independent component is a
    small page that still declares the situation it will live in.
 2. **Create or edit the mockup.** New design → `mockups/<slug>/index.html`.
    An iteration request ("add a sidebar") edits the existing mockup: if the
    repo has exactly one, use it; otherwise ask which.
 3. **Compose, in this order:**
-   1. **Pattern library** — `node_modules/@sax/design-tokens/patterns/`;
+   1. **Pattern library** — `node_modules/@sax/design-system/patterns/`;
       copy the pattern markup rather than re-deriving layout.
    2. **Component tokens** (`--button-*`, `--card-*`, `--input-*`,
-      `--link-*`, `--annotation-*`).
+      `--link-*`, `--annotation-*`, `--tag-*`, `--callout-*`).
    3. **Semantic tokens** (`--color-*`, `--space-*`, `--radius-*`,
       `--border-width-*`, `--typography-*`, `--elevation-*`), chosen by role.
    4. **Nothing fits** → provisional styling plus an ADR (below). Never a
@@ -62,8 +62,8 @@ mockup shows and what is still provisional — not token internals.
   stylesheet links, relative to the repo's `node_modules`:
 
   ```html
-  <link rel="stylesheet" href="../../node_modules/@sax/design-tokens/dist/tokens.css">
-  <link rel="stylesheet" href="../../node_modules/@sax/design-tokens/dist/base.css">
+  <link rel="stylesheet" href="../../node_modules/@sax/design-system/dist/tokens.css">
+  <link rel="stylesheet" href="../../node_modules/@sax/design-system/dist/base.css">
   ```
 
   and `data-situation="<situation>"` on `<body>` — without it the page
@@ -79,7 +79,7 @@ mockup shows and what is still provisional — not token internals.
   verify by toggling `color-scheme` on `:root`; never hard-code white/black
   backgrounds.
 - Text and indicator pairings: stick to combinations the system already gates
-  (`node_modules/@sax/design-tokens/config/contrast-pairs.json`) or uses in
+  (`node_modules/@sax/design-system/config/contrast-pairs.json`) or uses in
   its own sample pages. A novel fg/bg text pairing gets flagged in the
   summary — and an ADR if it should become standard.
 - Interactivity: CSS-only where possible (`<details>` for collapse, the
@@ -142,8 +142,9 @@ properties, or quietly inline a value. Instead:
   and `base.css` gives plain semantic HTML its element styling inside any
   declared situation. Situations may remap only the situation contract
   (page/inset backgrounds, `card.border`, `container.*`, `rhythm.*`,
-  typography leading); everything else is identity and uniform. Widening
-  the contract is an ADR.
+  typography leading, and callout density/typography — `callout.padding-*`,
+  `callout.radius`, `callout.title-font`, `callout.body-font`); everything
+  else is identity and uniform. Widening the contract is an ADR.
 - **Decision ladder:** component token → semantic token → propose via ADR.
   Primitives never appear in product CSS (they are excluded from the emitted
   files on purpose).
@@ -164,6 +165,12 @@ properties, or quietly inline a value. Instead:
 - **Spacing and effects:** fixed scales only (`--space-2xs` … `--space-3xl`,
   `--radius-sm/md/lg/full`, `--border-width-*`); shadows via
   `--elevation-sm/md`, never hand-written `box-shadow`.
+- **Brand:** `guidelines/brand.md` is ground truth for voice, copy, and
+  visual restraint. Mechanical rules are review gates: sentence case
+  everywhere (uppercase only for stat eyebrows), no emoji, no exclamation
+  marks, formal punctuation. No icon set or imagery art direction is
+  sanctioned yet — a design needing icons, imagery, or gradients styles
+  provisionally and files an ADR, per the pending decisions in that file.
 - **Situation overrides:** resolution order is primitive → semantic →
   component → situation, and the situation wins; overrides may only remap
   `{references}`.
@@ -175,12 +182,13 @@ before using or recommending it — never invent one.
 
 | Surface | Product repo | Design-system repo |
 | --- | --- | --- |
-| Token tables | `node_modules/@sax/design-tokens/README.md` | `README.md` |
+| Token tables | `node_modules/@sax/design-system/README.md` | `README.md` |
 | Rendered catalog | `…/dist/preview/<situation>.html` | `dist/preview/<situation>.html` |
 | Situation samples | `…/dist/samples/`, `…/dist/mixing.html` | `dist/samples/`, `dist/mixing.html` |
 | Token source | `…/tokens/**/*.tokens.json` | `tokens/**/*.tokens.json` |
 | Situations, gates, ramps | `…/config/*.json` | `config/*.json` |
 | Patterns | `…/patterns/` | `patterns/` |
+| Brand guidelines | `…/guidelines/brand.md` | `guidelines/brand.md` |
 | ADR record | filed via PR/issue | `decisions/` |
 
 ## Review checklist
@@ -196,6 +204,10 @@ When reviewing a design, stylesheet, or mockup, flag:
 - Value-based names in proposed tokens; text pairings with no contrast gate.
 - Mode assumptions: hard-coded white/black, `prefers-color-scheme` blocks
   doing what `light-dark()` already does.
+- Brand mechanical rules (`guidelines/brand.md`): emoji, exclamation
+  marks, title-case headings/buttons/nav, informal punctuation.
+- Imagery, gradients, or icons with no `data-provisional` marker and no
+  ADR — none is sanctioned yet; they route through the gap process.
 
 ## Boundaries
 

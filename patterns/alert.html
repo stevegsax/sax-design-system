@@ -1,0 +1,33 @@
+<!--
+pattern: alert
+since: v1.0.0
+adr: decisions/2026-07-24-alert-pattern.md
+usage: System-generated transient status on live pages. Variants: success, warning, danger. Authored admonitions in documentation use the callout pattern instead.
+-->
+<style>
+  .alert {
+    border: var(--border-width-default) solid;
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    font: var(--typography-body-small);
+    margin-block-end: var(--rhythm-flow);
+  }
+  .alert.success {
+    background: var(--color-status-success-background);
+    border-color: var(--color-status-success-border);
+    color: var(--color-status-success-text);
+  }
+  .alert.warning {
+    background: var(--color-status-warning-background);
+    border-color: var(--color-status-warning-border);
+    color: var(--color-status-warning-text);
+  }
+  .alert.danger {
+    background: var(--color-status-danger-background);
+    border-color: var(--color-status-danger-border);
+    color: var(--color-status-danger-text);
+  }
+</style>
+<div class="alert success" role="status">Report generated. A copy is in your documents queue.</div>
+<div class="alert warning" role="status">Market data is delayed by 15 minutes.</div>
+<div class="alert danger" role="alert">The backtest could not be reproduced. See the run log.</div>

@@ -1,7 +1,7 @@
 name = "SAX Capital"
 license = "Proprietary"
 licenselink = ""
-description = "Hugo theme built entirely from the @sax/design-tokens custom properties. Demonstrates consuming the published tokens.css in a static site: marketing home, blog index, and post pages."
+description = "Hugo theme built entirely from the @sax/design-system custom properties. Demonstrates consuming the published tokens.css in a static site: marketing home, blog index, and post pages."
 homepage = "https://github.com/stevegsax/sax-design-system"
 min_version = "0.146.0"
 

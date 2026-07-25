@@ -8,15 +8,15 @@ Depend on this repository at a release tag — the tag is the version pin:
 
 ```json
 "dependencies": {
-  "@sax/design-tokens": "git+https://github.com/stevegsax/sax-design-system.git#v0.1.0"
+  "@sax/design-system": "git+https://github.com/stevegsax/sax-design-system.git#v0.1.0"
 }
 ```
 
 `dist/` is committed and prebuilt, so installing needs no toolchain. Import the system stylesheet and the base layer, then declare a reading situation:
 
 ```css
-@import '@sax/design-tokens/dist/tokens.css';
-@import '@sax/design-tokens/dist/base.css';
+@import '@sax/design-system/dist/tokens.css';
+@import '@sax/design-system/dist/base.css';
 ```
 
 ```html
@@ -75,10 +75,10 @@ v0.3.x shipped one stylesheet per product (`dist/<product>/tokens.css`); those f
 
    ```css
    /* before */
-   @import '@sax/design-tokens/dist/product-home-page/tokens.css';
+   @import '@sax/design-system/dist/product-home-page/tokens.css';
    /* after */
-   @import '@sax/design-tokens/dist/tokens.css';
-   @import '@sax/design-tokens/dist/base.css';
+   @import '@sax/design-system/dist/tokens.css';
+   @import '@sax/design-system/dist/base.css';
    ```
 
 2. **Declare the situation your product's old stylesheet mapped to** on `<body>` (or `<html>`):
@@ -102,6 +102,15 @@ Notes:
 - If you copied the `sax-designer` skill, re-copy it after moving the pin (see below).
 - New in this version, adopt when convenient: `--container-max`/`--container-gutter` (replace hardcoded page measures), `--rhythm-flow`/`--rhythm-section`, and the disabled-state tokens (`--button-disabled-*`, `--input-disabled-*`, `--color-text-disabled`, …).
 
+### Guides
+
+`guidelines/building-pages.md` — composing a page from tokens, base
+element styles, and patterns (the decision ladder, situations, modes,
+where to crib layout). `guidelines/adding-components.md` — how a new
+component or standard enters the system via ADR, with worked examples.
+`guidelines/brand.md` — ratified voice, copy, and visual-restraint
+standards.
+
 ### Designing mockups (sax-designer skill)
 
 The package ships a Claude Code skill that turns design requests ("design a
@@ -110,7 +119,7 @@ in your product repo. One-time setup, repeated whenever you move the version pin
 
 ```sh
 mkdir -p .claude/skills
-cp -R node_modules/@sax/design-tokens/.claude/skills/sax-designer .claude/skills/
+cp -R node_modules/@sax/design-system/.claude/skills/sax-designer .claude/skills/
 ```
 
 Mockups land in `mockups/<slug>/index.html` — each links `dist/tokens.css`
@@ -153,6 +162,7 @@ The deck must declare `data-situation="presentation"` on `<html>` — the situat
 │   └── contrast-pairs.json  APCA Lc gates checked on every build
 ├── decisions/               ADRs — every style-system change is proposed and recorded here
 ├── patterns/                Page-level pattern library shipped to consumers (ADR-gated)
+├── guidelines/              Brand standards and how-to guides (brand, building-pages, adding-components)
 ├── resolvers/               Generated DTCG resolver documents (do not edit)
 ├── schemas/                 Vendored official DTCG 2025.10 JSON schemas
 ├── scripts/                 Resolver generation, build, color checks
@@ -197,6 +207,23 @@ The preferred tier for consumers. Every component token is a reference into the 
 | `button.secondary.background` | `--button-secondary-background` | `{color.background.surface}` |
 | `button.secondary.border` | `--button-secondary-border` | `{color.border.strong}` |
 | `button.secondary.text` | `--button-secondary-text` | `{color.text.link}` |
+| `callout.background` | `--callout-background` | `{color.background.inset}` |
+| `callout.body-font` | `--callout-body-font` | `{typography.body}` |
+| `callout.border-width` | `--callout-border-width` | `{border-width.default}` |
+| `callout.caution.border` | `--callout-caution-border` | `{color.status.danger.text}` |
+| `callout.caution.title` | `--callout-caution-title` | `{color.status.danger.text}` |
+| `callout.important.border` | `--callout-important-border` | `{color.accent.default}` |
+| `callout.important.title` | `--callout-important-title` | `{color.text.link}` |
+| `callout.note.border` | `--callout-note-border` | `{color.border.default}` |
+| `callout.note.title` | `--callout-note-title` | `{color.text.heading}` |
+| `callout.padding-block` | `--callout-padding-block` | `{space.sm}` |
+| `callout.padding-inline` | `--callout-padding-inline` | `{space.md}` |
+| `callout.radius` | `--callout-radius` | `{radius.md}` |
+| `callout.tip.border` | `--callout-tip-border` | `{color.status.success.text}` |
+| `callout.tip.title` | `--callout-tip-title` | `{color.status.success.text}` |
+| `callout.title-font` | `--callout-title-font` | `{typography.label}` |
+| `callout.warning.border` | `--callout-warning-border` | `{color.status.warning.text}` |
+| `callout.warning.title` | `--callout-warning-title` | `{color.status.warning.text}` |
 | `card.background` | `--card-background` | `{color.background.surface}` |
 | `card.border` | `--card-border` | `{color.border.default}` |
 | `card.padding` | `--card-padding` | `{space.lg}` |
@@ -218,6 +245,12 @@ The preferred tier for consumers. Every component token is a reference into the 
 | `input.value-font` | `--input-value-font` | `{typography.body}` |
 | `link.text` | `--link-text` | `{color.text.link}` |
 | `link.text-hover` | `--link-text-hover` | `{color.accent.active}` |
+| `tag.background` | `--tag-background` | `{color.accent.subtle}` |
+| `tag.label-font` | `--tag-label-font` | `{typography.caption}` |
+| `tag.padding-block` | `--tag-padding-block` | `{space.2xs}` |
+| `tag.padding-inline` | `--tag-padding-inline` | `{space.xs}` |
+| `tag.radius` | `--tag-radius` | `{radius.full}` |
+| `tag.text` | `--tag-text` | `{color.text.link}` |
 
 <!-- /generated:component-tokens -->
 

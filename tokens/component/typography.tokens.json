@@ -8,5 +8,15 @@
     "$type": "typography",
     "value-font": { "$value": "{typography.body}" },
     "label-font": { "$value": "{typography.label}" }
+  },
+  "tag": {
+    "$type": "typography",
+    "label-font": { "$value": "{typography.caption}" }
+  },
+  "callout": {
+    "$type": "typography",
+    "$description": "Situation-contract roles: situations may remap callout typography (decisions/2026-07-24-callout-pattern.md).",
+    "title-font": { "$value": "{typography.label}" },
+    "body-font": { "$value": "{typography.body}" }
   }
 }

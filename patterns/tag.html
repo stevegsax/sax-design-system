@@ -1,0 +1,19 @@
+<!--
+pattern: tag
+since: v1.0.0
+adr: decisions/2026-07-24-tag-component.md
+usage: Topic or metadata pill, inline with text or in a meta row. Not interactive by itself; wrap in <a> when it filters or navigates.
+-->
+<style>
+  .tag {
+    display: inline-block;
+    background: var(--tag-background);
+    color: var(--tag-text);
+    font: var(--tag-label-font);
+    border-radius: var(--tag-radius);
+    padding: var(--tag-padding-block) var(--tag-padding-inline);
+  }
+</style>
+<span class="tag">risk</span>
+<span class="tag">attribution</span>
+<span class="tag">reproducible backtests</span>

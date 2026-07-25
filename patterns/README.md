@@ -5,7 +5,12 @@ Reusable page-level markup patterns (page shell, table, sidebar, dropdown,
 tokens: tokens say what a color or size *is*; a pattern says how a page
 region is *built* from them.
 
-Currently empty. There is no single canonical page shell — shells are
+Shipped patterns (one ADR each, dated 2026-07-24): `button`, `field`,
+`card`, `alert`, `tag`, `callout`. Links are deliberately not a pattern —
+`base.css` styles the anchor element directly
+(`decisions/2026-07-24-link-element-coverage.md`).
+
+There is no single canonical page shell — shells are
 per-reading-situation and are proposed on demand, one ADR per pattern, per
 `decisions/2026-07-20-reading-situations.md` (which superseded the original
 `page-shell` proposal in `decisions/2026-07-19-layout-and-page-shell.md`).
@@ -33,4 +38,4 @@ usage: <one line — where this applies, what to fill in>
   (wiring lands with the first pattern; the stories checklist in
   `CLAUDE.md` applies).
 - Shipped to consumers via the package `files` field; product-repo agents
-  read them from `node_modules/@sax/design-tokens/patterns/`.
+  read them from `node_modules/@sax/design-system/patterns/`.
