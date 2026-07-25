@@ -76,6 +76,19 @@ rules. Use `--rhythm-flow` / `--rhythm-section` for vertical rhythm and
 `brand.md` governs voice and the mechanical rules (sentence case, no
 emoji, no exclamation marks, formal punctuation). Reviews flag violations.
 
+## Migrating an existing page
+
+The system is built for incremental adoption: every rule in `base.css`
+and every situation delta is scoped to `[data-situation]`, so linking the
+two stylesheets changes nothing until a page declares a situation.
+Migrate page by page: audit the page's raw values into a map (value →
+token role, or → gap), link the stylesheets ahead of the product's own
+CSS, declare the situation, then replace values by the decision ladder —
+patterns first. Gaps follow the same provisional-plus-ADR process as new
+work; a legacy color with no ramp equivalent is a design decision, never
+a straight mapping. The `sax-designer` skill runs this workflow from a
+request like "migrate this page to SAX".
+
 ## Or delegate
 
 In a product repo with the skill installed, `/sax-designer` runs this

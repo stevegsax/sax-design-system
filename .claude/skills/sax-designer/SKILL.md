@@ -4,13 +4,15 @@ description: >-
   Visual designer for the SAX design system. In a product repo: turns requests
   like "design a settings page", "mock up a documents list", or "add a
   collapsible sidebar" into token-compliant HTML mockups under mockups/,
-  reusing the shipped pattern library, and files an ADR to the design-system
-  repo whenever the design needs a token, pattern, or standard that does not
-  exist yet. In the design-system repo: answers token questions, reviews
-  designs and ADRs against the standards. Use for any page/screen/mockup
-  design request, "which token should I use", or a design review. Do NOT use
-  for palette re-skins (palette-experiment) or token build/wiring mechanics
-  (repo CLAUDE.md).
+  reusing the shipped pattern library, and migrates existing product UI onto
+  the system ("migrate this page to SAX", "restyle this app to the design
+  system"), filing an ADR to the design-system repo whenever the design
+  needs a token, pattern, or standard that does not exist yet. In the
+  design-system repo: answers token questions, reviews designs and ADRs
+  against the standards. Use for any page/screen/mockup design request, a
+  migration of existing UI, "which token should I use", or a design review.
+  Do NOT use for palette re-skins (palette-experiment) or token build/wiring
+  mechanics (repo CLAUDE.md).
 ---
 
 # SAX visual designer
@@ -125,6 +127,42 @@ properties, or quietly inline a value. Instead:
    re-copy this skill from `node_modules` (it ships with the package), swap
    each provisional block for the real tokens or pattern, and remove the
    `data-provisional` markers.
+
+## Migration mode (existing product UI)
+
+For requests like "migrate this page to SAX" or "bring this app onto the
+design system" — restyling the product's real templates and stylesheets,
+not mockups. The standards and the ADR gate apply unchanged; what differs
+is sequencing.
+
+1. **Prerequisite.** The repo pins `@sax/design-system` at a release tag
+   and this skill is copied from that install. A repo still pinning
+   `@sax/design-tokens` (pre-v1.0.0) bumps first: the dependency key,
+   every `node_modules/@sax/design-tokens/…` path, then re-copy this
+   skill.
+2. **Audit before touching anything.** Inventory the pages and assign each
+   a reading situation. Inventory every hard-coded color, size, font, and
+   shadow into a migration map: raw value → token role, or → gap. Deliver
+   the map and stop for approval — the map is the scope of the migration.
+3. **Foundation, one page at a time.** Link `dist/tokens.css` and
+   `dist/base.css` ahead of the product's stylesheets (unlayered product
+   rules still win over the sax layers), then declare `data-situation` on
+   the page. Everything sax ships is scoped to that attribute, so
+   undeclared pages are untouched — migrate page by page, never big-bang.
+   Expect base element styles to shift headings, rhythm, and forms: that
+   shift is the migration working, not breakage.
+4. **Replace by the ladder, from the map.** Patterns first (bespoke
+   buttons, fields, cards, alerts, tags, callouts become pattern markup),
+   then component tokens, then semantic tokens; every replacement cites
+   its token. Never mix functional changes into migration edits.
+5. **Gaps go through the ADR gate** exactly as in mockup mode: nearest
+   roles, `data-provisional`, ADR filed, move on. A product color with no
+   ramp equivalent is a design decision, not a mapping problem — never
+   inline it or invent a token for it.
+6. **Verify and report.** Both modes (toggle `color-scheme`); text
+   pairings against `config/contrast-pairs.json`; copy against the brand
+   mechanical rules. Report per page: replaced, provisional (with its
+   ADR), and unmapped remainder.
 
 ## Advisory mode (design-system repo)
 
