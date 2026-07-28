@@ -1,6 +1,6 @@
 # sax-design-system
 
-> This repository is the SAX Capital design system: one versioned source for the colors, spacing, and typography shared by SAX products. 
+> This repository is the SAX Capital design system: one versioned source for the colors, spacing, and typography shared by SAX products.
 
 Each design decision is recorded once as a design token — a named value like `color.text.heading` — in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/) JSON, and [Style Dictionary v5](https://styledictionary.com/) transforms those tokens into one deployable stylesheet serving five *reading situations* (see below). Products pin a version of this package, so a change made here (a palette adjustment, a new spacing step) reaches every product on its next dependency update, with accessibility verified by the build before anything ships.
 
@@ -11,7 +11,6 @@ After cloning this repository:
 - run `npm run build` to regenerate the values and components.
 - Check the [example pages](dist/index.html)
 - To see the individual token values, run `npm run storybook`. This will start a server and open a page in your browser showing the tokens.
-
 
 ## Changing the system
 
