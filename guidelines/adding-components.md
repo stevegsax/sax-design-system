@@ -20,7 +20,7 @@ Check whether the system already covers the need:
   element (links, plain buttons, form controls)?
 - The package README token tables — is there a component or semantic role
   for it?
-- `dist/preview/<situation>.html` — the rendered catalog.
+- `dist/catalog/<situation>.html` — the rendered catalog.
 
 ## The path
 

@@ -41,9 +41,11 @@ const CHROME_STYLE = `
   footer.site p, footer.site a { font: var(--typography-caption); color: var(--color-text-muted); margin: 0; }
 `;
 
-const chromeHeader = (masthead, depth = '') => `<header class="site">
+// home=true links the brand to the dist index — system pages only; sample
+// pages stay chrome-free (their brand is inert, as on a real product page).
+const chromeHeader = (masthead, depth = '', home = false) => `<header class="site">
   <div class="wrap">
-    <a class="brand" href="#"><img src="${depth}sax-logo-symbol.svg" alt="">SAX Capital</a>
+    <a class="brand" href="${home ? `${depth}index.html` : '#'}"><img src="${depth}sax-logo-symbol.svg" alt="">SAX Capital</a>
     <span class="masthead">${masthead}</span>
   </div>
 </header>`;
@@ -421,33 +423,40 @@ const situationRows = matrix.situations
     (s) => `      <tr>
         <td><code>${s}</code></td>
         <td><a href="samples/${s === 'presentation' ? '../presentation/presentation.html' : `${s}.html`}">sample</a></td>
-        <td><a href="preview/${s}.html">token preview</a></td>
+        <td><a href="catalog/${s}.html">token catalog</a></td>
+        <td><a href="patterns/${s}.html">patterns</a></td>
       </tr>`,
   )
   .join('\n');
 
 const index = page({
-  title: 'SAX design system — reading situations',
+  title: 'SAX design system',
   situation: 'documentation',
   style: INDEX_STYLE,
-  body: `${chromeHeader('Design System')}
+  body: `${chromeHeader('Design System', '', true)}
 
 <main>
-  <h1>Reading situations</h1>
+  <h1>SAX design system</h1>
   <p>One stylesheet serves five reading situations. Import <code>tokens.css</code> and
      <code>base.css</code>, declare <code>data-situation</code> on <code>&lt;body&gt;</code>
      (or <code>&lt;html&gt;</code>), and re-scope any region with its own attribute.
      A page that declares no situation renders deliberately broken. See the
-     <a href="mixing.html">mixing demo</a> for regions of several situations on one page.</p>
+     <a href="demos/mixing.html">mixing demo</a> for regions of several situations on one page.</p>
   <table>
-    <thead><tr><th>Situation</th><th>Sample page</th><th>Tokens</th></tr></thead>
+    <thead><tr><th>Situation</th><th>Sample page</th><th>Token catalog</th><th>Patterns</th></tr></thead>
     <tbody>
 ${situationRows}
     </tbody>
   </table>
-  <p>Application pages also have a <a href="prototypes/application/index.html">prototype
-     fleet</a> — four archetypes assembled at build time from the page-shell
-     pattern, for reviewing design changes across every page at once.</p>
+  <h2>Application prototypes</h2>
+  <p>The <a href="prototypes/application/index.html">prototype fleet</a> — four
+     archetypes assembled at build time from the page-shell pattern, for
+     reviewing design changes across every page at once.</p>
+
+  <h2>Guides</h2>
+  <p>In the repository (markdown): <code>guidelines/building-pages.md</code>
+     (composing pages), <code>guidelines/adding-components.md</code> (the ADR
+     path), <code>guidelines/brand.md</code> (voice and visual restraint).</p>
 </main>
 
 ${chromeFooter}`,
@@ -466,7 +475,8 @@ const mixing = page({
   title: 'Mixing situations — SAX design system',
   situation: 'application',
   style: MIXING_STYLE,
-  body: `${chromeHeader('Mixing demo')}
+  depth: '../',
+  body: `${chromeHeader('Mixing demo', '../', true)}
 
 <main>
   <h1>One page, four situations</h1>
@@ -516,9 +526,10 @@ const outputs = [
   ['samples/documentation.html', documentation],
   ['samples/application.html', application],
   ['index.html', index],
-  ['mixing.html', mixing],
+  ['demos/mixing.html', mixing],
 ];
 for (const [file, html] of outputs) {
+  mkdirSync(path.dirname(path.join(ROOT, 'dist', file)), { recursive: true });
   writeFileSync(path.join(ROOT, 'dist', file), html);
   console.log(`dist/${file}`);
 }

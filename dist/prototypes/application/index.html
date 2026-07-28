@@ -7,6 +7,19 @@
 <link rel="stylesheet" href="../../tokens.css">
 <link rel="stylesheet" href="../../base.css">
 <style>
+  body { margin: 0; }
+  
+  .site-nav { display: flex; align-items: center; gap: var(--space-md);
+              font: var(--typography-label);
+              background: var(--color-background-surface);
+              border-block-end: var(--border-width-default) solid var(--color-border-default);
+              padding: var(--space-xs) var(--container-gutter); }
+  .site-nav a { text-decoration: none; }
+  .site-nav .nav-home { color: var(--color-text-heading); }
+  .site-nav .nav-here { color: var(--color-text-muted); }
+  .site-nav .nav-links { display: flex; gap: var(--space-sm); flex: 1; justify-content: end; flex-wrap: wrap; }
+  .site-nav .nav-links .current { color: var(--color-text-muted); }
+
   main { max-width: none; margin: 0; padding: var(--space-lg) var(--container-gutter); }
   .fleet-note { color: var(--color-text-muted); max-width: 44rem; }
   section { margin-block-end: var(--rhythm-section); }
@@ -17,6 +30,13 @@
 </style>
 </head>
 <body data-situation="application">
+<nav class="site-nav">
+  <a class="nav-home" href="../../index.html">SAX design system</a>
+  <span class="nav-here">application prototypes</span>
+  <div class="nav-links">
+    
+  </div>
+</nav>
 <main>
   <h1>Application prototype fleet</h1>
   <p class="fleet-note">Every page below is assembled at build time from

@@ -227,8 +227,8 @@ before using or recommending it — never invent one.
 | Surface | Product repo | Design-system repo |
 | --- | --- | --- |
 | Token tables | `node_modules/@sax/design-system/README.md` | `README.md` |
-| Rendered catalog | `…/dist/preview/<situation>.html` | `dist/preview/<situation>.html` |
-| Situation samples | `…/dist/samples/`, `…/dist/mixing.html` | `dist/samples/`, `dist/mixing.html` |
+| Rendered catalog | `…/dist/catalog/<situation>.html` | `dist/catalog/<situation>.html` |
+| Situation samples | `…/dist/samples/`, `…/dist/demos/mixing.html` | `dist/samples/`, `dist/demos/mixing.html` |
 | Token source | `…/tokens/**/*.tokens.json` | `tokens/**/*.tokens.json` |
 | Situations, gates, ramps | `…/config/*.json` | `config/*.json` |
 | Patterns | `…/patterns/` | `patterns/` |

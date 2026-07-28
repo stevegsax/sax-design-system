@@ -13,6 +13,7 @@
 
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { NAV_CSS, navStrip } from './lib/site-nav.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const pkg = JSON.parse(readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
@@ -118,6 +119,8 @@ for (const file of readdirSync(path.join(ROOT, 'prototypes/application'))
 const gallery = page({
   title: 'Application prototype fleet — SAX design system',
   css: `
+  body { margin: 0; }
+  ${NAV_CSS}
   main { max-width: none; margin: 0; padding: var(--space-lg) var(--container-gutter); }
   .fleet-note { color: var(--color-text-muted); max-width: 44rem; }
   section { margin-block-end: var(--rhythm-section); }
@@ -126,7 +129,8 @@ const gallery = page({
   iframe { width: 100%; height: 640px; border: var(--border-width-default) solid var(--color-border-default);
            border-radius: var(--radius-md); background: var(--color-background-page); }
 `,
-  body: `<main>
+  body: `${navStrip({ depth: '../../', here: 'application prototypes' })}
+<main>
   <h1>Application prototype fleet</h1>
   <p class="fleet-note">Every page below is assembled at build time from
      <code>patterns/page-shell-application.html</code> plus its content module

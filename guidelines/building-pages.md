@@ -20,7 +20,7 @@ Situations (`config/matrix.json`): `literary` (long-form prose),
 `presentation` (decks), `application` (tools, lists, settings). A page
 with no declared situation renders as magenta diagnostic stripes — that is
 the system reporting the missing attribute, not a bug. Regions may
-re-scope with their own `data-situation` (see `dist/mixing.html`).
+re-scope with their own `data-situation` (see `dist/demos/mixing.html`).
 
 ## What you get before writing any CSS
 

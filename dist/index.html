@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SAX design system — reading situations</title>
+<title>SAX design system</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="base.css">
 <style>
@@ -26,51 +26,62 @@
 <body data-situation="documentation">
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#"><img src="sax-logo-symbol.svg" alt="">SAX Capital</a>
+    <a class="brand" href="index.html"><img src="sax-logo-symbol.svg" alt="">SAX Capital</a>
     <span class="masthead">Design System</span>
   </div>
 </header>
 
 <main>
-  <h1>Reading situations</h1>
+  <h1>SAX design system</h1>
   <p>One stylesheet serves five reading situations. Import <code>tokens.css</code> and
      <code>base.css</code>, declare <code>data-situation</code> on <code>&lt;body&gt;</code>
      (or <code>&lt;html&gt;</code>), and re-scope any region with its own attribute.
      A page that declares no situation renders deliberately broken. See the
-     <a href="mixing.html">mixing demo</a> for regions of several situations on one page.</p>
+     <a href="demos/mixing.html">mixing demo</a> for regions of several situations on one page.</p>
   <table>
-    <thead><tr><th>Situation</th><th>Sample page</th><th>Tokens</th></tr></thead>
+    <thead><tr><th>Situation</th><th>Sample page</th><th>Token catalog</th><th>Patterns</th></tr></thead>
     <tbody>
       <tr>
         <td><code>literary</code></td>
         <td><a href="samples/literary.html">sample</a></td>
-        <td><a href="preview/literary.html">token preview</a></td>
+        <td><a href="catalog/literary.html">token catalog</a></td>
+        <td><a href="patterns/literary.html">patterns</a></td>
       </tr>
       <tr>
         <td><code>documentation</code></td>
         <td><a href="samples/documentation.html">sample</a></td>
-        <td><a href="preview/documentation.html">token preview</a></td>
+        <td><a href="catalog/documentation.html">token catalog</a></td>
+        <td><a href="patterns/documentation.html">patterns</a></td>
       </tr>
       <tr>
         <td><code>marketing</code></td>
         <td><a href="samples/marketing.html">sample</a></td>
-        <td><a href="preview/marketing.html">token preview</a></td>
+        <td><a href="catalog/marketing.html">token catalog</a></td>
+        <td><a href="patterns/marketing.html">patterns</a></td>
       </tr>
       <tr>
         <td><code>presentation</code></td>
         <td><a href="samples/../presentation/presentation.html">sample</a></td>
-        <td><a href="preview/presentation.html">token preview</a></td>
+        <td><a href="catalog/presentation.html">token catalog</a></td>
+        <td><a href="patterns/presentation.html">patterns</a></td>
       </tr>
       <tr>
         <td><code>application</code></td>
         <td><a href="samples/application.html">sample</a></td>
-        <td><a href="preview/application.html">token preview</a></td>
+        <td><a href="catalog/application.html">token catalog</a></td>
+        <td><a href="patterns/application.html">patterns</a></td>
       </tr>
     </tbody>
   </table>
-  <p>Application pages also have a <a href="prototypes/application/index.html">prototype
-     fleet</a> — four archetypes assembled at build time from the page-shell
-     pattern, for reviewing design changes across every page at once.</p>
+  <h2>Application prototypes</h2>
+  <p>The <a href="prototypes/application/index.html">prototype fleet</a> — four
+     archetypes assembled at build time from the page-shell pattern, for
+     reviewing design changes across every page at once.</p>
+
+  <h2>Guides</h2>
+  <p>In the repository (markdown): <code>guidelines/building-pages.md</code>
+     (composing pages), <code>guidelines/adding-components.md</code> (the ADR
+     path), <code>guidelines/brand.md</code> (voice and visual restraint).</p>
 </main>
 
 <footer class="site">

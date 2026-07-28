@@ -135,7 +135,7 @@ contrast move APCA and are where the soft floor and the relax protocol come in.
 
    ```sh
    npm run build
-   open dist/preview/marketing.html   # or literary / documentation / presentation / application
+   open dist/catalog/marketing.html   # or literary / documentation / presentation / application
    ```
 
    Iterate from step 3 until it looks right by eye.
@@ -225,6 +225,6 @@ soft breach you relax in light.
 
 ## Done
 
-"Done" is by eye: open the situation previews (`dist/preview/*.html`), confirm the warm low-strain feel, and confirm
+"Done" is by eye: open the situation previews (`dist/catalog/*.html`), confirm the warm low-strain feel, and confirm
 the Lc report shows nothing below the experiment's chosen floor. Leave the work on the
 branch; do not merge to `main`.
