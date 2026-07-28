@@ -180,6 +180,41 @@ to this repository (`decisions/`), and moves on; a design review here approves
 and releases the change, after which the product bumps its pin and the
 provisional styling is replaced.
 
+### Claude Designer (claude.ai design project)
+
+The design system is mirrored to a claude.ai **design-system project**
+("SAX Capital Design System") that the Designer tool reads: browsable
+cards for every pattern, token specimen, slide, and application prototype,
+plus React components, templates, and the guides. The repository is the
+source of truth — the mirror is generated, and every file except the
+app-managed ones (`_ds_bundle.js`, `_ds_manifest.json` is regenerated too
+but by our script, `support.js`, thumbnails) is overwritten on sync.
+Never edit the project directly on claude.ai.
+
+Package, verify, upload:
+
+```sh
+node scripts/build-design-sync.js <out-dir>    # 1. assemble the upload bundle from repo artifacts
+node scripts/check-design-sync.js <out-dir>    # 2. render gate: every card in headless Chromium
+# 3. upload: in a Claude Code session, ask to "sync the design-system mirror"
+```
+
+Step 1 builds the complete bundle: the shipped `tokens.css` (verbatim) and
+`base.css`, specimen-only primitive ramps, `@dsCard` preview cards for
+patterns/specimens/slides/UI kits/prototypes, the React component sources,
+Design Component templates, guides, the skill, and `_ds_manifest.json` —
+the derived index the Designer pane actually renders from (card list,
+token panel, and the global CSS it injects into card renders). Step 2
+fails on 404s, JS errors, the missing-situation diagnostic, or unresolved
+token variables — do not upload a failing bundle. Step 3 uses the
+DesignSync tool through your claude.ai login (finalize a plan, then write
+files from the bundle directory); it is incremental, so re-syncs upload
+only what changed.
+
+Sync after every release, and after any change to patterns, prototypes,
+guides, or the skill — the mirror drifts silently otherwise (it has no
+pin to move).
+
 ### Presentations
 
 `dist/presentation/` is a complete [reveal.js](https://revealjs.com/) kit: `reveal.js`, `reset.css`, `reveal.css` (structure: slide positioning, transitions, fragments), `tokens.css` (the custom properties), and `theme.css` (the theme layer). reveal's structural CSS reads almost none of the `--r-*` variables itself — the theme layer is what maps them onto the token custom properties and applies them, so a deck without it falls back to reveal's hardcoded white viewport and the reset's zeroed margins. Copy or serve the directory (a browser cannot resolve bare package paths) and link all four stylesheets, in this order:
