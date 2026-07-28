@@ -2,13 +2,32 @@
 
 This repository is the SAX Capital design system: one versioned source for the colors, spacing, and typography shared by SAX products. Each design decision is recorded once as a design token — a named value like `color.text.heading` — in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/) JSON, and [Style Dictionary v5](https://styledictionary.com/) transforms those tokens into one deployable stylesheet serving five *reading situations* (see below). Products pin a version of this package, so a change made here (a palette adjustment, a new spacing step) reaches every product on its next dependency update, with accessibility verified by the build before anything ships.
 
+## Changing the system
+
+After any change to `tokens/**`, `config/`, or `scripts/`, rebuild and verify:
+
+```sh
+npm run build          # resolvers → schema validation → color + APCA gates → dist/, README tables
+npm run test:visual    # Storybook catalog and patterns vs committed baselines (macOS only)
+```
+
+`npm run build` regenerates every committed artifact (`resolvers/`, `dist/`, the README token tables) — commit them together with the source change. A token is not added until it appears in `dist/tokens.css`, the tables below, **and** the Storybook catalog. If a visual diff is intentional, inspect `test-results/`, then `npm run test:visual:update` and commit the new baselines.
+
+Review these files for compliance before any release:
+
+- `decisions/` — every token, pattern, or standard change has an ADR, with status set per `decisions/README.md`. No ADR, no change.
+- `config/contrast-pairs.json` — every text or indicator pairing is APCA-gated (Lc 75 body, 60 labels, 45 non-text); the build fails on a breach, but *unlisted* pairings pass silently — the review is checking that new pairings are listed.
+- `guidelines/brand.md` — voice and the mechanical rules (sentence case, no emoji, no exclamation marks, formal punctuation) for any copy in patterns, samples, or docs.
+- `skills/sax-designer/SKILL.md` — re-read end to end against the change before `npm version`: it is the one consumer-facing artifact with no build gate, and its examples drift silently when a release fills a gap they describe.
+- `tests/visual/tokens.spec.js-snapshots/` — baseline diffs are design-review surface, not noise; review the images in the diff, not just the file list.
+
 ## Using the tokens
 
 Depend on this repository at a release tag — the tag is the version pin:
 
 ```json
 "dependencies": {
-  "@sax/design-system": "git+https://github.com/stevegsax/sax-design-system.git#v0.1.0"
+  "@sax/design-system": "git+https://github.com/stevegsax/sax-design-system.git#v1.0.2"
 }
 ```
 
