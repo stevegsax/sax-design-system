@@ -4,6 +4,15 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+### Added
+
+- Logo usage standard ([ADR](decisions/2026-07-28-logo-usage.md)): the symbol mark (`SAX_logo_symbol`) is the logo wherever a product shows one; on web pages, the SVG variant. Recorded in `guidelines/brand.md` and the `sax-designer` skill.
+
+### Fixed
+
+- Logo SVGs are now inline-safe: fills as presentation attributes, no document-level `<style>`/classes/ids (the three files shared Illustrator's `.st*` classes with colliding meanings and `id="Layer_1"`, breaking any context that inlines them together); the wordmark's hidden draft layer is deleted (file halved). The claude.ai mirror's rendered logo references revert from the PNG workaround to SVG, verified by an inline-collision render test.
+- Follow-through on the skill's relocation to `skills/sax-designer/` (moved out of `.claude/skills/` to avoid account-symlink conflicts): the package `files` field, README copy command, `CLAUDE.md`, guides, `decisions/README.md`, and the mirror generator all pointed at the old path — the `files` entry would have silently shipped the next release without the skill. Consumers still copy to their repo's `.claude/skills/`; only the source path changed.
+
 ## [1.0.2] - 2026-07-25
 
 ### Added

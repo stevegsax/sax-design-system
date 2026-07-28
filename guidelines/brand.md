@@ -56,3 +56,12 @@ hex:
 `static-assets/logos/` ships with the package: the full lockup, the
 wordmark, and the sailboat symbol, each as SVG and PNG. These are the only
 brand imagery.
+
+- **The symbol is the logo** (decisions/2026-07-28-logo-usage.md).
+  Wherever a product shows a logo — page headers, slides, app chrome —
+  use `SAX_logo_symbol`. The full lockup and wordmark are reserved
+  assets, used only by explicit design decision.
+- **On web pages, use the SVG variant**; PNG is for raster-only contexts.
+- Logo SVGs are inline-safe by standard: presentation attributes only,
+  no document-level `<style>`, classes, or ids. Sanitize any new export
+  the same way before committing.

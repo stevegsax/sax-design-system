@@ -25,7 +25,7 @@ Check whether the system already covers the need:
 ## The path
 
 1. **File an ADR.** `decisions/YYYY-MM-DD-<slug>.md`, `status: Proposed`,
-   from the template in `.claude/skills/sax-designer/adr-template.md`:
+   from the template in `skills/sax-designer/adr-template.md`:
    what is needed, why existing tokens and patterns fall short (name the
    ones considered), proposed token names and references, contrast pairs
    with gates. From a product repo, the `sax-designer` skill files it as a

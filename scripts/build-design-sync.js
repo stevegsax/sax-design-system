@@ -951,9 +951,9 @@ write(
   img { height: 72px; }
 `,
     body: `<div class="row">
-  <div class="item"><img src="../static-assets/logos/full/SAX_logo_full.png" alt="SAX Capital full lockup"><span>full</span></div>
-  <div class="item"><img src="../static-assets/logos/wordmark-only/SAX_logo_wordmark.png" alt="SAX Capital wordmark"><span>wordmark</span></div>
-  <div class="item"><img src="../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="SAX Capital symbol"><span>symbol</span></div>
+  <div class="item"><img src="../static-assets/logos/full/SAX_logo_full.svg" alt="SAX Capital full lockup"><span>full</span></div>
+  <div class="item"><img src="../static-assets/logos/wordmark-only/SAX_logo_wordmark.svg" alt="SAX Capital wordmark"><span>wordmark</span></div>
+  <div class="item"><img src="../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="SAX Capital symbol"><span>symbol</span></div>
 </div>`,
   }),
 );
@@ -986,7 +986,7 @@ write(
   .tags { display: flex; gap: var(--space-sm); }
 `,
     `<div class="slide">
-  <img src="../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="SAX Capital">
+  <img src="../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="SAX Capital">
   <h1>Disciplined exposure, measured risk</h1>
   <p class="tagline">Systematic strategies. Rigorous risk controls. Reporting you can audit.</p>
   <div class="tags"><span class="tag">2026 outlook</span><span class="tag">Investor briefing</span></div>
@@ -1116,7 +1116,7 @@ write(
   <header style="border-block-end: var(--border-width-default) solid var(--color-border-default); background: var(--color-background-surface);">
     <div style="max-width: 44rem; margin-inline: auto; padding: var(--space-sm) var(--space-lg); display: flex; align-items: center; gap: var(--space-md);">
       <a href="#" style="display: inline-flex; align-items: center; gap: var(--space-xs); text-decoration: none;">
-        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="" style="height: var(--space-lg);">
+        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="" style="height: var(--space-lg);">
         <span style="font: var(--typography-heading-3); color: var(--color-text-heading);">SAX Capital</span>
       </a>
       <span style="font: var(--typography-label); color: var(--color-text-muted);">Research Notes</span>
@@ -1169,7 +1169,7 @@ write(
   <header style="border-block-end: var(--border-width-default) solid var(--color-border-default); background: var(--color-background-surface);">
     <div style="max-width: 70rem; margin-inline: auto; padding: var(--space-sm) var(--space-lg); display: flex; align-items: center; gap: var(--space-lg);">
       <span style="display: inline-flex; align-items: center; gap: var(--space-xs);">
-        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.png" alt="" style="height: var(--space-lg);">
+        <img src="../../static-assets/logos/symbol-only/SAX_logo_symbol.svg" alt="" style="height: var(--space-lg);">
         <span style="font: var(--typography-heading-3); color: var(--color-text-heading);">SAX Capital</span>
       </span>
       <nav style="display: flex; gap: var(--space-md); flex: 1; font: var(--typography-label);">
@@ -1235,7 +1235,7 @@ const rebaseSample = (file, marker) =>
   `${marker}\n${readFileSync(path.join(ROOT, 'dist/samples', file), 'utf8')
     .replaceAll('href="../tokens.css"', 'href="../../styles.css"')
     .replaceAll('href="../base.css"', 'href="../../base.css"')
-    .replaceAll('../sax-logo-symbol.svg', '../../static-assets/logos/symbol-only/SAX_logo_symbol.png')}`;
+    .replaceAll('../sax-logo-symbol.svg', '../../static-assets/logos/symbol-only/SAX_logo_symbol.svg')}`;
 
 write(
   'ui_kits/marketing/index.html',
@@ -1265,7 +1265,7 @@ write(
 for (const doc of readdirSync(path.join(ROOT, 'guidelines')).filter((f) => f.endsWith('.md'))) {
   write(`guidelines/${doc}`, readFileSync(path.join(ROOT, 'guidelines', doc), 'utf8'));
 }
-write('SKILL.md', readFileSync(path.join(ROOT, '.claude/skills/sax-designer/SKILL.md'), 'utf8'));
+write('SKILL.md', readFileSync(path.join(ROOT, 'skills/sax-designer/SKILL.md'), 'utf8'));
 
 write(
   'readme.md',

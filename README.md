@@ -119,7 +119,7 @@ in your product repo. One-time setup, repeated whenever you move the version pin
 
 ```sh
 mkdir -p .claude/skills
-cp -R node_modules/@sax/design-system/.claude/skills/sax-designer .claude/skills/
+cp -R node_modules/@sax/design-system/skills/sax-designer .claude/skills/
 ```
 
 Mockups land in `mockups/<slug>/index.html` — each links `dist/tokens.css`

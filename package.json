@@ -15,7 +15,7 @@
     "patterns",
     "guidelines",
     "static-assets",
-    ".claude/skills/sax-designer"
+    "skills/sax-designer"
   ],
   "scripts": {
     "validate": "ajv validate --spec=draft7 -c ajv-formats -s schemas/format.json -d 'tokens/**/*.tokens.json' && ajv validate --spec=draft7 -c ajv-formats -s schemas/resolver.json -d 'resolvers/*.resolver.json'",

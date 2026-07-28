@@ -210,6 +210,8 @@ is sequencing.
   marks, formal punctuation. No icon set or imagery art direction is
   sanctioned yet — a design needing icons, imagery, or gradients styles
   provisionally and files an ADR, per the pending decisions in that file.
+  The symbol mark (`SAX_logo_symbol`) is the logo wherever a product
+  shows one; use the SVG variant on web pages.
 - **Situation overrides:** resolution order is primitive → semantic →
   component → situation, and the situation wins; overrides may only remap
   `{references}`.

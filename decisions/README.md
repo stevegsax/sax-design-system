@@ -9,7 +9,7 @@ permanently.
 1. **File.** The requesting agent (usually the `sax-designer` skill running
    in a product repo) opens a PR adding `decisions/YYYY-MM-DD-<slug>.md`
    with `status: Proposed`, following the template in
-   `.claude/skills/sax-designer/adr-template.md`. Agents without push access
+   `skills/sax-designer/adr-template.md`. Agents without push access
    file a GitHub issue with the same content instead. The requester styles
    the gap provisionally in its mockup and moves on — it does not wait.
 2. **Review.** A design review in this repository accepts or rejects the
