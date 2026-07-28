@@ -57,7 +57,7 @@ Depend on this repository at a release tag — the tag is the version pin:
 
 ```json
 "dependencies": {
-  "@sax/design-system": "git+https://github.com/stevegsax/sax-design-system.git#v1.0.3"
+  "@sax/design-system": "git+https://github.com/stevegsax/sax-design-system.git#v1.1.0"
 }
 ```
 

@@ -1,5 +1,5 @@
 ---
-status: Approved
+status: Approved (v1.1.0)
 date: 2026-07-28
 requested-by: Steven Greenberg, sax-design-system
 ---

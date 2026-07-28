@@ -4,6 +4,8 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-28
+
 ### Added
 
 - **Application page shell** ([ADR](decisions/2026-07-28-page-shell-application.md)): `patterns/page-shell-application.html` — app bar, sidebar, full-bleed main, status footer, each region documented in the pattern itself (now a rule for all patterns). New `shell.sidebar-width` component token (primitive `dimension.container.18`). The `sax-designer` skill and `building-pages.md` start application pages from the shell.
@@ -154,7 +156,8 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/stevegsax/sax-design-system/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/stevegsax/sax-design-system/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/stevegsax/sax-design-system/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...v1.0.1

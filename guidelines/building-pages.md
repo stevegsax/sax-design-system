@@ -36,9 +36,10 @@ For each element, take the first rung that fits — never a raw value that a
 token covers:
 
 1. **Pattern** — copy the markup from `patterns/` rather than re-deriving
-   it: `button`, `field`, `card`, `alert`, `tag`, `callout`. Each file's
-   header comment says where it applies. Links are deliberately not a
-   pattern; write `<a>` and `base.css` styles it.
+   it: `button`, `field`, `card`, `alert`, `tag`, `callout`,
+   `page-shell-application`. Each file's header comment says where it
+   applies. Links are deliberately not a pattern; write `<a>` and
+   `base.css` styles it.
 2. **Component tokens** (`--button-*`, `--card-*`, `--input-*`,
    `--link-*`, `--tag-*`, `--callout-*`, `--annotation-*`) — for styling
    a known component beyond what the pattern shows.
