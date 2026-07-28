@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 270 270" style="enable-background:new 0 0 270 270;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#005A9C;}
-	.st1{fill:#FFFFFF;}
-</style>
 <g>
-	<circle class="st0" cx="135" cy="135" r="125"/>
+	<circle fill="#005A9C" cx="135" cy="135" r="125"/>
 	<g>
 		<g>
-			<path class="st1" d="M144.7,178.3c9.3-2.7,18.6-4.9,27.9-6.5c-1.8-16.4-6.8-59-22.5-97.6C156.5,112.8,150.8,151.7,144.7,178.3z"
+			<path fill="#FFFFFF" d="M144.7,178.3c9.3-2.7,18.6-4.9,27.9-6.5c-1.8-16.4-6.8-59-22.5-97.6C156.5,112.8,150.8,151.7,144.7,178.3z"
 				/>
-			<path class="st1" d="M129.3,36.3c-0.8-1.1-1.7-2.2-2.5-3.3c15.2,80.6-45.8,166.6-45.8,166.6c10.1-2.8,20.8-6.7,31.8-10.7
+			<path fill="#FFFFFF" d="M129.3,36.3c-0.8-1.1-1.7-2.2-2.5-3.3c15.2,80.6-45.8,166.6-45.8,166.6c10.1-2.8,20.8-6.7,31.8-10.7
 				c7.2-2.6,14.5-5.1,21.8-7.5C141.7,152.2,152.9,87.9,129.3,36.3z"/>
 		</g>
-		<path class="st1" d="M57.1,213.4c49.5-1.1,116.6-55.5,169.8-22C168,172.5,96,224.5,57.1,213.4z"/>
+		<path fill="#FFFFFF" d="M57.1,213.4c49.5-1.1,116.6-55.5,169.8-22C168,172.5,96,224.5,57.1,213.4z"/>
 	</g>
 </g>
 </svg>

@@ -4,6 +4,8 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-07-28
+
 ### Added
 
 - Logo usage standard ([ADR](decisions/2026-07-28-logo-usage.md)): the symbol mark (`SAX_logo_symbol`) is the logo wherever a product shows one; on web pages, the SVG variant. Recorded in `guidelines/brand.md` and the `sax-designer` skill.
@@ -141,7 +143,8 @@ Initial release.
 - Generated previews and samples: token catalog, marketing page, blog index, and a token-themed reveal.js deck.
 - Git-tag release model: `dist/` is committed and prebuilt; products pin `github:stevegsax/sax-design-system#vX.Y.Z` and install with no toolchain.
 
-[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/stevegsax/sax-design-system/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/stevegsax/sax-design-system/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/stevegsax/sax-design-system/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/stevegsax/sax-design-system/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/stevegsax/sax-design-system/compare/v0.4.0...v1.0.0
