@@ -1,0 +1,59 @@
+<!--
+prototype: settings
+title: Settings — Document Workspace
+archetype: settings/form page — sectioned nav, labelled fields, one save action
+patterns: button field card
+-->
+<style>
+  .settings-section { max-width: 36rem; margin-block-end: var(--rhythm-section); }
+  .settings-section h2 { font: var(--typography-heading-3); color: var(--color-text-heading);
+                         margin-block-end: var(--space-md); }
+</style>
+<!-- slot:brand -->Document Workspace<!-- /slot:brand -->
+<!-- slot:toolbar -->
+<button class="btn primary" type="submit" form="settings-form">Save changes</button>
+<!-- /slot:toolbar -->
+<!-- slot:sidebar -->
+<h2>Settings</h2>
+<ul class="section-nav">
+  <li class="current"><a href="#profile">Profile</a></li>
+  <li><a href="#retention">Retention</a></li>
+  <li><a href="#notifications">Notifications</a></li>
+  <li><a href="#access">Access</a></li>
+</ul>
+<!-- /slot:sidebar -->
+<!-- slot:main -->
+<h1>Settings</h1>
+<form id="settings-form">
+  <section class="settings-section" id="profile">
+    <h2>Profile</h2>
+    <div class="field">
+      <label for="display-name">Display name</label>
+      <input id="display-name" type="text" value="M. Okafor">
+    </div>
+    <div class="field">
+      <label for="email">Work email</label>
+      <input id="email" type="email" value="m.okafor@saxcapital.co">
+    </div>
+  </section>
+  <section class="settings-section" id="retention">
+    <h2>Retention</h2>
+    <div class="field">
+      <label for="retention-window">Snapshot retention</label>
+      <select id="retention-window">
+        <option>7 years (compliance default)</option>
+        <option>10 years</option>
+        <option>Indefinite</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="archive-tag">Archive tag</label>
+      <input id="archive-tag" type="text" value="read-only" disabled>
+    </div>
+  </section>
+</form>
+<!-- /slot:main -->
+<!-- slot:footer -->
+<p>© 2026 SAX Capital. All rights reserved.</p>
+<p>Changes are audited.</p>
+<!-- /slot:footer -->

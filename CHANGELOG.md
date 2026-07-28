@@ -4,6 +4,12 @@ Notable changes to the SAX design system. Format follows [Keep a Changelog](http
 
 ## [Unreleased]
 
+### Added
+
+- **Application page shell** ([ADR](decisions/2026-07-28-page-shell-application.md)): `patterns/page-shell-application.html` — app bar, sidebar, full-bleed main, status footer, each region documented in the pattern itself (now a rule for all patterns). New `shell.sidebar-width` component token (primitive `dimension.container.18`). The `sax-designer` skill and `building-pages.md` start application pages from the shell.
+- **Application prototype fleet** — four archetypes (records, settings, dashboard, detail) assembled at build time by `scripts/build-prototypes.js` from the shell pattern plus content modules in `prototypes/application/`; pattern styles are pulled in from `patterns/*.html`, so one edit re-renders every page. Emitted to `dist/prototypes/application/` with a gallery index (linked from `dist/index.html`); the records prototype regenerates `dist/samples/application.html` so sample and standard cannot drift. One Storybook story and baseline per prototype; the mirror gains an "Application prototypes" card group.
+- `CLAUDE.md`: "New pattern" checklist (explicit `stories/lib/patterns.js` and mirror `CARD_LAYOUT` wiring).
+
 ## [1.0.3] - 2026-07-28
 
 ### Added

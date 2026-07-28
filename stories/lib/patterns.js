@@ -17,8 +17,15 @@ import button from '../../patterns/button.html?raw';
 import callout from '../../patterns/callout.html?raw';
 import card from '../../patterns/card.html?raw';
 import field from '../../patterns/field.html?raw';
+import pageShellApplication from '../../patterns/page-shell-application.html?raw';
 import tag from '../../patterns/tag.html?raw';
+import logoUrl from '../../static-assets/logos/symbol-only/SAX_logo_symbol.svg';
 import { situationVars } from './catalog.js';
+
+// Pattern files reference the logo relative to patterns/; in Storybook the
+// asset resolves through vite instead.
+const resolveAssets = (html) =>
+  html.replaceAll('../static-assets/logos/symbol-only/SAX_logo_symbol.svg', logoUrl);
 
 const PATTERNS = [
   ['button', button],
@@ -27,6 +34,7 @@ const PATTERNS = [
   ['alert', alert],
   ['tag', tag],
   ['callout', callout],
+  ['page-shell-application', resolveAssets(pageShellApplication)],
 ];
 
 const CHROME_CSS = `

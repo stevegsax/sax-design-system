@@ -32,5 +32,10 @@
     "padding-inline": { "$value": "{space.md}" },
     "padding-block": { "$value": "{space.sm}" },
     "border-width": { "$value": "{border-width.default}" }
+  },
+  "shell": {
+    "$type": "dimension",
+    "$description": "Application page-shell roles (decisions/2026-07-28-page-shell-application.md). Further roles on demand.",
+    "sidebar-width": { "$value": "{dimension.container.18}" }
   }
 }

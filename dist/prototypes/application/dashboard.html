@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Document Workspace — SAX prototype</title>
-<link rel="stylesheet" href="../tokens.css">
-<link rel="stylesheet" href="../base.css">
+<title>Attribution — Document Workspace — SAX prototype</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
 <style>
   .page-shell { display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; }
 
@@ -93,19 +93,60 @@
   }
 
 
-  .annotation-card { background: var(--card-background);
-                     border: var(--border-width-default) solid var(--card-border);
-                     border-inline-start: var(--border-width-thick) solid var(--annotation-highlight);
-                     border-radius: var(--radius-md); padding: var(--space-sm);
-                     margin-block-end: var(--space-sm); }
-  .annotation-card.selected { border-inline-start-color: var(--annotation-selected); }
-  .annotation-card p { font: var(--typography-body-small); margin: 0; }
-  .annotation-card .meta { font: var(--typography-caption); color: var(--color-text-muted); }
+  .card {
+    background: var(--card-background);
+    border: var(--border-width-default) solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+  }
+  .card > :last-child { margin-block-end: 0; }
 
-  .doc-table { width: 100%; }
-  .doc-table td a { text-decoration: none; font: var(--typography-label); }
-  .filters { display: flex; gap: var(--space-sm); align-items: end; margin-block-end: var(--space-md); }
-  .filters .field { display: grid; gap: var(--space-2xs); }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag-background);
+    color: var(--tag-text);
+    font: var(--tag-label-font);
+    border-radius: var(--tag-radius);
+    padding: var(--tag-padding-block) var(--tag-padding-inline);
+  }
+
+
+  .alert {
+    border: var(--border-width-default) solid;
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    font: var(--typography-body-small);
+    margin-block-end: var(--rhythm-flow);
+  }
+  .alert.success {
+    background: var(--color-status-success-background);
+    border-color: var(--color-status-success-border);
+    color: var(--color-status-success-text);
+  }
+  .alert.warning {
+    background: var(--color-status-warning-background);
+    border-color: var(--color-status-warning-border);
+    color: var(--color-status-warning-text);
+  }
+  .alert.danger {
+    background: var(--color-status-danger-background);
+    border-color: var(--color-status-danger-border);
+    color: var(--color-status-danger-text);
+  }
+
+
+  .stat-band { display: flex; gap: var(--space-2xl); background: var(--color-accent-subtle);
+               border-radius: var(--radius-lg); padding: var(--space-lg);
+               margin-block-end: var(--rhythm-section); }
+  .stat { display: flex; flex-direction: column; gap: var(--space-2xs); }
+  .stat .eyebrow { font: var(--typography-label); letter-spacing: 0.08em;
+                   text-transform: uppercase; color: var(--color-text-muted); }
+  .stat .figure { font: var(--typography-heading-2); color: var(--color-text-heading); }
+  .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+  .card-grid table { width: 100%; margin: 0; }
+  .card h3 { margin-block-end: var(--space-sm); }
+  .meta-row { display: flex; gap: var(--space-2xs); margin-block-start: var(--space-sm); }
 </style>
 </head>
 <body data-situation="application">
@@ -121,11 +162,10 @@
        links between brand and toolbar — do not add a second primary. -->
   <header class="app-bar">
     <div class="app-bar-row">
-      <a class="brand" href="#"><img src="../sax-logo-symbol.svg" alt="">Document Workspace</a>
+      <a class="brand" href="#"><img src="../../sax-logo-symbol.svg" alt="">Document Workspace</a>
       <nav class="toolbar" aria-label="Global actions">
-        <input type="search" placeholder="Search documents" aria-label="Search documents">
-<button class="btn primary" type="button">Upload</button>
-<button type="button" disabled>Export</button>
+        <input type="search" placeholder="Search runs" aria-label="Search runs">
+<button class="btn primary" type="button">New report</button>
       </nav>
     </div>
   </header>
@@ -147,19 +187,13 @@
          never primary actions; those belong in the app bar or content
          header. -->
     <aside class="sidebar">
-      <h2>Annotations</h2>
-<div class="annotation-card selected">
-  <p>"drawdown budgets are constraints, not circuit breakers"</p>
-  <p class="meta">methodology.pdf · p. 12</p>
-</div>
-<div class="annotation-card">
-  <p>"content-addressed snapshots survive vendor restatements"</p>
-  <p class="meta">harness-spec.pdf · p. 3</p>
-</div>
-<div class="annotation-card">
-  <p>"daily attribution is a diagnosis, not a story"</p>
-  <p class="meta">reporting-q2.pdf · p. 7</p>
-</div>
+      <h2>Views</h2>
+<ul class="section-nav">
+  <li><a href="#">Overview</a></li>
+  <li><a href="#">Attribution</a></li>
+  <li><a href="#">Risk budgets</a></li>
+  <li><a href="#">Run history</a></li>
+</ul>
     </aside>
 
     <!-- region: main —
@@ -170,36 +204,32 @@
          Tables are base-styled; add page-specific classes for behavior,
          not for colors or type. -->
     <main>
-      <h1>Recently uploaded</h1>
-<form class="filters">
-  <div class="field">
-    <label for="type">Type</label>
-    <select id="type">
-      <option>All</option>
-      <option>Research</option>
-      <option>Compliance</option>
-    </select>
+      <h1>Attribution overview</h1>
+<div class="alert warning" role="status">Market data is delayed by 15 minutes.</div>
+<div class="stat-band">
+  <div class="stat"><span class="eyebrow">Runs this week</span><span class="figure">128</span></div>
+  <div class="stat"><span class="eyebrow">Reproducible</span><span class="figure">100%</span></div>
+  <div class="stat"><span class="eyebrow">Drawdown budget used</span><span class="figure">41%</span></div>
+</div>
+<div class="card-grid">
+  <div class="card">
+    <h3>Latest runs</h3>
+    <table>
+      <thead><tr><th>Run</th><th>Strategy</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#">#4812</a></td><td>drawdown-budget-v2</td><td>Complete</td></tr>
+        <tr><td><a href="#">#4811</a></td><td>defensive-equity</td><td>Complete</td></tr>
+        <tr><td><a href="#">#4810</a></td><td>drawdown-budget-v2</td><td>Queued</td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="field">
-    <label for="owner">Owner</label>
-    <input id="owner" type="text" placeholder="Any owner">
+  <div class="card">
+    <h3>Coverage</h3>
+    <p>All strategies report byte-for-byte reproducible backtests against
+       pinned snapshots.</p>
+    <div class="meta-row"><span class="tag">risk</span><span class="tag">attribution</span><span class="tag">reproducible backtests</span></div>
   </div>
-  <div class="field">
-    <label for="archived">Archive tag</label>
-    <input id="archived" type="text" value="read-only" disabled>
-  </div>
-</form>
-<table class="doc-table">
-  <thead>
-    <tr><th>Document</th><th>Owner</th><th>Uploaded</th><th>Pages</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><a href="#">methodology.pdf</a></td><td>M. Okafor</td><td>Jul 18, 2026</td><td>44</td></tr>
-    <tr><td><a href="#">harness-spec.pdf</a></td><td>J. Lindqvist</td><td>Jul 17, 2026</td><td>12</td></tr>
-    <tr><td><a href="#">reporting-q2.pdf</a></td><td>M. Okafor</td><td>Jul 15, 2026</td><td>28</td></tr>
-    <tr><td><a href="#">custody-brief.pdf</a></td><td>A. Whitfield</td><td>Jul 11, 2026</td><td>6</td></tr>
-  </tbody>
-</table>
+</div>
     </main>
   </div>
 

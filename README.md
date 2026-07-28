@@ -294,6 +294,7 @@ The preferred tier for consumers. Every component token is a reference into the 
 | `input.value-font` | `--input-value-font` | `{typography.body}` |
 | `link.text` | `--link-text` | `{color.text.link}` |
 | `link.text-hover` | `--link-text-hover` | `{color.accent.active}` |
+| `shell.sidebar-width` | `--shell-sidebar-width` | `{dimension.container.18}` |
 | `tag.background` | `--tag-background` | `{color.accent.subtle}` |
 | `tag.label-font` | `--tag-label-font` | `{typography.caption}` |
 | `tag.padding-block` | `--tag-padding-block` | `{space.2xs}` |

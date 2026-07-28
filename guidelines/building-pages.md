@@ -54,12 +54,16 @@ is yours to write.
 
 ## Layout
 
-There is no page-shell pattern yet: shells are per-situation and proposed
-on demand (`decisions/2026-07-20-reading-situations.md`). Until one lands,
-crib page structure from the shipped compositions in
-`dist/samples/<situation>.html` — each is a working page built under these
-rules. Use `--rhythm-flow` / `--rhythm-section` for vertical rhythm and
-`--space-*` for gaps, not ad-hoc margins.
+**Application pages start from the `page-shell-application` pattern** —
+app bar, sidebar (`--shell-sidebar-width`), full-bleed main, status
+footer, with each region's purpose documented in the pattern itself. The
+assembled prototype fleet (`dist/prototypes/application/index.html`)
+shows the shell carrying four page archetypes; crib from whichever is
+closest to your page. Other situations have no shell yet — shells are
+per-situation and proposed on demand
+(`decisions/2026-07-20-reading-situations.md`); crib their structure from
+`dist/samples/<situation>.html`. Use `--rhythm-flow` / `--rhythm-section`
+for vertical rhythm and `--space-*` for gaps, not ad-hoc margins.
 
 ## Modes and contrast
 

@@ -5,8 +5,11 @@ Reusable page-level markup patterns (page shell, table, sidebar, dropdown,
 tokens: tokens say what a color or size *is*; a pattern says how a page
 region is *built* from them.
 
-Shipped patterns (one ADR each, dated 2026-07-24): `button`, `field`,
-`card`, `alert`, `tag`, `callout`. Links are deliberately not a pattern —
+Shipped patterns (one ADR each): `button`, `field`, `card`, `alert`,
+`tag`, `callout` (2026-07-24), and `page-shell-application` (2026-07-28)
+— the starting point for every application page, whose slot markers are
+also the prototype-fleet build's assembly anchors
+(`scripts/build-prototypes.js`). Links are deliberately not a pattern —
 `base.css` styles the anchor element directly
 (`decisions/2026-07-24-link-element-coverage.md`).
 
@@ -33,6 +36,9 @@ usage: <one line — where this applies, what to fill in>
 
 - Additions and changes are ADR-gated (`decisions/README.md`) — a pattern
   is a design standard, not a convenience.
+- A pattern documents its regions' purpose in comments — what each region
+  is for, what belongs in it, which tokens govern it, how to extend it —
+  not just its markup (`decisions/2026-07-28-page-shell-application.md`).
 - Token custom properties only; no raw colors, sizes, fonts, or shadows.
 - Every pattern gets a Storybook story and visual baseline before release
   (wiring lands with the first pattern; the stories checklist in

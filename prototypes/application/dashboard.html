@@ -1,0 +1,61 @@
+<!--
+prototype: dashboard
+title: Attribution — Document Workspace
+archetype: dashboard — stat band, card grid, transient status
+patterns: button card tag alert
+-->
+<style>
+  .stat-band { display: flex; gap: var(--space-2xl); background: var(--color-accent-subtle);
+               border-radius: var(--radius-lg); padding: var(--space-lg);
+               margin-block-end: var(--rhythm-section); }
+  .stat { display: flex; flex-direction: column; gap: var(--space-2xs); }
+  .stat .eyebrow { font: var(--typography-label); letter-spacing: 0.08em;
+                   text-transform: uppercase; color: var(--color-text-muted); }
+  .stat .figure { font: var(--typography-heading-2); color: var(--color-text-heading); }
+  .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+  .card-grid table { width: 100%; margin: 0; }
+  .card h3 { margin-block-end: var(--space-sm); }
+  .meta-row { display: flex; gap: var(--space-2xs); margin-block-start: var(--space-sm); }
+</style>
+<!-- slot:brand -->Document Workspace<!-- /slot:brand -->
+<!-- slot:toolbar -->
+<input type="search" placeholder="Search runs" aria-label="Search runs">
+<button class="btn primary" type="button">New report</button>
+<!-- /slot:toolbar -->
+<!-- slot:sidebar -->
+<h2>Views</h2>
+<ul class="section-nav">
+  <li><a href="#">Overview</a></li>
+  <li><a href="#">Attribution</a></li>
+  <li><a href="#">Risk budgets</a></li>
+  <li><a href="#">Run history</a></li>
+</ul>
+<!-- /slot:sidebar -->
+<!-- slot:main -->
+<h1>Attribution overview</h1>
+<div class="alert warning" role="status">Market data is delayed by 15 minutes.</div>
+<div class="stat-band">
+  <div class="stat"><span class="eyebrow">Runs this week</span><span class="figure">128</span></div>
+  <div class="stat"><span class="eyebrow">Reproducible</span><span class="figure">100%</span></div>
+  <div class="stat"><span class="eyebrow">Drawdown budget used</span><span class="figure">41%</span></div>
+</div>
+<div class="card-grid">
+  <div class="card">
+    <h3>Latest runs</h3>
+    <table>
+      <thead><tr><th>Run</th><th>Strategy</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#">#4812</a></td><td>drawdown-budget-v2</td><td>Complete</td></tr>
+        <tr><td><a href="#">#4811</a></td><td>defensive-equity</td><td>Complete</td></tr>
+        <tr><td><a href="#">#4810</a></td><td>drawdown-budget-v2</td><td>Queued</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Coverage</h3>
+    <p>All strategies report byte-for-byte reproducible backtests against
+       pinned snapshots.</p>
+    <div class="meta-row"><span class="tag">risk</span><span class="tag">attribution</span><span class="tag">reproducible backtests</span></div>
+  </div>
+</div>
+<!-- /slot:main -->

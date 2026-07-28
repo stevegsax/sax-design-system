@@ -1,0 +1,48 @@
+<!--
+prototype: detail
+title: methodology.pdf — Document Workspace
+archetype: object detail — metadata, properties sidebar, activity table
+patterns: button card tag alert
+-->
+<style>
+  .props dt { font: var(--typography-label); color: var(--color-text-muted); }
+  .props dd { font: var(--typography-body-small); margin: 0 0 var(--space-sm); }
+  .meta-row { display: flex; gap: var(--space-2xs); margin-block-end: var(--space-md); }
+  .doc-abstract { max-width: 44rem; }
+  .activity { width: 100%; }
+</style>
+<!-- slot:brand -->Document Workspace<!-- /slot:brand -->
+<!-- slot:toolbar -->
+<button type="button">Share</button>
+<button class="btn primary" type="button">Open reader</button>
+<!-- /slot:toolbar -->
+<!-- slot:sidebar -->
+<h2>Properties</h2>
+<dl class="props">
+  <dt>Owner</dt><dd>M. Okafor</dd>
+  <dt>Uploaded</dt><dd>Jul 18, 2026</dd>
+  <dt>Pages</dt><dd>44</dd>
+  <dt>Snapshot</dt><dd><code>2026-05-15T00:00Z</code></dd>
+  <dt>Retention</dt><dd>7 years</dd>
+</dl>
+<!-- /slot:sidebar -->
+<!-- slot:main -->
+<h1>methodology.pdf</h1>
+<div class="meta-row"><span class="tag">risk</span><span class="tag">methodology</span></div>
+<div class="alert success" role="status">Annotation export complete. A copy is in your documents queue.</div>
+<div class="card doc-abstract">
+  <h3>Abstract</h3>
+  <p>Describes the drawdown-budget framework: budgets expressed as
+     optimizer constraints rather than circuit breakers, with
+     reproduction commands for every published figure.</p>
+</div>
+<h2>Activity</h2>
+<table class="activity">
+  <thead><tr><th>When</th><th>Who</th><th>Action</th></tr></thead>
+  <tbody>
+    <tr><td>Jul 18, 2026</td><td>M. Okafor</td><td>Uploaded v3</td></tr>
+    <tr><td>Jul 18, 2026</td><td>J. Lindqvist</td><td>Annotated p. 12</td></tr>
+    <tr><td>Jul 19, 2026</td><td>A. Whitfield</td><td>Exported annotations</td></tr>
+  </tbody>
+</table>
+<!-- /slot:main -->

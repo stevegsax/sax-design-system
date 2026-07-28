@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Document Workspace — SAX prototype</title>
-<link rel="stylesheet" href="../tokens.css">
-<link rel="stylesheet" href="../base.css">
+<title>Settings — Document Workspace — SAX prototype</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
 <style>
   .page-shell { display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; }
 
@@ -93,19 +93,26 @@
   }
 
 
-  .annotation-card { background: var(--card-background);
-                     border: var(--border-width-default) solid var(--card-border);
-                     border-inline-start: var(--border-width-thick) solid var(--annotation-highlight);
-                     border-radius: var(--radius-md); padding: var(--space-sm);
-                     margin-block-end: var(--space-sm); }
-  .annotation-card.selected { border-inline-start-color: var(--annotation-selected); }
-  .annotation-card p { font: var(--typography-body-small); margin: 0; }
-  .annotation-card .meta { font: var(--typography-caption); color: var(--color-text-muted); }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin-block-end: var(--rhythm-flow);
+  }
 
-  .doc-table { width: 100%; }
-  .doc-table td a { text-decoration: none; font: var(--typography-label); }
-  .filters { display: flex; gap: var(--space-sm); align-items: end; margin-block-end: var(--space-md); }
-  .filters .field { display: grid; gap: var(--space-2xs); }
+
+  .card {
+    background: var(--card-background);
+    border: var(--border-width-default) solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+  }
+  .card > :last-child { margin-block-end: 0; }
+
+
+  .settings-section { max-width: 36rem; margin-block-end: var(--rhythm-section); }
+  .settings-section h2 { font: var(--typography-heading-3); color: var(--color-text-heading);
+                         margin-block-end: var(--space-md); }
 </style>
 </head>
 <body data-situation="application">
@@ -121,11 +128,9 @@
        links between brand and toolbar — do not add a second primary. -->
   <header class="app-bar">
     <div class="app-bar-row">
-      <a class="brand" href="#"><img src="../sax-logo-symbol.svg" alt="">Document Workspace</a>
+      <a class="brand" href="#"><img src="../../sax-logo-symbol.svg" alt="">Document Workspace</a>
       <nav class="toolbar" aria-label="Global actions">
-        <input type="search" placeholder="Search documents" aria-label="Search documents">
-<button class="btn primary" type="button">Upload</button>
-<button type="button" disabled>Export</button>
+        <button class="btn primary" type="submit" form="settings-form">Save changes</button>
       </nav>
     </div>
   </header>
@@ -147,19 +152,13 @@
          never primary actions; those belong in the app bar or content
          header. -->
     <aside class="sidebar">
-      <h2>Annotations</h2>
-<div class="annotation-card selected">
-  <p>"drawdown budgets are constraints, not circuit breakers"</p>
-  <p class="meta">methodology.pdf · p. 12</p>
-</div>
-<div class="annotation-card">
-  <p>"content-addressed snapshots survive vendor restatements"</p>
-  <p class="meta">harness-spec.pdf · p. 3</p>
-</div>
-<div class="annotation-card">
-  <p>"daily attribution is a diagnosis, not a story"</p>
-  <p class="meta">reporting-q2.pdf · p. 7</p>
-</div>
+      <h2>Settings</h2>
+<ul class="section-nav">
+  <li class="current"><a href="#profile">Profile</a></li>
+  <li><a href="#retention">Retention</a></li>
+  <li><a href="#notifications">Notifications</a></li>
+  <li><a href="#access">Access</a></li>
+</ul>
     </aside>
 
     <!-- region: main —
@@ -170,36 +169,35 @@
          Tables are base-styled; add page-specific classes for behavior,
          not for colors or type. -->
     <main>
-      <h1>Recently uploaded</h1>
-<form class="filters">
-  <div class="field">
-    <label for="type">Type</label>
-    <select id="type">
-      <option>All</option>
-      <option>Research</option>
-      <option>Compliance</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="owner">Owner</label>
-    <input id="owner" type="text" placeholder="Any owner">
-  </div>
-  <div class="field">
-    <label for="archived">Archive tag</label>
-    <input id="archived" type="text" value="read-only" disabled>
-  </div>
+      <h1>Settings</h1>
+<form id="settings-form">
+  <section class="settings-section" id="profile">
+    <h2>Profile</h2>
+    <div class="field">
+      <label for="display-name">Display name</label>
+      <input id="display-name" type="text" value="M. Okafor">
+    </div>
+    <div class="field">
+      <label for="email">Work email</label>
+      <input id="email" type="email" value="m.okafor@saxcapital.co">
+    </div>
+  </section>
+  <section class="settings-section" id="retention">
+    <h2>Retention</h2>
+    <div class="field">
+      <label for="retention-window">Snapshot retention</label>
+      <select id="retention-window">
+        <option>7 years (compliance default)</option>
+        <option>10 years</option>
+        <option>Indefinite</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="archive-tag">Archive tag</label>
+      <input id="archive-tag" type="text" value="read-only" disabled>
+    </div>
+  </section>
 </form>
-<table class="doc-table">
-  <thead>
-    <tr><th>Document</th><th>Owner</th><th>Uploaded</th><th>Pages</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><a href="#">methodology.pdf</a></td><td>M. Okafor</td><td>Jul 18, 2026</td><td>44</td></tr>
-    <tr><td><a href="#">harness-spec.pdf</a></td><td>J. Lindqvist</td><td>Jul 17, 2026</td><td>12</td></tr>
-    <tr><td><a href="#">reporting-q2.pdf</a></td><td>M. Okafor</td><td>Jul 15, 2026</td><td>28</td></tr>
-    <tr><td><a href="#">custody-brief.pdf</a></td><td>A. Whitfield</td><td>Jul 11, 2026</td><td>6</td></tr>
-  </tbody>
-</table>
     </main>
   </div>
 
@@ -209,7 +207,7 @@
        surfaces. -->
   <footer class="app-footer">
     <p>© 2026 SAX Capital. All rights reserved.</p>
-    <p>Internal use only.</p>
+<p>Changes are audited.</p>
   </footer>
 </div>
 

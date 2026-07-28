@@ -46,7 +46,10 @@ mockup shows and what is still provisional — not token internals.
    repo has exactly one, use it; otherwise ask which.
 3. **Compose, in this order:**
    1. **Pattern library** — `node_modules/@sax/design-system/patterns/`;
-      copy the pattern markup rather than re-deriving layout.
+      copy the pattern markup rather than re-deriving layout. Application
+      pages start from `page-shell-application` — copy the whole shell,
+      keep its slot markers, and read its region comments; they say what
+      belongs in each region and how to extend it.
    2. **Component tokens** (`--button-*`, `--card-*`, `--input-*`,
       `--link-*`, `--annotation-*`, `--tag-*`, `--callout-*`).
    3. **Semantic tokens** (`--color-*`, `--space-*`, `--radius-*`,
