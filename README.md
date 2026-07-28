@@ -19,7 +19,27 @@ Review these files for compliance before any release:
 - `config/contrast-pairs.json` — every text or indicator pairing is APCA-gated (Lc 75 body, 60 labels, 45 non-text); the build fails on a breach, but *unlisted* pairings pass silently — the review is checking that new pairings are listed.
 - `guidelines/brand.md` — voice and the mechanical rules (sentence case, no emoji, no exclamation marks, formal punctuation) for any copy in patterns, samples, or docs.
 - `skills/sax-designer/SKILL.md` — re-read end to end against the change before `npm version`: it is the one consumer-facing artifact with no build gate, and its examples drift silently when a release fills a gap they describe.
-- `tests/visual/tokens.spec.js-snapshots/` — baseline diffs are design-review surface, not noise; review the images in the diff, not just the file list.
+
+### Reviewing visually
+
+The files above are gates; the design itself is reviewed by looking at it:
+
+1. **Live catalog** — `npm run storybook` (localhost:6006): every situation ×
+   token category plus a Patterns story per situation, light and dark side by
+   side. The fastest place to see a change in every context it touches.
+2. **Pixel diffs** — run `npm run test:visual` *before* updating baselines.
+   Every story that changed fails and captures expected / actual / diff
+   images; `npx playwright show-report` opens them per story with
+   side-by-side and slider views. Look at every diff — a story you didn't
+   expect in the failure list is the review catching a side effect.
+3. **In context** — `open dist/index.html` for the situations index and
+   sample pages, `dist/preview/<situation>.html` for the rendered token
+   catalog, `dist/mixing.html` for situations nested on one page,
+   `dist/presentation/presentation.html` for the deck.
+4. **Accept** — only after 1–3: `npm run test:visual:update`, commit the new
+   baselines with the change, and review them once more as image diffs in
+   the PR (GitHub renders 2-up / swipe / onion-skin) — the reviewer's second
+   look.
 
 ## Using the tokens
 
