@@ -536,7 +536,15 @@ For reference during review; none of this exists yet.
   cross-links; this document loses its status banner.
 - **`sax-needs-human-action`:** `README.md` specifying the ticket format,
   `tickets/`, and the generated `index.json`.
-- **Constraint:** the shipped scripts must run with **no dependencies** on
-  Node 22 alone. Consumers install a zero-toolchain git dependency, so the
-  checkers are hand-rolled rather than built on `ajv`. The JSON Schemas
-  ship for editor support, not as the runtime validator.
+- **Dependencies:** the shipped scripts run on Node 22 with nothing
+  installed. This is a proposal, not an existing rule — the repo's
+  zero-toolchain rule (`CLAUDE.md`) is about install scripts, and a repo
+  running this process already has Storybook and Vite, so it is not a
+  zero-toolchain consumer. The reason is narrower: only two of the
+  thirteen checks are schema validation, and the other eleven are graph
+  and cross-reference checks that are hand-written either way. Adding
+  this package's first runtime dependency — installed for every consumer,
+  including the CSS-only ones — to cover two checks is a bad trade. The
+  JSON Schemas ship for editor support, not as the runtime validator.
+  Revisit if the schemas grow past what a readable hand-rolled checker
+  can carry.

@@ -81,11 +81,12 @@ None — this decision adds no tokens and changes no rendering.
   or situation, so the "Extending the system" checklists do not apply. The
   `files` field gains `schemas`, `scripts/design`, and
   `skills/sax-design-process`; verify with `npm pack --dry-run`.
-- **Zero-toolchain constraint:** the shipped checkers must run on Node 22
-  with no dependencies. `ajv` is a devDependency here and cannot be
-  assumed in a consumer, so validation is hand-rolled and the JSON Schemas
-  ship for editor support only. This is the same constraint that forbids
-  `prepack` and `prepare`.
+- **Dependencies:** the shipped checkers run on Node 22 with nothing
+  installed, and the JSON Schemas ship for editor support only. This is a
+  new constraint proposed here, *not* an application of the existing
+  zero-toolchain rule — that rule governs install scripts, and a product
+  repo running this process already carries Storybook and Vite. See the
+  alternative below for the trade it rests on.
 - **Second repo:** `sax-needs-human-action` gains the ticket format,
   `tickets/`, and a generated index. It is the interface between the
   process and its human gates.
@@ -119,6 +120,17 @@ None — this decision adds no tokens and changes no rendering.
 - **Gates as GitHub issues rather than files.** Rejected: issues do not
   diff, do not travel with a clone, and cannot be checked by a script that
   runs offline. Files in a repo built for exactly this purpose do.
+- **Promoting `ajv` to a runtime `dependency` and validating against the
+  schemas.** npm installs a git dependency's regular dependencies, so this
+  would work, and nothing in the repo's rules forbids it — the
+  zero-toolchain rule is about install scripts, and this package's lack of
+  a `dependencies` field is a fact about it, not a policy. Rejected on the
+  trade: only two of the thirteen checks are schema validation, the other
+  eleven being graph and cross-reference checks that are hand-written
+  regardless, so this would add the package's first runtime dependency —
+  carried by every consumer, including those who install it only for the
+  CSS — to cover two checks. Worth reopening if the schemas outgrow a
+  readable hand-rolled checker.
 - **Storybook stories only, dropping the standalone page.** Rejected: the
   standalone page is the fast loop and needs no toolchain to open, which
   is the same reason patterns ship as plain HTML. Generating the story
